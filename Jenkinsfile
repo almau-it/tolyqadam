@@ -38,7 +38,7 @@ pipeline {
 
     post {
         success {
-            echo "Deployed ${env.GIT_COMMIT} to ta.commit.kz"
+            echo "Deployed ${env.GIT_COMMIT} to https://tolyqadam.almau.edu.kz"
         }
         failure {
             echo 'Deploy failed — check the update.sh output above'

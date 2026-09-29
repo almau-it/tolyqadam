@@ -1,7 +1,7 @@
 # Деплой через Jenkins
 
-Сайт статический (index.html + redesign.css + assets), на сервере `ta.commit.kz`
-его раздаёт nginx из `/var/www/tolyqadam`. Основной репозиторий —
+Сайт статический (index.html + redesign.css + assets), его раздаёт nginx
+(`tolyqadam.almau.edu.kz`) из `/var/www/tolyqadam`. Основной репозиторий —
 `almau-it/tolyqadam` (форк исходного `kuanyshtimuruly/tolyqadam`).
 Пайплайн выполняется на агенте **sites2** — он стоит на самом веб-сервере,
 поэтому деплой локальный, без SSH: Jenkins запускает `update.sh`
@@ -30,6 +30,18 @@
    cd /var/www/tolyqadam
    git remote set-url origin https://github.com/almau-it/tolyqadam.git
    ```
+
+## Nginx
+
+В server-блоке `tolyqadam.almau.edu.kz` укажите `root /var/www/tolyqadam;`
+(каталог должен быть клоном форка). Так как деплой — это `git pull` прямо
+в веб-рут, обязательно закройте служебный каталог:
+
+```nginx
+location ~ /\.git {
+    deny all;
+}
+```
 
 ## Создание джобы
 
