@@ -1,9 +1,11 @@
 # Деплой через Jenkins
 
 Сайт статический (index.html + redesign.css + assets), на сервере `ta.commit.kz`
-его раздаёт nginx из `/var/www/tolyqadam`. Пайплайн выполняется на агенте
-**sites2** — он стоит на самом веб-сервере, поэтому деплой локальный, без SSH:
-Jenkins запускает `update.sh` (git pull → chown/chmod → reload nginx).
+его раздаёт nginx из `/var/www/tolyqadam`. Основной репозиторий —
+`almau-it/tolyqadam` (форк исходного `kuanyshtimuruly/tolyqadam`).
+Пайплайн выполняется на агенте **sites2** — он стоит на самом веб-сервере,
+поэтому деплой локальный, без SSH: Jenkins запускает `update.sh`
+(git pull → chown/chmod → reload nginx).
 
 ## Требования
 
@@ -21,13 +23,20 @@ Jenkins запускает `update.sh` (git pull → chown/chmod → reload ngin
    ```
 
    и поменяйте в Jenkinsfile команду деплоя на `sudo ${DEPLOY_PATH}/update.sh`.
+4. Клон на сервере (`/var/www/tolyqadam`) должен тянуть из форка, иначе
+   `git pull` продолжит забирать старый репозиторий:
+
+   ```
+   cd /var/www/tolyqadam
+   git remote set-url origin https://github.com/almau-it/tolyqadam.git
+   ```
 
 ## Создание джобы
 
 Вариант A — **Multibranch Pipeline** (рекомендуется):
 
 1. *New Item → Multibranch Pipeline*
-2. Branch Sources → Git → URL: `https://github.com/kuanyshtimuruly/tolyqadam.git`
+2. Branch Sources → Git → URL: `https://github.com/almau-it/tolyqadam.git`
 3. Build Configuration: *by Jenkinsfile*, путь `Jenkinsfile`
 4. Деплой выполняется только для ветки `main` (условие `when { branch 'main' }`),
    остальные ветки проходят только проверку файлов.
@@ -40,8 +49,9 @@ Jenkins запускает `update.sh` (git pull → chown/chmod → reload ngin
 
 ## Автозапуск по пушу
 
-- Если Jenkins доступен из интернета: в настройках репозитория на GitHub добавьте
-  webhook `https://<jenkins-host>/github-webhook/` (плагин **GitHub** должен быть
+- Если Jenkins доступен из интернета: в настройках репозитория
+  `almau-it/tolyqadam` на GitHub добавьте webhook
+  `https://<jenkins-host>/github-webhook/` (плагин **GitHub** должен быть
   установлен) — сборка будет стартовать сразу после пуша.
 - Если нет — включите в джобе *Poll SCM*, например `H/5 * * * *`
   (проверка изменений каждые 5 минут).
@@ -55,7 +65,7 @@ Jenkins запускает `update.sh` (git pull → chown/chmod → reload ngin
 
 ## Переход с GitHub Actions
 
-Текущий workflow `.github/workflows/deploy.yml` делает то же самое по SSH.
-Когда Jenkins заработает, отключите его (удалите файл или выключите Actions
-в настройках репозитория), иначе каждый пуш будет деплоиться дважды. Вреда от
-двойного деплоя нет (git pull идемпотентен), но логи будут путать.
+Унаследованный из исходного репозитория workflow `.github/workflows/deploy.yml`
+делает то же самое по SSH. В форке он не активен (Actions в форках выключены
+по умолчанию, и секрета `SSH_PRIVATE_KEY` здесь нет), но чтобы не путал —
+удалите файл, когда Jenkins заработает.
