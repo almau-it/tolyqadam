@@ -7,10 +7,6 @@ pipeline {
         timeout(time: 10, unit: 'MINUTES')
     }
 
-    environment {
-        DEPLOY_PATH = '/var/www/tolyqadam'
-    }
-
     stages {
         stage('Verify') {
             steps {
@@ -18,20 +14,17 @@ pipeline {
                     test -f index.html
                     test -f redesign.css
                     test -d assets
-                    test -x update.sh
                     echo "Sanity check passed: site files are in place"
                 '''
             }
         }
 
-        stage('Deploy') {
-            when {
-                branch 'main'
-            }
+        stage('Publish') {
             steps {
-                // Агент sites2 стоит на самом веб-сервере: деплой локальный,
-                // update.sh делает git pull в /var/www/tolyqadam и перезагружает nginx
-                sh '${DEPLOY_PATH}/update.sh'
+                // nginx раздаёт сайт прямо из этого workspace
+                // (root /home/jenkins/agent/workspace/tolyqadam) —
+                // достаточно сделать файлы читаемыми для www-data
+                sh 'chmod -R a+rX "$WORKSPACE"'
             }
         }
     }
@@ -41,7 +34,7 @@ pipeline {
             echo "Deployed ${env.GIT_COMMIT} to https://tolyqadam.almau.edu.kz"
         }
         failure {
-            echo 'Deploy failed — check the update.sh output above'
+            echo 'Build failed — nginx keeps serving the previous workspace contents'
         }
     }
 }
