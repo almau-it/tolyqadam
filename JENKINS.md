@@ -35,6 +35,13 @@
 root /home/jenkins/agent/workspace/tolyqadam;
 index index.html;
 
+location / {
+    try_files $uri $uri/ =404;
+    # браузер перепроверяет файлы при каждом заходе (304, если не менялись) —
+    # после сборки в Jenkins посетители сразу видят свежую версию
+    add_header Cache-Control "no-cache";
+}
+
 # workspace — git-клон: закрыть служебный каталог от внешнего доступа
 location ~ /\.git {
     deny all;
