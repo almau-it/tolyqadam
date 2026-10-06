@@ -1466,6 +1466,22 @@
                 type="application/pdf"
                 >RU</a
               >
+              <a
+                href="assets/infoletters/tolyq-adam-2026-info-letter-fr.pdf"
+                target="_blank"
+                rel="noopener"
+                hreflang="fr"
+                type="application/pdf"
+                >FR</a
+              >
+              <a
+                href="assets/infoletters/tolyq-adam-2026-info-letter-zh.pdf"
+                target="_blank"
+                rel="noopener"
+                hreflang="zh"
+                type="application/pdf"
+                >中文</a
+              >
             </div>
           </div>
           <figure class="about-photo">
@@ -1573,6 +1589,25 @@
             </p>
           </div>
         </div>
+        <figure class="award-group">
+          <picture>
+            <source
+              srcset="assets/events/the-awards-asia-group.webp"
+              type="image/webp"
+            />
+            <img
+              src="assets/events/the-awards-asia-group.jpg"
+              width="1600"
+              height="1066"
+              alt="Лауреаты THE Awards Asia 2026 на церемонии награждения"
+              decoding="async"
+              loading="lazy"
+            />
+          </picture>
+          <figcaption data-i18n="awardGroup">
+            Лауреаты THE Awards Asia 2026 на церемонии награждения
+          </figcaption>
+        </figure>
       </section>
       <section class="page" id="speakers">
         <h2 data-i18n="speakersLead">Люди, которые создают диалог</h2>
@@ -1707,14 +1742,14 @@
             </article>
             <article class="speaker">
               <img
-                src="assets/speakers/shumaila-yousafzai.jpg"
-                alt="Shumaila Yousafzai"
+                src="assets/speakers/aigerim-tarbagatayeva.jpg"
+                alt="Aigerim Tarbagatayeva"
                 decoding="async"
               />
               <div>
-                <h4 translate="no">Shumaila Yousafzai, PhD</h4>
+                <h4 translate="no">Aigerim Tarbagatayeva</h4>
                 <p class="role" data-i18n="speaker2_3">
-                  Профессор предпринимательства, Nazarbayev University
+                  Бизнес-тренер, лайф-коуч, мотивационный спикер и ментор
                 </p>
               </div>
             </article>
@@ -2148,9 +2183,9 @@
           en: "Professor (Practice), Department of Chinese Language Studies, and Acting Dean of the Faculty of Humanities, The Education University of Hong Kong",
         },
         speaker2_3: {
-          ru: "Профессор предпринимательства, Graduate School of Business, Nazarbayev University; директор-основатель Research Centre for Entrepreneurship (NURCE)",
-          kz: "Nazarbayev University Graduate School of Business кәсіпкерлік профессоры; Research Centre for Entrepreneurship (NURCE) негізін қалаушы директоры",
-          en: "Professor of Entrepreneurship, Graduate School of Business, Nazarbayev University; Founding Director of the Research Centre for Entrepreneurship (NURCE)",
+          ru: "Бизнес-тренер, лайф-коуч, мотивационный спикер и ментор; руководитель Ассоциации бизнес-тренеров; исследователь и PhD-докторант Research Centre for Entrepreneurship (NURCE), Nazarbayev University",
+          kz: "Бизнес-тренер, лайф-коуч, мотивациялық спикер және тәлімгер; Бизнес-тренерлер қауымдастығының басшысы; Nazarbayev University Research Centre for Entrepreneurship (NURCE) зерттеушісі және PhD докторанты",
+          en: "Business trainer, life coach, motivational speaker and mentor; Head of the Association of Business Trainers; Researcher and PhD student at the Nazarbayev University Research Centre for Entrepreneurship (NURCE)",
         },
         speaker2_4: {
           ru: "Профессор, декан по академическим вопросам и руководитель направления глобального партнёрства, Symbiosis International University (Пуна, Индия)",
@@ -2196,6 +2231,11 @@
           ru: "Официальный сайт AlmaU",
           kz: "AlmaU ресми сайты",
           en: "Official AlmaU website",
+        },
+        awardGroup: {
+          ru: "Лауреаты THE Awards Asia 2026 на церемонии награждения",
+          kz: "THE Awards Asia 2026 марапаттау рәсіміндегі жеңімпаздар",
+          en: "THE Awards Asia 2026 winners at the awards ceremony",
         },
         infoLetter: {
           ru: "Информационное письмо (PDF)",
@@ -2289,7 +2329,7 @@
 
       if (!reducedMotion.matches && "IntersectionObserver" in window) {
         const revealTargets = document.querySelectorAll(
-          "#about > h2, #about .split > *, #moments .section-kicker, #moments h2, #moments figure, #moments .concept, #award .award-row > *, #speakers > h2, #speakers .speaker, #venue > *, #contacts > *",
+          "#about > h2, #about .split > *, #moments .section-kicker, #moments h2, #moments figure, #moments .concept, #award .award-row > *, #award .award-group, #speakers > h2, #speakers .speaker, #venue > *, #contacts > *",
         );
         const observer = new IntersectionObserver(
           (entries) => {
