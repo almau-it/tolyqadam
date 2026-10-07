@@ -44,7 +44,7 @@
         margin: 0;
         color: var(--ink);
         background: var(--paper);
-        font-family: Arial, Arimo, Helvetica, sans-serif;
+        font-family: Arimo, Arial, Helvetica, sans-serif;
       }
       a {
         color: inherit;
@@ -880,7 +880,7 @@
       .art small,
       .languages button,
       .program-link {
-        font-family: Arial, Arimo, Helvetica, sans-serif;
+        font-family: Arimo, Arial, Helvetica, sans-serif;
       }
       .hero-actions {
         display: flex;
@@ -1057,8 +1057,8 @@
       .speaker h4 {
         margin: 0 0 9px;
         font:
-          600 clamp(22px, 2vw, 28px)/1.12 Arial,
-          Arimo,
+          600 clamp(22px, 2vw, 28px)/1.12 Arimo,
+          Arial,
           Helvetica,
           sans-serif;
       }
@@ -1322,17 +1322,17 @@
         }
       }
     </style>
-    <!-- Arimo has Arial's metrics and covers Kazakh letters (қ ұ ғ ү ө ә і ң һ)
-         that Arial lacks on some Windows machines, which otherwise fall back to a
-         serif. Google serves it in unicode-range subsets, so only the glyphs a
-         page needs are downloaded. -->
+    <!-- Arimo comes first, ahead of the system Arial: Windows maps the heavy
+         heading weights (800/900) to Arial Black, which has no Kazakh letters
+         (қ ұ ғ ...), so those letters came from another font mid-word. Arimo has
+         Arial's metrics and covers Kazakh, so every OS renders the same font. -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
       rel="stylesheet"
       href="https://fonts.googleapis.com/css2?family=Arimo:wght@400;700&display=swap"
     />
-    <link rel="stylesheet" href="redesign.css?v=14" />
+    <link rel="stylesheet" href="redesign.css?v=15" />
   </head>
   <body>
     <div class="scroll-progress" aria-hidden="true"></div>

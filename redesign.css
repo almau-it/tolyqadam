@@ -10,7 +10,7 @@
 html { scroll-padding-top: 24px; }
 body { background: var(--stage); color: var(--cream); overflow-x: hidden; }
 main { overflow: clip; }
-h1, h2, h3, h4, p, .eyebrow, .hero .subtitle { font-family: Arial, Arimo, Helvetica, sans-serif; }
+h1, h2, h3, h4, p, .eyebrow, .hero .subtitle { font-family: Arimo, Arial, Helvetica, sans-serif; }
 h2 { font-size: clamp(44px, 6vw, 88px); line-height: .97; letter-spacing: -.055em; font-weight: 800; }
 h3 { font-weight: 700; }
 p { font-size: clamp(17px, 1.45vw, 21px); }
@@ -58,7 +58,7 @@ img { height: auto; }
 nav { gap: clamp(14px, 2vw, 30px); font-size: 13px; font-weight: 700; letter-spacing: .055em; text-transform: uppercase; }
 nav a { color: var(--cream); }
 .languages { border-left: 1px solid rgba(251,250,247,.3); padding-left: 20px; gap: 12px; }
-.languages button { color: var(--cream); font-family: Arial, Arimo, Helvetica, sans-serif; font-size: 13px; font-weight: 800; }
+.languages button { color: var(--cream); font-family: Arimo, Arial, Helvetica, sans-serif; font-size: 13px; font-weight: 800; }
 .languages button[aria-pressed="true"] { color: var(--accent); text-decoration: none; }
 #home .hero { width: min(100%, 1600px); min-height: 710px; margin: 0 auto; padding: clamp(75px, 10vw, 145px) clamp(24px, 7vw, 112px) 120px; display: grid; grid-template-columns: minmax(0, 1.3fr) minmax(300px, .7fr); align-items: center; gap: 0; }
 .hero-copy { position: relative; z-index: 2; }
