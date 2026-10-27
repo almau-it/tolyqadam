@@ -1908,6 +1908,7 @@
               href="assets/tolyq-adam-2026.ics"
               download="tolyq-adam-2026.ics"
               type="text/calendar"
+              data-calendar
               ><span data-i18n="calendarButton">Добавить в календарь</span></a
             >
           </div>
@@ -2524,6 +2525,25 @@
       });
       window.addEventListener("resize", scheduleScrollEffects);
       scheduleScrollEffects();
+      // The Android calendar app usually cannot open a downloaded .ics file,
+      // so Android gets a prefilled Google Calendar event instead.
+      if (/Android/i.test(navigator.userAgent)) {
+        const calendar = document.querySelector("a[data-calendar]");
+        calendar.removeAttribute("download");
+        calendar.removeAttribute("type");
+        calendar.target = "_blank";
+        calendar.rel = "noopener";
+        calendar.href =
+          "https://calendar.google.com/calendar/render?" +
+          new URLSearchParams({
+            action: "TEMPLATE",
+            text: "ALMAU – TOLYQ ADAM 2026",
+            dates: "20261030T040000Z/20261031T110000Z",
+            location:
+              "Almaty Management University, ул. Розыбакиева 227, Алматы",
+            details: "https://tolyqadam.almau.edu.kz",
+          });
+      }
       // Clicking a content photo opens it full screen: the photo grows out of
       // its place on the page and shrinks back into it on close. A history
       // entry lets the Android back gesture close the viewer instead of
