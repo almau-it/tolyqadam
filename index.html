@@ -1712,6 +1712,21 @@
           <div class="speakers-grid">
             <article class="speaker">
               <img
+                src="assets/speakers/akerke-abylaikhan.jpg"
+                alt="Абылайхан Акерке"
+                decoding="async"
+              />
+              <div>
+                <h4 translate="no" data-i18n="speakerName0_1">
+                  Абылайхан Акерке
+                </h4>
+                <p class="role" data-i18n="speaker0_1">
+                  Заместитель председателя Комитета высшего и послевузовского образования Министерства науки и высшего образования Республики Казахстан
+                </p>
+              </div>
+            </article>
+            <article class="speaker">
+              <img
                 src="assets/speakers/joo-yup-lee.jpg?v=2"
                 alt="Joo-Yup Lee"
                 decoding="async"
@@ -2311,6 +2326,11 @@
           kz: "Абай атындағы Қазақ ұлттық педагогикалық университетінің педагогика кафедрасының профессоры",
           en: "Professor, Department of Pedagogy, Abai Kazakh National Pedagogical University",
         },
+        speaker0_1: {
+          ru: "Заместитель председателя Комитета высшего и послевузовского образования Министерства науки и высшего образования Республики Казахстан",
+          kz: "Қазақстан Республикасы Ғылым және жоғары білім министрлігі Жоғары және жоғары оқу орнынан кейінгі білім комитеті төрағасының орынбасары",
+          en: "Deputy Chair of the Committee for Higher and Postgraduate Education, Ministry of Science and Higher Education of the Republic of Kazakhstan",
+        },
         speaker1_9: {
           ru: "Заведующий отделом развития и инноваций, Академия государственного управления при Президенте Кыргызской Республики имени Жусупа Абдрахманова",
           kz: "Қырғыз Республикасы Президентінің жанындағы Жусуп Абдрахманов атындағы Мемлекеттік басқару академиясының даму және инновациялар бөлімінің меңгерушісі",
@@ -2355,6 +2375,11 @@
           ru: "Гульнар Муратбаева",
           kz: "Гүлнар Мұратбаева",
           en: "Gulnar Muratbayeva",
+        },
+        speakerName0_1: {
+          ru: "Абылайхан Акерке",
+          kz: "Абылайхан Ақерке",
+          en: "Abylaikhan Akerke",
         },
         speakerName1_9: {
           ru: "Суран Рабаев",
@@ -2716,6 +2741,20 @@
       const ONLINE = { ru: "онлайн", kz: "онлайн", en: "online" };
       const talk = (day, time, kind, title, online) => ({ day, time, kind, title, online });
       const speakerDetails = {
+        "akerke-abylaikhan": {
+          talks: [
+            talk(D1, "09:30–10:00", { ru: "Официальное открытие", kz: "Ресми ашылу салтанаты", en: "Official opening" }, {
+              ru: "Гуманизм на основе национальных ценностей как ключевая стратегия социализации студентов университетов Казахстана",
+              kz: "Ұлттық құндылықтарға негізделген гуманизм — Қазақстан университеттері студенттерін әлеуметтендірудің негізгі стратегиясы",
+              en: "Humanism Based on National Values as a Key Strategy for the Socialization of Kazakhstan’s University Students",
+            }),
+          ],
+          bio: {
+            ru: "Доктор химических наук (PhD, Dr. rer. nat., Технический университет Хемница, Германия).",
+            kz: "Химия ғылымдарының докторы (PhD, Dr. rer. nat., Хемниц техникалық университеті, Германия).",
+            en: "Doctor of Chemistry (PhD, Dr. rer. nat., Chemnitz University of Technology, Germany).",
+          },
+        },
         "joo-yup-lee": {
           talks: [
             talk(D1, "10:00–10:30", { ru: "Keynote I", kz: "I негізгі баяндама", en: "Keynote I" }, {
