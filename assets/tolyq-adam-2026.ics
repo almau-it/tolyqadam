@@ -1,0 +1,26 @@
+BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//AlmaU//Tolyq Adam 2026//EN
+CALSCALE:GREGORIAN
+METHOD:PUBLISH
+BEGIN:VEVENT
+UID:tolyq-adam-2026-day1@tolyqadam.almau.edu.kz
+DTSTAMP:20261027T000000Z
+DTSTART:20261030T040000Z
+DTEND:20261030T150000Z
+SUMMARY:ALMAU – TOLYQ ADAM 2026 · Day 1 / День 1
+LOCATION:Almaty Management University\, ул. Розыбакиева 227\, Алматы
+DESCRIPTION:Международная конференция / International conference\nhttps://tolyqadam.almau.edu.kz
+URL:https://tolyqadam.almau.edu.kz
+END:VEVENT
+BEGIN:VEVENT
+UID:tolyq-adam-2026-day2@tolyqadam.almau.edu.kz
+DTSTAMP:20261027T000000Z
+DTSTART:20261031T040000Z
+DTEND:20261031T110000Z
+SUMMARY:ALMAU – TOLYQ ADAM 2026 · Day 2 / День 2
+LOCATION:Almaty Management University\, ул. Розыбакиева 227\, Алматы
+DESCRIPTION:Международная конференция / International conference\nhttps://tolyqadam.almau.edu.kz
+URL:https://tolyqadam.almau.edu.kz
+END:VEVENT
+END:VCALENDAR

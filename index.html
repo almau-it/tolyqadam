@@ -1332,7 +1332,7 @@
       rel="stylesheet"
       href="https://fonts.googleapis.com/css2?family=Arimo:wght@400;700&display=swap"
     />
-    <link rel="stylesheet" href="redesign.css?v=19" />
+    <link rel="stylesheet" href="redesign.css?v=20" />
   </head>
   <body>
     <div class="scroll-progress" aria-hidden="true"></div>
@@ -1425,7 +1425,7 @@
               >
               <a
                 class="cta cta-outline"
-                href="assets/infoletters/tolyq-adam-2026-programme-ru.pdf?v=5"
+                href="assets/infoletters/tolyq-adam-2026-programme-ru.pdf?v=6"
                 data-programme
                 target="_blank"
                 rel="noopener"
@@ -1525,7 +1525,7 @@
             <div class="infoletter" id="programme">
               <span data-i18n="programmeLetter">Программа конференции (PDF)</span>
               <a
-                href="assets/infoletters/tolyq-adam-2026-programme-en.pdf?v=5"
+                href="assets/infoletters/tolyq-adam-2026-programme-en.pdf?v=6"
                 target="_blank"
                 rel="noopener"
                 hreflang="en"
@@ -1533,7 +1533,7 @@
                 >EN</a
               >
               <a
-                href="assets/infoletters/tolyq-adam-2026-programme-kz.pdf?v=5"
+                href="assets/infoletters/tolyq-adam-2026-programme-kz.pdf?v=6"
                 target="_blank"
                 rel="noopener"
                 hreflang="kk"
@@ -1541,7 +1541,7 @@
                 >KZ</a
               >
               <a
-                href="assets/infoletters/tolyq-adam-2026-programme-ru.pdf?v=5"
+                href="assets/infoletters/tolyq-adam-2026-programme-ru.pdf?v=6"
                 target="_blank"
                 rel="noopener"
                 hreflang="ru"
@@ -1902,6 +1902,13 @@
               target="_blank"
               rel="noopener"
               ><span data-i18n="t46">Открыть карту ↗</span></a
+            >
+            <a
+              class="cta cta-outline"
+              href="assets/tolyq-adam-2026.ics"
+              download="tolyq-adam-2026.ics"
+              type="text/calendar"
+              ><span data-i18n="calendarButton">Добавить в календарь</span></a
             >
           </div>
           <picture>
@@ -2322,6 +2329,11 @@
           kz: "Суран Рабаев",
           en: "Suran Rabaev",
         },
+        calendarButton: {
+          ru: "Добавить в календарь",
+          kz: "Күнтізбеге қосу",
+          en: "Add to calendar",
+        },
         programButton: {
           ru: "Программа конференции ↗",
           kz: "Конференция бағдарламасы ↗",
@@ -2378,7 +2390,7 @@
           a.href = url;
         });
         document.querySelectorAll("a[data-programme]").forEach((a) => {
-          a.href = `assets/infoletters/tolyq-adam-2026-programme-${lang}.pdf?v=5`;
+          a.href = `assets/infoletters/tolyq-adam-2026-programme-${lang}.pdf?v=6`;
           a.hreflang = lang === "kz" ? "kk" : lang;
         });
         document.querySelectorAll("[data-i18n]").forEach((el) => {

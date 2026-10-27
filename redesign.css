@@ -135,7 +135,8 @@ nav a { color: var(--cream); }
 #venue .split { align-items: center; gap: clamp(40px, 6vw, 100px); }
 #venue h3 { font-size: clamp(25px, 3vw, 42px); }
 #venue .venue-photo { width: 100%; min-height: 420px; object-fit: cover; border-radius: 12px; }
-#venue .cta { margin-top: 22px; }
+#venue .cta { margin: 22px 10px 0 0; }
+#venue .cta-outline, #venue .cta-outline:hover { color: var(--stage); }
 
 #contacts { background: var(--stage); }
 #contacts > h2 { max-width: 1100px; }
