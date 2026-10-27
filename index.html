@@ -1333,6 +1333,37 @@
       href="https://fonts.googleapis.com/css2?family=Arimo:wght@400;700&display=swap"
     />
     <link rel="stylesheet" href="redesign.css?v=20" />
+    <style>
+      #speakers .speaker { cursor: pointer; }
+      #speakers .speaker:focus-visible { outline: 2px solid var(--accent); outline-offset: 6px; border-radius: 30px; }
+      #speakers .speaker img { transition: transform .35s ease, filter .35s ease; }
+      #speakers .speaker:hover img { transform: translateY(-4px); filter: brightness(1.06); }
+      .speaker-more { display: inline-block; margin-top: 10px; color: var(--accent); font-size: 14px; font-weight: 700; letter-spacing: .02em; }
+      #speakers .speaker:hover .speaker-more { text-decoration: underline; text-underline-offset: 3px; }
+      .speaker-modal { position: fixed; inset: 0; z-index: 100; display: flex; align-items: center; justify-content: center; padding: 24px; background: rgba(8,14,18,.82); }
+      .speaker-modal[hidden] { display: none; }
+      .sm-card { position: relative; display: grid; grid-template-columns: minmax(220px, 300px) 1fr; width: min(940px, 100%); max-height: min(720px, 100%); overflow: auto; overscroll-behavior: contain; border-radius: 22px; background: var(--cream); color: var(--stage); box-shadow: 0 30px 80px rgba(0,0,0,.45); }
+      .sm-photo { width: 100%; height: 100%; min-height: 360px; object-fit: cover; object-position: center 22%; }
+      .sm-body { padding: 40px 44px 44px; }
+      .sm-name { margin: 0 40px 8px 0; font-size: clamp(26px, 3vw, 36px); line-height: 1.1; color: var(--stage); }
+      .sm-role { margin: 0 0 26px; color: #6d5a63; font-size: 15px; line-height: 1.5; }
+      .sm-talk { margin: 0 0 18px; padding: 16px 18px; border-left: 4px solid var(--accent); border-radius: 0 12px 12px 0; background: #f3eee4; }
+      .sm-when { margin: 0 0 6px; color: #8a6d1b; font-size: 13px; font-weight: 700; letter-spacing: .04em; text-transform: uppercase; }
+      .sm-title { margin: 0; font-size: 18px; font-weight: 700; line-height: 1.4; }
+      .sm-about { margin: 28px 0 8px; color: #6d5a63; font-size: 13px; letter-spacing: .08em; text-transform: uppercase; }
+      .sm-about:empty { display: none; }
+      .sm-bio { margin: 0; font-size: 16px; line-height: 1.6; }
+      .sm-close { position: absolute; top: 14px; right: 14px; z-index: 1; width: 44px; height: 44px; padding: 0; border: 0; border-radius: 50%; background: rgba(41,26,37,.08); color: var(--stage); font-size: 28px; line-height: 44px; cursor: pointer; }
+      .sm-close:hover { background: rgba(41,26,37,.16); }
+      @media (max-width: 700px) {
+        .speaker-modal { align-items: flex-end; padding: 0; }
+        .sm-card { grid-template-columns: 1fr; max-height: 92svh; border-radius: 22px 22px 0 0; }
+        .sm-photo { height: 300px; min-height: 0; }
+        .sm-body { padding: 26px 20px 34px; }
+        .sm-close { background: rgba(251,250,247,.85); }
+        .speaker-more { font-size: 12px; }
+      }
+    </style>
   </head>
   <body>
     <div class="scroll-progress" aria-hidden="true"></div>
@@ -2335,6 +2366,12 @@
           kz: "Күнтізбеге қосу",
           en: "Add to calendar",
         },
+        speakerMore: {
+          ru: "Доклад и биография →",
+          kz: "Баяндама және өмірбаян →",
+          en: "Talk and bio →",
+        },
+        speakerAbout: { ru: "О спикере", kz: "Спикер туралы", en: "About" },
         programButton: {
           ru: "Программа конференции ↗",
           kz: "Конференция бағдарламасы ↗",
@@ -2655,7 +2692,7 @@
       }
       document
         .querySelectorAll(
-          "#about img, #moments img, #award img, #speakers img, #venue img",
+          "#about img, #moments img, #award img, #venue img",
         )
         .forEach((image) => {
           image.classList.add("zoomable");
@@ -2668,6 +2705,366 @@
       document.addEventListener("keydown", (event) => {
         if (event.key === "Escape" && !lightbox.hidden && lightboxSource)
           history.back();
+      });
+      // Talks and bios from the conference programme, keyed by photo file.
+      const P1 = { ru: "Панель I", kz: "I панель", en: "Panel I" };
+      const P2 = { ru: "Панель II", kz: "II панель", en: "Panel II" };
+      const D1 = { ru: "30 октября", kz: "30 қазан", en: "30 October" };
+      const D2 = { ru: "31 октября", kz: "31 қазан", en: "31 October" };
+      const LECTURE = { ru: "Лекция", kz: "Мәртебелі дәріс", en: "Distinguished lecture" };
+      const WORKSHOP = { ru: "Воркшоп", kz: "Воркшоп", en: "Workshop" };
+      const ONLINE = { ru: "онлайн", kz: "онлайн", en: "online" };
+      const talk = (day, time, kind, title, online) => ({ day, time, kind, title, online });
+      const speakerDetails = {
+        "joo-yup-lee": {
+          talks: [
+            talk(D1, "10:00–10:30", { ru: "Keynote I", kz: "I негізгі баяндама", en: "Keynote I" }, {
+              ru: "«Целостная личность» в тюркских и казахских кочевых обществах: вдохновение для человека будущего",
+              kz: "Түркі-қазақ көшпелі қоғамындағы «Біртұтас тұлға»: болашақ тұлғасына шабыт беретін идеялар",
+              en: "“Whole Person” in Turkic and Qazaq Nomadic Societies: Inspiration for the Person of the Future",
+            }),
+            talk(D2, "09:30–10:30", LECTURE, {
+              ru: "Қазақлық и формирование казахского народа",
+              kz: "Қазақылық және қазақ халқының қалыптасуы",
+              en: "Qazaqliq and the Formation of the Qazaqs",
+            }),
+          ],
+          bio: {
+            ru: "Исследователь истории Центральной Евразии и тюрко-монгольского мира. Его работы посвящены государственности, идентичности и политико-социальной организации постмонгольской Центральной Евразии. Автор книги «Qazaqlïq, or Ambitious Brigandage, and the Formation of the Qazaqs» (Brill, 2016), отмеченной Central Eurasian Studies Society Book Award 2017, и «The Turkic Peoples in World History» (Routledge, 2023).",
+            kz: "Орталық Еуразия және түркі-моңғол әлемінің тарихын зерттеуші. Ғылыми зерттеулері постмоңғолдық Орталық Еуразияның мемлекеттілік, бірегейлік және саяси-әлеуметтік ұйымдасу мәселелеріне арналған. 2017 жылғы Central Eurasian Studies Society Book Award сыйлығына ие болған «Qazaqlïq, or Ambitious Brigandage, and the Formation of the Qazaqs» (Brill, 2016) және «The Turkic Peoples in World History» (Routledge, 2023) еңбектерінің авторы.",
+            en: "A scholar of the history of Central Eurasia and the Turco-Mongol world. His research focuses on statehood, identity, and the political and social organization of post-Mongol Central Eurasia. He is the author of Qazaqlïq, or Ambitious Brigandage, and the Formation of the Qazaqs (Brill, 2016), which received the 2017 Central Eurasian Studies Society Book Award, and The Turkic Peoples in World History (Routledge, 2023).",
+          },
+        },
+        "marie-favereau": {
+          talks: [
+            talk(D1, "10:30–10:45", P1, {
+              ru: "Как взаимосвязаны прошлое и будущее: преподавание и обучение на примере Золотой Орды",
+              kz: "Өткен мен болашақтың өзара байланысы: Алтын Орда тарихы арқылы оқыту және білім беру",
+              en: "How Past & Future Interconnect: Teaching and Learning with the Golden Horde",
+            }, true),
+          ],
+          bio: {
+            ru: "Историк средневековой Евразии и одна из ведущих современных исследователей Золотой Орды. Автор книги «Орда: как монголы изменили мир» (Harvard University Press, 2021), в которой Золотая Орда представлена как сложная политическая, социальная и экономическая система, тесно связанная с обширными евразийскими сетями.",
+            kz: "Ортағасырлық Еуразия тарихын зерттеуші, Алтын Орда тарихын зерттеген қазіргі заманның көрнекті ғалымдарының бірі. 2021 жылы Harvard University Press баспасынан жарық көрген «The Horde: How the Mongols Changed the World» еңбегінің авторы. Бұл еңбекте Орда кең ауқымды еуразиялық желілерге кіріктірілген күрделі саяси-әлеуметтік және экономикалық жүйе ретінде қарастырылады.",
+            en: "A historian of medieval Eurasia and one of today’s leading scholars of the Golden Horde. She is the author of The Horde: How the Mongols Changed the World (Harvard University Press, 2021), which presents the Golden Horde as a complex political, social and economic system closely tied to vast Eurasian networks.",
+          },
+        },
+        "peter-finke": {
+          talks: [
+            talk(D1, "10:45–11:00", P1, {
+              ru: "Социальность в степях: три урока для современного мира",
+              kz: "Даладағы әлеуметтік байланыстар: қазіргі әлемге арналған үш сабақ",
+              en: "Sociality in the Steppes: Three Lessons for the Contemporary World",
+            }),
+            talk(D1, "16:00–16:15", P2, {
+              ru: "Университетские альянсы: модель будущего?",
+              kz: "Университеттік альянстар: болашақтың моделі ме?",
+              en: "University Alliances: A Model for the Future?",
+            }),
+          ],
+          bio: {
+            ru: "Профессор социальной и культурной антропологии Цюрихского университета, экономический антрополог и исследователь Центральной и Внутренней Азии. Более трёх десятилетий изучает пасторальный номадизм, социальные отношения, трансформации, идентичность и институциональные изменения в Казахстане, Монголии и Узбекистане. Заместитель декана по учебной работе факультета гуманитарных и социальных наук; участник университетского альянса Una Europa.",
+            kz: "Цюрих университетінің әлеуметтік және мәдени антропология профессоры, Орталық және Ішкі Азия зерттеушісі және экономикалық антропологы. Отыз жылдан астам уақыт бойы Қазақстан, Моңғолия және Өзбекстандағы көшпелі мал шаруашылығын, әлеуметтік қатынастарды, трансформация үдерістерін, бірегейлік пен институционалдық өзгерістерді зерттеп келеді. Өнер және әлеуметтік ғылымдар факультетінің оқу ісі жөніндегі деканының орынбасары, Una Europa альянсының қатысушысы.",
+            en: "Professor of Social and Cultural Anthropology at the University of Zurich, an economic anthropologist and scholar of Central and Inner Asia. For more than three decades, he has studied pastoral nomadism, social relations, transformations, identity, and institutional change in Kazakhstan, Mongolia, and Uzbekistan. Vice-Dean for Study Affairs, Faculty of Arts and Social Sciences; member of Una Europa.",
+          },
+        },
+        "zira-nauryzbayeva": {
+          talks: [
+            talk(D1, "11:00–11:15", P1, {
+              ru: "Почему казахские ханы и воины были музыкантами? Роль музыки в формировании личности в казахской культуре",
+              kz: "Қазақ хандары мен батырлары неге музыкант болды? Қазақ мәдениетінде тұлғаны қалыптастырудағы музыканың рөлі",
+              en: "Why Were Kazakh Khans and Warriors Musicians? The Role of Music in the Formation of the Individual in Kazakh Culture",
+            }),
+            talk(D2, "11:15–12:00", LECTURE, {
+              ru: "Кюй — это шёпот Тенгри. Музыка в казахской мифологии и культуре",
+              kz: "Күй — Тәңір үні. Қазақ мифологиясы мен мәдениетіндегі музыка",
+              en: "Küy Is the Whisper of Tengri: Music in Kazakh Mythology and Culture",
+            }),
+          ],
+          bio: {
+            ru: "Культуролог, философ и исследователь казахской мифологии и традиционной культуры; PhD, профессор практики AlmaU. Её работы посвящены мировоззрению Великой степи, культурной идентичности, этике, исторической памяти и культурному коду.",
+            kz: "Мәдениеттанушы, философ, қазақ мифологиясы мен дәстүрлі мәдениетін зерттеуші; PhD, AlmaU практика профессоры. Еңбектері Ұлы даланың дүниетанымы, мәдени бірегейлік, әдеп, тарихи жады және мәдени кодқа арналған.",
+            en: "Cultural studies scholar, philosopher, and researcher of Kazakh mythology and traditional culture; PhD, Professor of Practice at AlmaU. Her research focuses on the worldview of the Great Steppe, cultural identity, ethics, historical memory, and cultural codes.",
+          },
+        },
+        "mark-ingham": {
+          talks: [
+            talk(D1, "11:15–11:30", P1, {
+              ru: "Радостные встречи в образовании: кочевое познание и ризоматические университеты",
+              kz: "Қуанышқа толы танымдық кездесулер: номадтық білім алушыға және ризомалық университетке айналу",
+              en: "Joyful Educational Encounters: Becoming Nomadic Learners and Rhizomatic Universities",
+            }, true),
+          ],
+          bio: {
+            ru: "Профессор номадологии, старший преподаватель-исследователь Лондонского университета искусств (UAL), сопредседатель профессорского совета UAL. Исследует кочевую и критическую педагогику, ризоматическое обучение, субъектность студентов, креативность и экспериментальные подходы к высшему образованию, опираясь в том числе на философию Жиля Делёза и Феликса Гваттари.",
+            kz: "UAL номадология профессоры, Senior Teaching Scholar, UAL Professoriate тең төрағасы. Зерттеулері номадтық және сыни педагогиканы, ризомалық оқытуды, студенттердің дербестігі мен белсенді әрекет ету қабілетін, шығармашылықты, сондай-ақ жоғары білім берудегі эксперименттік тәсілдерді қамтиды. Зерттеулер Жиль Делёз бен Феликс Гваттаридің философиялық идеяларына негізделген.",
+            en: "Professor of Nomadology and Senior Teaching Scholar at UAL, and Co-Chair of the UAL Professoriate. His research explores nomadic and critical pedagogies, rhizomatic learning, student agency, creativity, and experimental approaches to higher education, drawing in part on the philosophy of Deleuze and Guattari.",
+          },
+        },
+        "catherine-poujol": {
+          talks: [
+            talk(D1, "11:30–11:45", P1, {
+              ru: "Историко-культурное наследие казахского кочевничества и его влияние на современного гражданина",
+              kz: "Қазақтың көшпелі өмір салтының тарихи-мәдени мұрасы және оның бүгінгі азамат тұлғасының қалыптасуына ықпалы",
+              en: "The Historical and Cultural Heritage of Kazakh Nomadism and Its Influence on the Contemporary Citizen",
+            }, true),
+          ],
+          bio: {
+            ru: "Профессор истории и цивилизации Центральной Азии в INALCO, специалист по современной и новейшей истории региона. Исследует политические и социальные трансформации, идентичности, религиозные изменения и международные отношения; автор более ста научных публикаций.",
+            kz: "INALCO-ның Орталық Азия тарихы мен өркениеті профессоры, осы өңірдің қазіргі және жаңа заман тарихы бойынша маманы. Саяси және әлеуметтік трансформациялар, бірегейлік мәселелері, діни өзгерістер мен халықаралық қатынастарды зерттейді. Жүзден астам ғылыми еңбектің авторы.",
+            en: "Professor of Central Asian History and Civilization at INALCO and a specialist in the modern and contemporary history of the region. Her research focuses on political and social transformations, identities, religious change, and international relations. She is the author of more than one hundred academic publications.",
+          },
+        },
+        "ainash-mustayapova": {
+          talks: [
+            talk(D1, "11:45–12:00", P1, {
+              ru: "Кочевое наследие как прочная основа успешного будущего: мировоззрение, жизненные принципы и ценности",
+              kz: "Көшпелілер мұрасы — табысты болашақтың берік негізі: дүниетаным, өмірлік ұстанымдар және құндылықтар",
+              en: "The Nomadic Heritage as a Solid Foundation for a Successful Future: Worldview, Principles of Life, and Values",
+            }),
+          ],
+          bio: {
+            ru: "Исследователь кочевой цивилизации, культурной истории, деколонизации, исторической памяти и казахской идентичности. Ассоциированный профессор Карагандинского университета имени академика Е. А. Букетова. Автор более 70 научных и учебных публикаций; среди последних книг — «Кочевники: в поисках утраченного пути» (2025).",
+            kz: "Көшпелі өркениет, мәдени тарих, деколонизация үдерістері, тарихи жады мен қазақ бірегейлігін зерттеуші. Е. А. Бөкетов атындағы Қарағанды университетінің қауымдастырылған профессоры. 70-тен астам ғылыми және оқу-әдістемелік еңбектің авторы. Соңғы кітаптарының бірі — Nomads: In Search of the Lost Path (2025).",
+            en: "Researcher of nomadic civilization, cultural history, decolonization, historical memory, and Kazakh identity; Associate Professor at Karaganda Buketov University. Author of more than 70 academic and educational publications; her recent books include Nomads: In Search of the Lost Path (2025).",
+          },
+        },
+        "michelle-hoffman": {
+          talks: [
+            talk(D1, "15:00–15:15", { ru: "Keynote III", kz: "III халықаралық негізгі баяндама", en: "International keynote III" }, {
+              ru: "Переосмысливая роль письма в университете будущего",
+              kz: "Болашақ университетіндегі жазу үдерісін жаңаша пайымдау",
+              en: "Imagining Writing in the University of the Future",
+            }, true),
+          ],
+          bio: {
+            ru: "Заместитель директора Института письма и мышления (IWT) и содиректор Центра педагогики гуманитарного образования и естественных наук Bard College. Работает на пересечении педагогики письма, философии и истории образования и Liberal Arts; участник рабочей группы IWT по искусственному интеллекту.",
+            kz: "Bard жанындағы Institute for Writing & Thinking директорының орынбасары және Center for Liberal Arts and Sciences Pedagogy тең директоры. Жазуға негізделген педагогика, білім беру философиясы мен тарихы және Liberal Arts бағыттарының тоғысында жұмыс істейді; IWT-дің жасанды интеллект жөніндегі жұмыс тобына қатысады.",
+            en: "Deputy Director of the Institute for Writing & Thinking and Co-Director of the Center for Liberal Arts and Sciences Pedagogy at Bard College. Works at the intersection of writing-based pedagogy, the philosophy and history of education, and the Liberal Arts; member of the IWT AI Working Group.",
+          },
+        },
+        "muratbayeva": {
+          talks: [
+            talk(D1, "15:15–15:30", { ru: "Keynote III", kz: "III халықаралық негізгі баяндама", en: "International keynote III" }, {
+              ru: "Воспитательный потенциал концепции «Толық адам» в подготовке будущих педагогов",
+              kz: "Болашақ педагогтерді даярлауда «Толық адам» тұжырымдамасының тәрбиелік әлеуеті",
+              en: "The Educational Potential of the ‘Tolyq Adam’ Concept in the Preparation of Future Teachers",
+            }),
+          ],
+        },
+        "pamela-leung": {
+          talks: [
+            talk(D1, "15:45–16:00", P2, {
+              ru: "Гуманность расширяет горизонты: воспитание ценностей у студентов университета будущего",
+              kz: "Адамгершілік мүмкіндіктер көкжиегін кеңейтеді: болашақ университет студенттерінің құндылықтарын қалыптастыру",
+              en: "Humanity Can Broaden the Way: Cultivating Values in University Students of the Future",
+            }),
+            talk(D2, "", WORKSHOP, {
+              ru: "Преподавание, оценивание и искусственный интеллект на основе ценностей для осмысленного обучения",
+              kz: "Құндылықтарға негізделген оқыту, бағалау және мағыналы білім алуға арналған жасанды интеллект",
+              en: "Values-Based Teaching, Assessment, and AI for Meaningful Learning",
+            }),
+          ],
+          bio: {
+            ru: "И. о. декана факультета гуманитарных наук, исполнительный содиректор Академии развития и инноваций в образовании, профессор практики Гонконгского педагогического университета (EdUHK). Её профессиональная деятельность охватывает подготовку педагогов, оценивание для обучения, многоязычное и инклюзивное образование, а также инновации и интеграцию генеративного искусственного интеллекта в гуманитарное образование.",
+            kz: "EdUHK-дағы Гуманитарлық ғылымдар факультетінің деканы м.а., Academy for Educational Development and Innovation тең атқарушы директоры және практика профессоры. Кәсіби қызметінің негізгі бағыттары — мұғалімдерді даярлау, оқуды бағалау, көптілді және инклюзивті білім беру, инновациялар және генеративті жасанды интеллектіні гуманитарлық білім беруге ықпалдастыру.",
+            en: "Acting Dean of the Faculty of Humanities, Executive Co-Director of the Academy for Educational Development and Innovation, and Professor (Practice) at EdUHK. Her professional work encompasses teacher education, assessment for learning, multilingual and inclusive education, innovation, and the integration of generative AI into humanities education.",
+          },
+        },
+        "asmita-dani": {
+          talks: [
+            talk(D1, "16:15–16:30", P2, {
+              ru: "От реформирования учебных программ к образованию для целостного развития личности: опыт университета Symbiosis",
+              kz: "Оқу бағдарламаларын реформалаудан тұтас тұлғаға бағытталған білім беруге дейін: Symbiosis тәжірибесі",
+              en: "From Curriculum Reform to Whole-Person Education: The Symbiosis Experience",
+            }),
+            talk(D2, "", WORKSHOP, {
+              ru: "Целостное развитие личности на практике: опыт университета Symbiosis",
+              kz: "Тұлғаны жан-жақты дамытуға бағытталған білім беруді жүзеге асыру: Symbiosis тәжірибесі мен тағылымдары",
+              en: "Whole-Person Education in Practice: Lessons from Symbiosis",
+            }),
+          ],
+          bio: {
+            ru: "Декан по академическим вопросам и руководитель направления международного взаимодействия и партнёрств. Её профессиональный опыт связан с реформированием учебных программ, междисциплинарным образованием, интернационализацией, глобальным гражданством, равенством возможностей и устойчивым развитием.",
+            kz: "Академиялық мәселелер жөніндегі декан және халықаралық ынтымақтастық бөлімінің басшысы. Кәсіби тәжірибесі оқу бағдарламаларын реформалау, пәнаралық білім беру, интернационалдандыру, жаһандық азаматтық, теңдік және тұрақты даму бағыттарын қамтиды.",
+            en: "Dean, Academics and Head, Global Engagement and Partnerships. Her expertise includes curriculum reform, multidisciplinary education, internationalisation, global citizenship, equity, and sustainability.",
+          },
+        },
+        "pascal-taranto": {
+          talks: [
+            talk(D1, "16:30–16:45", P2, {
+              ru: "От лабораторий к обществу: инновации в гуманитарных и социальных науках как ключевая черта университетов нового поколения",
+              kz: "Зертханадан қоғамға дейін: HSS инновациясы жаңа буын университеттерінің негізгі ерекшелігі ретінде",
+              en: "From the Labs to Society: HSS Innovation as a Key Feature of Next-Generation Universities",
+            }),
+            talk(D2, "10:30–11:15", LECTURE, {
+              ru: "Инновационный опыт: совместная исследовательская платформа LABΩ и её ИИ-агенты",
+              kz: "Инновацияның нақты мысалы: LABΩ бірлескен зерттеу платформасы және оның AI агенттері",
+              en: "A Case Study in Innovation: The LABΩ Collaborative Platform and Its AI Agents",
+            }),
+          ],
+          bio: {
+            ru: "Профессор философии Университета Экс-Марсель и директор Центра Жиля-Гастона Гранже. Развивает LABΩ — пространство совместных исследований, коллективного интеллекта, экспертного рецензирования и новых форм производства знаний, в том числе с использованием ИИ-агентов.",
+            kz: "Aix-Marseille Université философия профессоры және Centre Gilles Gaston Granger директоры. Бірлескен зерттеулер, ұжымдық интеллект, peer review және білім өндірудің жаңа формаларына арналған LABΩ ортасын дамытады, оның ішінде AI агенттерін пайдалануды да зерттейді.",
+            en: "Professor of Philosophy at Aix-Marseille Université and Director of the Centre Gilles Gaston Granger. He leads the development of LABΩ, a collaborative research environment focused on collective intelligence, peer review, and new forms of knowledge production, including the use of AI agents.",
+          },
+        },
+        "suran-rabaev": {
+          talks: [
+            talk(D1, "16:45–17:00", P2, {
+              ru: "Подготовка будущих государственных служащих: лидерство, этическая ответственность и критическое мышление",
+              kz: "Болашақ мемлекеттік қызметшілерді даярлау: көшбасшылық, этикалық жауапкершілік және сыни ойлау",
+              en: "Preparing Future Public Servants: Leadership, Ethical Responsibility and Critical Thinking",
+            }),
+          ],
+          bio: {
+            ru: "Начальник отдела развития и инноваций Академии государственного управления имени Жусупа Абдрахманова при Президенте Кыргызской Республики. В профессиональной деятельности уделяет внимание развитию и инновациям в подготовке будущих государственных служащих.",
+            kz: "Қырғыз Республикасының Президенті жанындағы Жүсіп Әбдірахманов атындағы Мемлекеттік басқару академиясының Даму және инновациялар бөлімінің басшысы. Кәсіби қызметінде болашақ мемлекеттік қызметшілерді даярлау жүйесін дамытуға және осы салаға инновациялық тәсілдерді енгізуге ерекше көңіл бөледі.",
+            en: "Head of the Department of Development and Innovation at the Zhusup Abdrahmanov Academy of Public Administration under the President of the Kyrgyz Republic. His professional work focuses on development and innovation in the preparation of future public servants.",
+          },
+        },
+        "aigerim-tarbagatayeva": {
+          talks: [
+            talk(D1, "17:00–17:15", P2, {
+              ru: "Человекоцентричное предпринимательство для устойчивого будущего на основе философии Tolyq Adam",
+              kz: "«Толық адам» философиясы негізінде адамға бағдарланған кәсіпкерлік арқылы орнықты болашақ қалыптастыру",
+              en: "Human-Centred Entrepreneurship for a Sustainable Future through the Tolyq Adam Philosophy",
+            }),
+          ],
+          bio: {
+            ru: "Бизнес-тренер, лайф-коуч, мотивационный спикер и ментор; руководитель Ассоциации бизнес-тренеров; исследователь и докторант Центра исследований предпринимательства Назарбаев Университета (NURCE).",
+            kz: "Бизнес-тренер, лайф-коуч, мотивациялық спикер және ментор; Бизнес-тренерлер қауымдастығының жетекшісі; Назарбаев Университетінің Кәсіпкерлікті зерттеу орталығының (NURCE) зерттеушісі және докторанты.",
+            en: "Business trainer, life coach, motivational speaker and mentor; Head of the Association of Business Trainers; Researcher and PhD student at the Nazarbayev University Research Centre for Entrepreneurship (NURCE).",
+          },
+        },
+      };
+
+      // A click on a speaker opens a card with the talk(s) and the full bio.
+      // Like the photo viewer, it adds a history entry so the back gesture
+      // closes it.
+      const speakerModal = document.createElement("div");
+      speakerModal.className = "speaker-modal";
+      speakerModal.hidden = true;
+      speakerModal.setAttribute("role", "dialog");
+      speakerModal.setAttribute("aria-modal", "true");
+      speakerModal.innerHTML =
+        '<div class="sm-card"><button type="button" class="sm-close" aria-label="Close">×</button>' +
+        '<img class="sm-photo" alt="" /><div class="sm-body"><h3 class="sm-name"></h3>' +
+        '<p class="sm-role"></p><div class="sm-talks"></div><h4 class="sm-about"></h4>' +
+        '<p class="sm-bio"></p></div></div>';
+      document.body.append(speakerModal);
+      const smCard = speakerModal.querySelector(".sm-card");
+      let speakerModalOpen = false;
+      let speakerAnimations = [];
+
+      function pageLanguage() {
+        const lang = document.documentElement.lang;
+        return lang === "kk" ? "kz" : lang === "en" ? "en" : "ru";
+      }
+
+      function animateSpeakerModal(opening) {
+        speakerAnimations.forEach((animation) => animation.cancel());
+        const timing = {
+          duration: reduceMotion.matches ? 0 : opening ? 320 : 220,
+          easing: opening ? "cubic-bezier(.2,.8,.2,1)" : "cubic-bezier(.4,0,1,1)",
+          fill: "both",
+        };
+        const order = (from, to) => (opening ? [from, to] : [to, from]);
+        speakerAnimations = [
+          speakerModal.animate(
+            order(
+              { backgroundColor: "rgba(8, 14, 18, 0)" },
+              { backgroundColor: "rgba(8, 14, 18, .82)" },
+            ),
+            timing,
+          ),
+          smCard.animate(
+            order(
+              { opacity: 0, transform: "translateY(28px) scale(.96)" },
+              { opacity: 1, transform: "none" },
+            ),
+            timing,
+          ),
+        ];
+        return speakerAnimations[1].finished;
+      }
+
+      function openSpeaker(article) {
+        const image = article.querySelector("img");
+        const key = image.getAttribute("src").split("/").pop().split(/[.?]/)[0];
+        const details = speakerDetails[key] || {};
+        const lang = pageLanguage();
+        const text = (value) => {
+          const span = document.createElement("span");
+          span.textContent = value;
+          return span.innerHTML;
+        };
+        speakerModal.querySelector(".sm-photo").src = image.currentSrc || image.src;
+        speakerModal.querySelector(".sm-name").textContent =
+          article.querySelector("h4").textContent.trim();
+        speakerModal.querySelector(".sm-role").textContent =
+          article.querySelector(".role").textContent.trim();
+        speakerModal.querySelector(".sm-talks").innerHTML = (details.talks || [])
+          .map(
+            (t) =>
+              `<div class="sm-talk"><p class="sm-when">${text(
+                [t.day[lang], t.time, t.kind[lang]].filter(Boolean).join(" · ") +
+                  (t.online ? ` · ${ONLINE[lang]}` : ""),
+              )}</p><p class="sm-title">${lang === "en" ? "“" : "«"}${text(t.title[lang])}${lang === "en" ? "”" : "»"}</p></div>`,
+          )
+          .join("");
+        const bio = details.bio ? details.bio[lang] : "";
+        speakerModal.querySelector(".sm-about").textContent = bio
+          ? translations.speakerAbout[lang]
+          : "";
+        speakerModal.querySelector(".sm-bio").textContent = bio;
+        speakerModal.hidden = false;
+        speakerModalOpen = true;
+        smCard.scrollTop = 0;
+        document.documentElement.classList.add("lightbox-open");
+        history.pushState({ speaker: true }, "");
+        animateSpeakerModal(true);
+        speakerModal.querySelector(".sm-close").focus({ preventScroll: true });
+      }
+
+      async function closeSpeaker() {
+        speakerModalOpen = false;
+        try {
+          await animateSpeakerModal(false);
+        } catch {
+          return;
+        }
+        if (speakerModalOpen) return;
+        speakerModal.hidden = true;
+        speakerAnimations.forEach((animation) => animation.cancel());
+        document.documentElement.classList.remove("lightbox-open");
+      }
+
+      document.querySelectorAll("#speakers .speaker").forEach((article) => {
+        article.tabIndex = 0;
+        article.setAttribute("role", "button");
+        const more = document.createElement("span");
+        more.className = "speaker-more";
+        more.dataset.i18n = "speakerMore";
+        more.textContent = translations.speakerMore[pageLanguage()];
+        article.querySelector("div").append(more);
+        article.addEventListener("click", () => openSpeaker(article));
+        article.addEventListener("keydown", (event) => {
+          if (event.key === "Enter" || event.key === " ") {
+            event.preventDefault();
+            openSpeaker(article);
+          }
+        });
+      });
+      speakerModal.addEventListener("click", (event) => {
+        if (event.target === speakerModal || event.target.closest(".sm-close"))
+          history.back();
+      });
+      window.addEventListener("popstate", () => {
+        if (speakerModalOpen) closeSpeaker();
+      });
+      document.addEventListener("keydown", (event) => {
+        if (event.key === "Escape" && speakerModalOpen) history.back();
       });
     </script>
   </body>
