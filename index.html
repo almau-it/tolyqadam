@@ -1332,7 +1332,7 @@
       rel="stylesheet"
       href="https://fonts.googleapis.com/css2?family=Arimo:wght@400;700&display=swap"
     />
-    <link rel="stylesheet" href="redesign.css?v=16" />
+    <link rel="stylesheet" href="redesign.css?v=17" />
   </head>
   <body>
     <div class="scroll-progress" aria-hidden="true"></div>
@@ -1921,12 +1921,20 @@
             />
           </picture>
         </div>
-        <iframe
+        <a
           class="venue-map"
-          src="https://widgets.2gis.com/widget?type=firmsonmap&amp;options=%7B%22pos%22%3A%7B%22lat%22%3A43.20636%2C%22lon%22%3A76.89308%2C%22zoom%22%3A16%7D%2C%22opt%22%3A%7B%22city%22%3A%22almaty%22%7D%2C%22org%22%3A%229429940000927160%22%7D"
-          title="Almaty Management University — 2GIS"
-          loading="lazy"
-        ></iframe>
+          href="https://2gis.kz/almaty/firm/9429940000927160"
+          target="_blank"
+          rel="noopener"
+          ><picture
+            ><source srcset="assets/venue/almau-map.webp" type="image/webp" /><img
+            src="assets/venue/almau-map.jpg"
+            width="2400"
+            height="920"
+            alt="Almaty Management University, Розыбакиева, 227 — 2GIS"
+            loading="lazy"
+            decoding="async"
+        /></picture></a>
       </section>
       <section class="page" id="contacts">
         <h2 data-i18n="t47">Университет начинается с человека</h2>
