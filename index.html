@@ -1332,7 +1332,7 @@
       rel="stylesheet"
       href="https://fonts.googleapis.com/css2?family=Arimo:wght@400;700&display=swap"
     />
-    <link rel="stylesheet" href="redesign.css?v=18" />
+    <link rel="stylesheet" href="redesign.css?v=19" />
   </head>
   <body>
     <div class="scroll-progress" aria-hidden="true"></div>
@@ -2512,10 +2512,10 @@
       });
       window.addEventListener("resize", scheduleScrollEffects);
       scheduleScrollEffects();
-      // Phones only: tapping a content photo opens it full screen. A history
+      // Clicking a content photo opens it full screen: the photo grows out of
+      // its place on the page and shrinks back into it on close. A history
       // entry lets the Android back gesture close the viewer instead of
       // leaving the page.
-      const phone = window.matchMedia("(max-width: 700px)");
       const lightbox = document.createElement("div");
       lightbox.className = "lightbox";
       lightbox.hidden = true;
@@ -2524,10 +2524,101 @@
       lightbox.innerHTML = '<button type="button" aria-label="Close">×</button><img alt="" />';
       document.body.append(lightbox);
       const lightboxImage = lightbox.querySelector("img");
+      const lightboxButton = lightbox.querySelector("button");
+      const reduceMotion = window.matchMedia(
+        "(prefers-reduced-motion: reduce)",
+      );
+      const zoomTiming = { duration: 380, easing: "cubic-bezier(.2,.8,.2,1)" };
+      const unzoomTiming = { duration: 300, easing: "cubic-bezier(.4,0,.2,1)" };
+      let lightboxSource = null;
+      let lightboxAnimations = [];
 
-      function closeLightbox() {
+      // Transform and clip that make the full-screen image look exactly like
+      // its thumbnail, including object-fit: cover cropping and rounding.
+      function thumbnailFrame(image) {
+        const thumb = image.getBoundingClientRect();
+        const full = lightboxImage.getBoundingClientRect();
+        if (!thumb.width || !full.width) return null;
+        const style = getComputedStyle(image);
+        const [px, py] = style.objectPosition
+          .split(" ")
+          .map((v) => (v.endsWith("%") ? parseFloat(v) / 100 : 0.5));
+        const scale = Math.max(
+          thumb.width / full.width,
+          thumb.height / full.height,
+        );
+        const extraX = full.width * scale - thumb.width;
+        const extraY = full.height * scale - thumb.height;
+        const x = thumb.left - extraX * px - full.left;
+        const y = thumb.top - extraY * py - full.top;
+        const radius = (parseFloat(style.borderTopLeftRadius) || 0) / scale;
+        return {
+          transform: `translate(${x}px, ${y}px) scale(${scale})`,
+          clipPath: `inset(${(extraY * py) / scale}px ${(extraX * (1 - px)) / scale}px ${(extraY * (1 - py)) / scale}px ${(extraX * px) / scale}px round ${radius}px)`,
+        };
+      }
+
+      function animateLightbox(image, opening) {
+        lightboxAnimations.forEach((animation) => animation.cancel());
+        const base = opening ? zoomTiming : unzoomTiming;
+        const timing = {
+          ...base,
+          duration: reduceMotion.matches ? 0 : base.duration,
+          fill: "both",
+        };
+        const frame = image && thumbnailFrame(image);
+        const open = { transform: "none", clipPath: "inset(0px round 6px)" };
+        const keyframes = (from, to) => (opening ? [from, to] : [to, from]);
+        lightboxAnimations = [
+          lightbox.animate(
+            keyframes(
+              { backgroundColor: "rgba(8, 14, 18, 0)" },
+              { backgroundColor: "rgba(8, 14, 18, .94)" },
+            ),
+            timing,
+          ),
+          lightboxButton.animate(
+            keyframes({ opacity: 0 }, { opacity: 1 }),
+            timing,
+          ),
+          lightboxImage.animate(
+            frame ? keyframes(frame, open) : keyframes({ opacity: 0 }, { opacity: 1 }),
+            timing,
+          ),
+        ];
+        return lightboxAnimations[2].finished;
+      }
+
+      async function openLightbox(image) {
+        lightboxSource = image;
+        lightboxImage.src = image.currentSrc || image.src;
+        lightboxImage.alt = image.alt;
+        lightbox.hidden = false;
+        document.documentElement.classList.add("lightbox-open");
+        history.pushState({ lightbox: true }, "");
+        lightboxImage.style.visibility = "hidden";
+        try {
+          await lightboxImage.decode();
+        } catch {}
+        if (lightboxSource !== image) return;
+        lightboxImage.style.visibility = "";
+        image.style.visibility = "hidden";
+        animateLightbox(image, true);
+      }
+
+      async function closeLightbox() {
+        const image = lightboxSource;
+        lightboxSource = null;
+        try {
+          await animateLightbox(image, false);
+        } catch {
+          return; // cancelled because another photo was opened meanwhile
+        }
+        if (image) image.style.visibility = "";
+        if (lightboxSource) return;
         lightbox.hidden = true;
         lightboxImage.removeAttribute("src");
+        lightboxAnimations.forEach((animation) => animation.cancel());
         document.documentElement.classList.remove("lightbox-open");
       }
       document
@@ -2535,24 +2626,16 @@
           "#about img, #moments img, #award img, #speakers img, #venue img",
         )
         .forEach((image) => {
-          image.addEventListener("click", () => {
-            if (!phone.matches) return;
-            lightboxImage.src = image.currentSrc || image.src;
-            lightboxImage.alt = image.alt;
-            lightbox.hidden = false;
-            document.documentElement.classList.add("lightbox-open");
-            history.pushState({ lightbox: true }, "");
-          });
+          image.classList.add("zoomable");
+          image.addEventListener("click", () => openLightbox(image));
         });
       lightbox.addEventListener("click", () => history.back());
       window.addEventListener("popstate", () => {
-        if (!lightbox.hidden) closeLightbox();
+        if (!lightbox.hidden && lightboxSource) closeLightbox();
       });
       document.addEventListener("keydown", (event) => {
-        if (event.key === "Escape" && !lightbox.hidden) history.back();
-      });
-      phone.addEventListener("change", (event) => {
-        if (!event.matches && !lightbox.hidden) history.back();
+        if (event.key === "Escape" && !lightbox.hidden && lightboxSource)
+          history.back();
       });
     </script>
   </body>
