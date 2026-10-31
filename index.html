@@ -1399,12 +1399,6 @@
           <div class="header-controls">
             <nav id="site-nav" aria-label="Навигация">
               <a
-                href="https://docs.google.com/forms/d/e/1FAIpQLSdq1VxXenqmivIAwZ9aHT-r1INmW1tBQj0fXMHJwB0aBHKF8g/viewform?hl=ru"
-                data-register
-                target="_blank"
-                rel="noopener"
-                ><span data-i18n="navRegister">Регистрация</span></a
-              ><a
                 href="https://zoom.us/j/98737516385?pwd=4elxyU31l3UlM8SKUo491dnz8huGoF.1"
                 target="_blank"
                 rel="noopener"
@@ -1457,14 +1451,6 @@
                 target="_blank"
                 rel="noopener"
                 ><span data-i18n="zoomButton">Подключиться в Zoom ↗</span></a
-              >
-              <a
-                class="cta"
-                href="https://docs.google.com/forms/d/e/1FAIpQLSdq1VxXenqmivIAwZ9aHT-r1INmW1tBQj0fXMHJwB0aBHKF8g/viewform?hl=ru"
-                data-register
-                target="_blank"
-                rel="noopener"
-                ><span data-i18n="t6">Зарегистрироваться ↗</span></a
               >
               <a
                 class="cta cta-outline"
@@ -2121,7 +2107,6 @@
           kz: "Ұлы дала мұрасы және заманауи шешімдер",
           en: "The Heritage of the Great Steppe and Contemporary Solutions",
         },
-        t6: { ru: "Зарегистрироваться ↗", kz: "Тіркелу ↗", en: "Register ↗" },
         t7: {
           ru: "30–31 октября 2026 · Алматы, Казахстан",
           kz: "2026 жылғы 30–31 қазан · Алматы, Қазақстан",
@@ -2459,16 +2444,10 @@
           kz: "Конференция бағдарламасы (PDF)",
           en: "Conference programme (PDF)",
         },
-        navRegister: { ru: "Регистрация", kz: "Тіркелу", en: "Registration" },
       };
       function setLanguage(lang, updateURL = true) {
         if (!["ru", "kz", "en"].includes(lang)) lang = "ru";
         document.documentElement.lang = lang === "kz" ? "kk" : lang;
-        document.querySelectorAll("a[data-register]").forEach((a) => {
-          const url = new URL(a.href);
-          url.searchParams.set("hl", lang === "kz" ? "kk" : lang);
-          a.href = url;
-        });
         document.querySelectorAll("a[data-programme]").forEach((a) => {
           a.href = `assets/infoletters/tolyq-adam-2026-programme-${lang}.pdf?v=10`;
           a.hreflang = lang === "kz" ? "kk" : lang;
