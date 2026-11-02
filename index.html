@@ -1363,10 +1363,39 @@
         .sm-close { background: rgba(251,250,247,.85); }
         .speaker-more { font-size: 12px; }
       }
+      .cert-modal { position: fixed; inset: 0; z-index: 100; display: flex; align-items: center; justify-content: center; padding: 24px; background: rgba(8,14,18,.82); }
+      .cert-modal[hidden] { display: none; }
+      .cert-card { width: min(520px, 100%); padding: 36px 36px 30px; border-radius: 22px; background: var(--cream); color: var(--stage); box-shadow: 0 30px 80px rgba(0,0,0,.45); }
+      .cert-card h3 { margin: 0 0 14px; font-size: clamp(22px, 2.6vw, 28px); line-height: 1.15; color: var(--stage); }
+      .cert-card p { margin: 0 0 28px; font-size: 17px; line-height: 1.55; }
+      .cert-actions { display: flex; flex-wrap: wrap; justify-content: flex-end; gap: 12px; }
+      .cert-actions .cta { padding: 14px 24px; font-family: inherit; font-size: 15px; text-align: center; cursor: pointer; }
+      .cert-actions .cta-outline, .cert-actions .cta-outline:hover { border-color: var(--stage); color: var(--stage); background: transparent; }
+      .cert-actions .cta-outline:hover { background: rgba(41,26,37,.08); }
+      @media (max-width: 700px) {
+        .cert-modal { align-items: flex-end; padding: 0; }
+        .cert-card { padding: 28px 20px 30px; border-radius: 22px 22px 0 0; }
+        .cert-actions .cta { flex: 1 1 140px; }
+      }
     </style>
   </head>
   <body>
     <div class="scroll-progress" aria-hidden="true"></div>
+    <div class="cert-modal" id="cert-modal" role="dialog" aria-modal="true" aria-labelledby="cert-title" hidden>
+      <div class="cert-card">
+        <h3 id="cert-title" data-i18n="certButton">Получить сертификат</h3>
+        <p data-i18n="certText">
+          Сертификаты участия выдаются в электронном виде при условии участия на конференции 30 и 31 октября, включая мастер-классы.
+        </p>
+        <div class="cert-actions">
+          <button type="button" class="cta cta-outline" data-cert-close
+            ><span data-i18n="certCancel">Отмена</span></button
+          ><a class="cta" href="https://forms.gle/HzZbP7hn7gWerkE59" target="_blank" rel="noopener" data-cert-close
+            ><span data-i18n="certApply">Подать заявку ↗</span></a
+          >
+        </div>
+      </div>
+    </div>
     <main>
       <section class="page" id="home">
         <header>
@@ -1398,11 +1427,8 @@
           </div>
           <div class="header-controls">
             <nav id="site-nav" aria-label="Навигация">
-              <a
-                href="https://zoom.us/j/98737516385?pwd=4elxyU31l3UlM8SKUo491dnz8huGoF.1"
-                target="_blank"
-                rel="noopener"
-                >Zoom</a
+              <a href="#certificate" data-cert
+                ><span data-i18n="navCertificate">Сертификат</span></a
               ><a href="#about"><span data-i18n="t0">О нас</span></a
               ><a href="#infoletter"
                 ><span data-i18n="navInfoLetter">Инфописьмо</span></a
@@ -1445,12 +1471,8 @@
               30–31 октября 2026 · Алматы, Казахстан
             </p>
             <div class="hero-actions">
-              <a
-                class="cta"
-                href="https://zoom.us/j/98737516385?pwd=4elxyU31l3UlM8SKUo491dnz8huGoF.1"
-                target="_blank"
-                rel="noopener"
-                ><span data-i18n="zoomButton">Подключиться в Zoom ↗</span></a
+              <a class="cta" href="#certificate" data-cert
+                ><span data-i18n="certButton">Получить сертификат</span></a
               >
               <a
                 class="cta cta-outline"
@@ -2238,10 +2260,26 @@
           en: "30–31 October 2026",
         },
         t46: { ru: "Открыть карту ↗", kz: "Картаны ашу ↗", en: "Open map ↗" },
-        zoomButton: {
-          ru: "Подключиться в Zoom ↗",
-          kz: "Zoom арқылы қосылу ↗",
-          en: "Join on Zoom ↗",
+        navCertificate: {
+          ru: "Сертификат",
+          kz: "Сертификат",
+          en: "Certificate",
+        },
+        certButton: {
+          ru: "Получить сертификат",
+          kz: "Сертификат алу",
+          en: "Get a certificate",
+        },
+        certText: {
+          ru: "Сертификаты участия выдаются в электронном виде при условии участия на конференции 30 и 31 октября, включая мастер-классы.",
+          kz: "Қатысу сертификаттары 30 және 31 қазандағы конференцияға, оның ішінде шеберлік сыныптарына қатысқан жағдайда электронды түрде беріледі.",
+          en: "Certificates of participation are issued electronically to those who attended the conference on 30 and 31 October, including the master classes.",
+        },
+        certCancel: { ru: "Отмена", kz: "Болдырмау", en: "Cancel" },
+        certApply: {
+          ru: "Подать заявку ↗",
+          kz: "Өтінім беру ↗",
+          en: "Apply ↗",
         },
         t47: {
           ru: "Университет начинается с человека",
@@ -3100,6 +3138,30 @@
       });
       document.addEventListener("keydown", (event) => {
         if (event.key === "Escape" && speakerModalOpen) history.back();
+      });
+
+      const certModal = document.getElementById("cert-modal");
+      let certOpener = null;
+      function closeCert() {
+        certModal.hidden = true;
+        document.body.style.overflow = "";
+        if (certOpener) certOpener.focus({ preventScroll: true });
+      }
+      document.querySelectorAll("[data-cert]").forEach((link) =>
+        link.addEventListener("click", (event) => {
+          event.preventDefault();
+          certOpener = link;
+          certModal.hidden = false;
+          document.body.style.overflow = "hidden";
+          certModal.querySelector("a.cta").focus({ preventScroll: true });
+        }),
+      );
+      certModal.addEventListener("click", (event) => {
+        if (event.target === certModal || event.target.closest("[data-cert-close]"))
+          closeCert();
+      });
+      document.addEventListener("keydown", (event) => {
+        if (event.key === "Escape" && !certModal.hidden) closeCert();
       });
     </script>
   </body>
