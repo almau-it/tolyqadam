@@ -1390,7 +1390,7 @@
         <div class="cert-actions">
           <button type="button" class="cta cta-outline" data-cert-close
             ><span data-i18n="certCancel">Отмена</span></button
-          ><a class="cta" href="https://forms.gle/HzZbP7hn7gWerkE59" target="_blank" rel="noopener" data-cert-close
+          ><a class="cta" href="https://docs.google.com/forms/d/e/1FAIpQLSdKatzc5UJlcvlmrGexa9XPzO9cGAREZ1kxeww9DPsFmvd8eA/viewform?hl=ru" target="_blank" rel="noopener" data-cert-form data-cert-close
             ><span data-i18n="certApply">Подать заявку ↗</span></a
           >
         </div>
@@ -2489,6 +2489,9 @@
         document.querySelectorAll("a[data-programme]").forEach((a) => {
           a.href = `assets/infoletters/tolyq-adam-2026-programme-${lang}.pdf?v=10`;
           a.hreflang = lang === "kz" ? "kk" : lang;
+        });
+        document.querySelectorAll("a[data-cert-form]").forEach((a) => {
+          a.href = `https://docs.google.com/forms/d/e/1FAIpQLSdKatzc5UJlcvlmrGexa9XPzO9cGAREZ1kxeww9DPsFmvd8eA/viewform?hl=${lang === "kz" ? "kk" : lang}`;
         });
         document.querySelectorAll("[data-i18n]").forEach((el) => {
           const value = translations[el.dataset.i18n][lang];
