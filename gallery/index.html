@@ -17,12 +17,49 @@
       html.viewer-open { overflow: hidden; }
       a:focus-visible, button:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
       .wrap { width: min(100%, 1600px); margin: auto; padding: 0 clamp(16px, 4vw, 64px); }
-      header { display: flex; align-items: center; justify-content: space-between; gap: 16px; padding-block: 22px; }
-      .brand { color: var(--cream); font-size: 18px; letter-spacing: .02em; text-decoration: none; white-space: nowrap; }
-      .brand span { margin-left: 8px; color: var(--accent); font-weight: 700; }
-      .languages { display: flex; gap: 4px; }
-      .languages button { min-width: 44px; min-height: 44px; border: 0; border-radius: 6px; background: transparent; color: var(--cream); font: inherit; font-size: 14px; font-weight: 700; cursor: pointer; }
-      .languages button[aria-pressed="true"] { background: var(--accent); color: var(--stage); }
+      /* Header: same layout and sizes as the main page (redesign.css). */
+      /* This menu has one more item than the main page, so wrapping stays on: labels differ in width per language. */
+      header { width: min(100%, 1600px); min-height: 88px; margin: 0 auto; padding: 18px clamp(24px, 5vw, 80px); display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 18px 22px; border-bottom: 1px solid rgba(251,250,247,.17); }
+      .brand { flex: none; display: inline-flex; align-items: baseline; gap: .3em; color: var(--cream); font-size: clamp(19px, 2vw, 27px); font-weight: 900; letter-spacing: -.055em; white-space: nowrap; text-decoration: none; }
+      .brand strong { color: var(--accent); font-weight: 900; }
+      .brand span { padding-left: 10px; font-size: 11px; letter-spacing: .18em; font-weight: 700; color: #fff; }
+      .header-logos { display: flex; align-items: center; gap: clamp(16px, 2vw, 28px); margin-left: auto; padding-right: clamp(18px, 3vw, 48px); border-right: 1px solid rgba(251,250,247,.3); }
+      .header-logos img { height: 44px; width: auto; filter: brightness(0) invert(1); opacity: .92; }
+      .header-controls { flex: none; display: flex; align-items: center; justify-content: flex-end; gap: clamp(18px, 3vw, 48px); margin-left: auto; }
+      nav { display: flex; align-items: center; justify-content: flex-end; flex-wrap: wrap; gap: clamp(14px, 2vw, 30px); font-size: 13px; font-weight: 700; letter-spacing: .055em; text-transform: uppercase; }
+      nav a { position: relative; padding-bottom: 5px; color: var(--cream); text-decoration: none; }
+      nav a::after { content: ""; position: absolute; left: 0; right: 0; bottom: 0; height: 2px; background: var(--accent); transform: scaleX(0); transform-origin: left; transition: transform 250ms ease; }
+      nav a:hover::after, nav a:focus-visible::after, nav a[aria-current]::after { transform: scaleX(1); }
+      nav a[aria-current] { color: var(--accent); }
+      .languages { display: flex; gap: 12px; padding-left: 20px; border-left: 1px solid rgba(251,250,247,.3); white-space: nowrap; }
+      .languages button { padding: 8px 0; border: 0; background: none; color: var(--cream); font-family: inherit; font-size: 13px; font-weight: 800; cursor: pointer; }
+      .languages button[aria-pressed="true"] { color: var(--accent); }
+      .nav-toggle { display: none; position: relative; width: 42px; height: 42px; padding: 0; align-items: center; justify-content: center; border: 1px solid rgba(251,250,247,.3); border-radius: 8px; background: transparent; cursor: pointer; }
+      .nav-toggle span, .nav-toggle span::before, .nav-toggle span::after { content: ""; display: block; width: 20px; height: 2px; background: var(--cream); transition: transform .22s ease, opacity .22s ease; }
+      .nav-toggle span::before { position: absolute; transform: translateY(-6px); }
+      .nav-toggle span::after { position: absolute; transform: translateY(6px); }
+      .nav-toggle[aria-expanded="true"] span { background: transparent; }
+      .nav-toggle[aria-expanded="true"] span::before { transform: rotate(45deg); }
+      .nav-toggle[aria-expanded="true"] span::after { transform: rotate(-45deg); }
+      @media (max-width: 1050px) {
+        .header-logos { padding-right: 0; border-right: 0; }
+        .header-logos img { height: 38px; }
+        .header-controls { width: 100%; justify-content: space-between; }
+      }
+      @media (max-width: 700px) {
+        header { position: relative; flex-wrap: wrap; padding: 16px 22px; gap: 12px 14px; }
+        .brand { font-size: 20px; }
+        .header-controls { width: auto; margin-left: auto; gap: 12px; }
+        .header-logos { order: 3; flex: 1 0 100%; justify-content: center; gap: 24px; margin: 0; padding: 12px 0 2px; border-top: 1px solid rgba(251,250,247,.17); }
+        .header-logos img { height: 32px; }
+        .languages { padding-left: 12px; gap: 10px; }
+        .nav-toggle { display: inline-flex; }
+        nav { position: absolute; top: 100%; left: 0; right: 0; z-index: 9; flex-direction: column; flex-wrap: nowrap; align-items: stretch; gap: 0; padding: 0 22px; font-size: 14px; background: var(--stage); border-bottom: 1px solid rgba(251,250,247,.17); max-height: 0; overflow: hidden; visibility: hidden; transition: max-height .25s ease, visibility 0s linear .25s; }
+        nav a { padding: 15px 0; border-bottom: 1px solid rgba(251,250,247,.12); }
+        nav a:last-child { border-bottom: 0; }
+        nav a::after { display: none; }
+        header.nav-open nav { max-height: 60vh; visibility: visible; padding-bottom: 8px; transition: max-height .25s ease, visibility 0s; }
+      }
       .intro { padding-block: clamp(32px, 6vw, 80px) clamp(24px, 4vw, 48px); }
       .kicker { margin: 0; color: var(--accent); font-size: 13px; font-weight: 700; letter-spacing: .23em; text-transform: uppercase; }
       h1 { margin: 16px 0 14px; font-size: clamp(44px, 7vw, 88px); line-height: .97; letter-spacing: -.05em; font-weight: 700; }
@@ -58,15 +95,31 @@
     </style>
   </head>
   <body>
-    <div class="wrap">
-      <header>
-        <a class="brand" href="../" aria-label="Tolyq Adam 2026">TOLYQ <strong>ADAM</strong><span>2026</span></a>
+    <header>
+      <a class="brand" href="../#home" data-nav="#home" aria-label="Tolyq Adam 2026 — главная">TOLYQ <strong>ADAM</strong><span>2026</span></a>
+      <div class="header-logos">
+        <img src="../assets/almau-logo.png" alt="Almaty Management University" width="813" height="304" decoding="async" />
+        <img src="../assets/school-logo.png" alt="School of Social Sciences and Transformative Humanities" width="110" height="116" decoding="async" />
+        <img src="../assets/tolyq-adam-icon.png" alt="Tolyq Adam Institute" width="114" height="122" decoding="async" />
+      </div>
+      <div class="header-controls">
+        <nav id="site-nav" aria-label="Навигация">
+          <a href="../#certificate" data-nav="#certificate" data-t="navCertificate">Сертификат</a>
+          <a href="../#about" data-nav="#about" data-t="navAbout">О нас</a>
+          <a href="../#infoletter" data-nav="#infoletter" data-t="navInfoLetter">Инфописьмо</a>
+          <a href="../#speakers" data-nav="#speakers" data-t="navSpeakers">Спикеры</a>
+          <a href="./" data-nav="" aria-current="page" data-t="navPhotos">Фото</a>
+          <a href="../#contacts" data-nav="#contacts" data-t="navContacts">Контакты</a>
+        </nav>
         <div class="languages" role="group" aria-label="Language">
           <button type="button" data-lang="en" aria-pressed="false">EN</button>
           <button type="button" data-lang="kz" aria-pressed="false">KZ</button>
           <button type="button" data-lang="ru" aria-pressed="true">RU</button>
         </div>
-      </header>
+        <button type="button" class="nav-toggle" aria-controls="site-nav" aria-expanded="false" aria-label="Меню"><span aria-hidden="true"></span></button>
+      </div>
+    </header>
+    <div class="wrap">
       <div class="intro">
         <p class="kicker">ALMAU – TOLYQ ADAM 2026</p>
         <h1 data-t="title">Фотогалерея</h1>
@@ -630,6 +683,12 @@
     </div>
     <script>
       const T = {
+        navCertificate: { ru: "Сертификат", kz: "Сертификат", en: "Certificate" },
+        navAbout: { ru: "О нас", kz: "Біз туралы", en: "About" },
+        navInfoLetter: { ru: "Инфописьмо", kz: "Ақпараттық хат", en: "Info letter" },
+        navSpeakers: { ru: "Спикеры", kz: "Спикерлер", en: "Speakers" },
+        navPhotos: { ru: "Фото", kz: "Фото", en: "Photos" },
+        navContacts: { ru: "Контакты", kz: "Байланыс", en: "Contacts" },
         title: { ru: "Фотогалерея", kz: "Фотогалерея", en: "Photo gallery" },
         dates: { ru: "30–31 октября 2026, Алматы", kz: "30–31 қазан 2026, Алматы", en: "30–31 October 2026, Almaty" },
         photo: { ru: "фото", kz: "фото", en: "photo" },
@@ -665,6 +724,10 @@
           const name = T[section.getAttribute("aria-labelledby")][lang];
           section.querySelectorAll(".grid img").forEach((img, i) => { img.alt = `${name}, ${T.photo[lang]} ${i + 1}`; });
         });
+        // Keep the chosen language when moving between this page and the main one.
+        document.querySelectorAll("[data-nav]").forEach((a) => {
+          a.href = a.dataset.nav ? `../?lang=${lang}${a.dataset.nav}` : `./?lang=${lang}`;
+        });
         closeButton.setAttribute("aria-label", T.close[lang]);
         prevButton.setAttribute("aria-label", T.prev[lang]);
         nextButton.setAttribute("aria-label", T.next[lang]);
@@ -697,6 +760,26 @@
           big.src = full.src;
         }).catch(() => {});
       }
+
+      const siteHeader = document.querySelector("header");
+      const navToggle = document.querySelector(".nav-toggle");
+      function setNavOpen(open) {
+        siteHeader.classList.toggle("nav-open", open);
+        navToggle.setAttribute("aria-expanded", String(open));
+      }
+      navToggle.addEventListener("click", () => setNavOpen(navToggle.getAttribute("aria-expanded") !== "true"));
+      document.getElementById("site-nav").addEventListener("click", (event) => {
+        if (event.target.closest("a")) setNavOpen(false);
+      });
+      document.addEventListener("keydown", (event) => {
+        if (event.key !== "Escape" || navToggle.getAttribute("aria-expanded") !== "true") return;
+        setNavOpen(false);
+        navToggle.focus();
+      });
+      // The burger only exists on narrow screens; leaving that range must not strand the header open.
+      window.matchMedia("(min-width: 701px)").addEventListener("change", (event) => {
+        if (event.matches) setNavOpen(false);
+      });
 
       let current = -1;
       function show(index) {

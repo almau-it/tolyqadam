@@ -3159,6 +3159,9 @@
           certModal.querySelector("a.cta").focus({ preventScroll: true });
         }),
       );
+      // Arriving from another page (the gallery menu) with #certificate opens the form.
+      if (location.hash === "#certificate")
+        document.querySelector("[data-cert]").click();
       certModal.addEventListener("click", (event) => {
         if (event.target === certModal || event.target.closest("[data-cert-close]"))
           closeCert();
