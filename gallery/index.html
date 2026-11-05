@@ -1,0 +1,735 @@
+<!doctype html>
+<html lang="ru">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Фотогалерея – ALMAU – TOLYQ ADAM 2026</title>
+    <!-- Reachable by direct URL only for now; drop this once the page is linked from the site. -->
+    <meta name="robots" content="noindex" />
+    <link rel="icon" href="../assets/tolyq-adam-icon.png" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Arimo:wght@400;700&display=swap" />
+    <style>
+      :root { --stage: #291a25; --cream: #fbfaf7; --accent: #ffd226; --row: 240px; }
+      * { box-sizing: border-box; }
+      body { margin: 0; background: var(--stage); color: var(--cream); font-family: Arimo, Arial, Helvetica, sans-serif; overflow-x: hidden; }
+      html.viewer-open { overflow: hidden; }
+      a:focus-visible, button:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+      .wrap { width: min(100%, 1600px); margin: auto; padding: 0 clamp(16px, 4vw, 64px); }
+      header { display: flex; align-items: center; justify-content: space-between; gap: 16px; padding-block: 22px; }
+      .brand { color: var(--cream); font-size: 18px; letter-spacing: .02em; text-decoration: none; white-space: nowrap; }
+      .brand span { margin-left: 8px; color: var(--accent); font-weight: 700; }
+      .languages { display: flex; gap: 4px; }
+      .languages button { min-width: 44px; min-height: 44px; border: 0; border-radius: 6px; background: transparent; color: var(--cream); font: inherit; font-size: 14px; font-weight: 700; cursor: pointer; }
+      .languages button[aria-pressed="true"] { background: var(--accent); color: var(--stage); }
+      .intro { padding-block: clamp(32px, 6vw, 80px) clamp(24px, 4vw, 48px); }
+      .kicker { margin: 0; color: var(--accent); font-size: 13px; font-weight: 700; letter-spacing: .23em; text-transform: uppercase; }
+      h1 { margin: 16px 0 14px; font-size: clamp(44px, 7vw, 88px); line-height: .97; letter-spacing: -.05em; font-weight: 700; }
+      .intro p:last-child { margin: 0; font-size: clamp(17px, 1.45vw, 21px); opacity: .82; }
+      section { padding-block: clamp(28px, 4vw, 56px); border-top: 1px solid rgba(251,250,247,.16); }
+      h2 { margin: 10px 0 24px; font-size: clamp(26px, 3.2vw, 44px); line-height: 1.08; letter-spacing: -.03em; font-weight: 700; }
+      h2 small { margin-left: 6px; font-size: .5em; font-weight: 400; letter-spacing: 0; opacity: .6; }
+      /* Justified rows without JS: each photo grows by its aspect ratio, so nothing is cropped. */
+      .grid { display: flex; flex-wrap: wrap; gap: 6px; }
+      .grid::after { content: ""; flex-grow: 1000000; }
+      .grid a { display: block; flex: calc(var(--r) * 100) 1 calc(var(--r) * var(--row)); aspect-ratio: var(--r); overflow: hidden; border-radius: 4px; background: rgba(251,250,247,.07); cursor: zoom-in; }
+      .grid img { display: block; width: 100%; height: 100%; object-fit: cover; transition: transform .35s ease, filter .35s ease; }
+      .grid a:hover img { transform: scale(1.025); filter: brightness(1.06); }
+      .viewer { position: fixed; inset: 0; z-index: 100; display: flex; align-items: center; justify-content: center; padding: 16px; background: #080e12; touch-action: pinch-zoom; }
+      .viewer[hidden] { display: none; }
+      .viewer img { max-width: 100%; max-height: 100%; object-fit: contain; border-radius: 4px; user-select: none; }
+      .viewer button { position: absolute; width: 48px; height: 48px; padding: 0; border: 0; border-radius: 50%; background: rgba(251,250,247,.16); color: var(--cream); font-size: 28px; line-height: 48px; cursor: pointer; }
+      .viewer button:hover { background: rgba(251,250,247,.3); }
+      .viewer .close { top: 12px; right: 12px; }
+      .viewer .prev { left: 12px; top: calc(50% - 24px); }
+      .viewer .next { right: 12px; top: calc(50% - 24px); }
+      .viewer output { position: absolute; top: 24px; left: 20px; font-size: 14px; opacity: .8; }
+      @media (max-width: 700px) {
+        :root { --row: 110px; }
+        .grid { gap: 4px; }
+        .viewer { padding: 0; }
+        .viewer .prev, .viewer .next { top: auto; bottom: 16px; }
+        .viewer .prev { left: calc(50% - 60px); }
+        .viewer .next { right: calc(50% - 60px); }
+      }
+      @media (prefers-reduced-motion: reduce) { .grid img { transition: none; } .grid a:hover img { transform: none; } }
+    </style>
+  </head>
+  <body>
+    <div class="wrap">
+      <header>
+        <a class="brand" href="../" aria-label="Tolyq Adam 2026">TOLYQ <strong>ADAM</strong><span>2026</span></a>
+        <div class="languages" role="group" aria-label="Language">
+          <button type="button" data-lang="en" aria-pressed="false">EN</button>
+          <button type="button" data-lang="kz" aria-pressed="false">KZ</button>
+          <button type="button" data-lang="ru" aria-pressed="true">RU</button>
+        </div>
+      </header>
+      <div class="intro">
+        <p class="kicker">ALMAU – TOLYQ ADAM 2026</p>
+        <h1 data-t="title">Фотогалерея</h1>
+        <p data-t="dates">30–31 октября 2026, Алматы</p>
+      </div>
+      <section aria-labelledby="s0">
+        <p class="kicker" data-t="d0">30 октября</p>
+        <h2 id="s0"><span data-t="s0">Открытие и первая панель</span> <small>108</small></h2>
+        <div class="grid">
+<a href="../assets/gallery/previews/IMG_2806.JPG" style="--r:1.499"><img src="../assets/gallery/previews/IMG_2806.JPG" width="1000" height="667" alt="Открытие и первая панель, фото 1" loading="lazy" decoding="async"></a>
+<a href="../assets/gallery/previews/IMG_2809.JPG" style="--r:1.499"><img src="../assets/gallery/previews/IMG_2809.JPG" width="1000" height="667" alt="Открытие и первая панель, фото 2" loading="lazy" decoding="async"></a>
+<a href="../assets/gallery/previews/IMG_2810.JPG" style="--r:1.499"><img src="../assets/gallery/previews/IMG_2810.JPG" width="1000" height="667" alt="Открытие и первая панель, фото 3" loading="lazy" decoding="async"></a>
+<a href="../assets/gallery/previews/IMG_2811.JPG" style="--r:1.499"><img src="../assets/gallery/previews/IMG_2811.JPG" width="1000" height="667" alt="Открытие и первая панель, фото 4" loading="lazy" decoding="async"></a>
+<a href="../assets/gallery/previews/IMG_2813.JPG" style="--r:0.667"><img src="../assets/gallery/previews/IMG_2813.JPG" width="667" height="1000" alt="Открытие и первая панель, фото 5" loading="lazy" decoding="async"></a>
+<a href="../assets/gallery/previews/IMG_2815.JPG" style="--r:1.499"><img src="../assets/gallery/previews/IMG_2815.JPG" width="1000" height="667" alt="Открытие и первая панель, фото 6" loading="lazy" decoding="async"></a>
+<a href="../assets/gallery/previews/IMG_2816.JPG" style="--r:1.499"><img src="../assets/gallery/previews/IMG_2816.JPG" width="1000" height="667" alt="Открытие и первая панель, фото 7" loading="lazy" decoding="async"></a>
+<a href="../assets/gallery/previews/IMG_2820.JPG" style="--r:1.499"><img src="../assets/gallery/previews/IMG_2820.JPG" width="1000" height="667" alt="Открытие и первая панель, фото 8" loading="lazy" decoding="async"></a>
+<a href="../assets/gallery/previews/IMG_2826.JPG" style="--r:1.081"><img src="../assets/gallery/previews/IMG_2826.JPG" width="1000" height="925" alt="Открытие и первая панель, фото 9" loading="lazy" decoding="async"></a>
+<a href="../assets/gallery/previews/IMG_2828.JPG" style="--r:1.499"><img src="../assets/gallery/previews/IMG_2828.JPG" width="1000" height="667" alt="Открытие и первая панель, фото 10" loading="lazy" decoding="async"></a>
+<a href="../assets/gallery/previews/IMG_2831.JPG" style="--r:1.416"><img src="../assets/gallery/previews/IMG_2831.JPG" width="1000" height="706" alt="Открытие и первая панель, фото 11" loading="lazy" decoding="async"></a>
+<a href="../assets/gallery/previews/IMG_2833.JPG" style="--r:1.499"><img src="../assets/gallery/previews/IMG_2833.JPG" width="1000" height="667" alt="Открытие и первая панель, фото 12" loading="lazy" decoding="async"></a>
+<a href="../assets/gallery/previews/IMG_2838.JPG" style="--r:1.499"><img src="../assets/gallery/previews/IMG_2838.JPG" width="1000" height="667" alt="Открытие и первая панель, фото 13" loading="lazy" decoding="async"></a>
+<a href="../assets/gallery/previews/IMG_2839.JPG" style="--r:1.499"><img src="../assets/gallery/previews/IMG_2839.JPG" width="1000" height="667" alt="Открытие и первая панель, фото 14" loading="lazy" decoding="async"></a>
+<a href="../assets/gallery/previews/IMG_2841.JPG" style="--r:1.499"><img src="../assets/gallery/previews/IMG_2841.JPG" width="1000" height="667" alt="Открытие и первая панель, фото 15" loading="lazy" decoding="async"></a>
+<a href="../assets/gallery/previews/IMG_2845.JPG" style="--r:1.499"><img src="../assets/gallery/previews/IMG_2845.JPG" width="1000" height="667" alt="Открытие и первая панель, фото 16" loading="lazy" decoding="async"></a>
+<a href="../assets/gallery/previews/IMG_2846.JPG" style="--r:1.499"><img src="../assets/gallery/previews/IMG_2846.JPG" width="1000" height="667" alt="Открытие и первая панель, фото 17" loading="lazy" decoding="async"></a>
+<a href="../assets/gallery/previews/IMG_2849.JPG" style="--r:0.667"><img src="../assets/gallery/previews/IMG_2849.JPG" width="667" height="1000" alt="Открытие и первая панель, фото 18" loading="lazy" decoding="async"></a>
+<a href="../assets/gallery/previews/IMG_2850.JPG" style="--r:1.499"><img src="../assets/gallery/previews/IMG_2850.JPG" width="1000" height="667" alt="Открытие и первая панель, фото 19" loading="lazy" decoding="async"></a>
+<a href="../assets/gallery/previews/IMG_2851.JPG" style="--r:1.499"><img src="../assets/gallery/previews/IMG_2851.JPG" width="1000" height="667" alt="Открытие и первая панель, фото 20" loading="lazy" decoding="async"></a>
+<a href="../assets/gallery/previews/IMG_2852.JPG" style="--r:1.499"><img src="../assets/gallery/previews/IMG_2852.JPG" width="1000" height="667" alt="Открытие и первая панель, фото 21" loading="lazy" decoding="async"></a>
+<a href="../assets/gallery/previews/IMG_2853.JPG" style="--r:1.431"><img src="../assets/gallery/previews/IMG_2853.JPG" width="1000" height="699" alt="Открытие и первая панель, фото 22" loading="lazy" decoding="async"></a>
+<a href="../assets/gallery/previews/IMG_2856.JPG" style="--r:1.348"><img src="../assets/gallery/previews/IMG_2856.JPG" width="1000" height="742" alt="Открытие и первая панель, фото 23" loading="lazy" decoding="async"></a>
+<a href="../assets/gallery/previews/IMG_2857.JPG" style="--r:1.499"><img src="../assets/gallery/previews/IMG_2857.JPG" width="1000" height="667" alt="Открытие и первая панель, фото 24" loading="lazy" decoding="async"></a>
+<a href="../assets/gallery/previews/IMG_2859.JPG" style="--r:1.499"><img src="../assets/gallery/previews/IMG_2859.JPG" width="1000" height="667" alt="Открытие и первая панель, фото 25" loading="lazy" decoding="async"></a>
+<a href="../assets/gallery/previews/IMG_2860.JPG" style="--r:1.499"><img src="../assets/gallery/previews/IMG_2860.JPG" width="1000" height="667" alt="Открытие и первая панель, фото 26" loading="lazy" decoding="async"></a>
+<a href="../assets/gallery/previews/IMG_2861.JPG" style="--r:1.499"><img src="../assets/gallery/previews/IMG_2861.JPG" width="1000" height="667" alt="Открытие и первая панель, фото 27" loading="lazy" decoding="async"></a>
+<a href="../assets/gallery/previews/IMG_2862.JPG" style="--r:1.499"><img src="../assets/gallery/previews/IMG_2862.JPG" width="1000" height="667" alt="Открытие и первая панель, фото 28" loading="lazy" decoding="async"></a>
+<a href="../assets/gallery/previews/IMG_2869.JPG" style="--r:1.312"><img src="../assets/gallery/previews/IMG_2869.JPG" width="1000" height="762" alt="Открытие и первая панель, фото 29" loading="lazy" decoding="async"></a>
+<a href="../assets/gallery/previews/IMG_2871.JPG" style="--r:1.499"><img src="../assets/gallery/previews/IMG_2871.JPG" width="1000" height="667" alt="Открытие и первая панель, фото 30" loading="lazy" decoding="async"></a>
+<a href="../assets/gallery/previews/IMG_2873.JPG" style="--r:1.499"><img src="../assets/gallery/previews/IMG_2873.JPG" width="1000" height="667" alt="Открытие и первая панель, фото 31" loading="lazy" decoding="async"></a>
+<a href="../assets/gallery/previews/IMG_2876.JPG" style="--r:1.499"><img src="../assets/gallery/previews/IMG_2876.JPG" width="1000" height="667" alt="Открытие и первая панель, фото 32" loading="lazy" decoding="async"></a>
+<a href="../assets/gallery/previews/IMG_2877.JPG" style="--r:1.499"><img src="../assets/gallery/previews/IMG_2877.JPG" width="1000" height="667" alt="Открытие и первая панель, фото 33" loading="lazy" decoding="async"></a>
+<a href="../assets/gallery/previews/IMG_2878.JPG" style="--r:1.499"><img src="../assets/gallery/previews/IMG_2878.JPG" width="1000" height="667" alt="Открытие и первая панель, фото 34" loading="lazy" decoding="async"></a>
+<a href="../assets/gallery/previews/IMG_2882.JPG" style="--r:1.499"><img src="../assets/gallery/previews/IMG_2882.JPG" width="1000" height="667" alt="Открытие и первая панель, фото 35" loading="lazy" decoding="async"></a>
+<a href="../assets/gallery/previews/IMG_2883.JPG" style="--r:1.499"><img src="../assets/gallery/previews/IMG_2883.JPG" width="1000" height="667" alt="Открытие и первая панель, фото 36" loading="lazy" decoding="async"></a>
+<a href="../assets/gallery/previews/IMG_2886.JPG" style="--r:1.499"><img src="../assets/gallery/previews/IMG_2886.JPG" width="1000" height="667" alt="Открытие и первая панель, фото 37" loading="lazy" decoding="async"></a>
+<a href="../assets/gallery/previews/IMG_2891.JPG" style="--r:1.435"><img src="../assets/gallery/previews/IMG_2891.JPG" width="1000" height="697" alt="Открытие и первая панель, фото 38" loading="lazy" decoding="async"></a>
+<a href="../assets/gallery/previews/IMG_2892.JPG" style="--r:1.499"><img src="../assets/gallery/previews/IMG_2892.JPG" width="1000" height="667" alt="Открытие и первая панель, фото 39" loading="lazy" decoding="async"></a>
+<a href="../assets/gallery/previews/IMG_2895.JPG" style="--r:1.499"><img src="../assets/gallery/previews/IMG_2895.JPG" width="1000" height="667" alt="Открытие и первая панель, фото 40" loading="lazy" decoding="async"></a>
+<a href="../assets/gallery/previews/IMG_2899.JPG" style="--r:1.499"><img src="../assets/gallery/previews/IMG_2899.JPG" width="1000" height="667" alt="Открытие и первая панель, фото 41" loading="lazy" decoding="async"></a>
+<a href="../assets/gallery/previews/IMG_2902.JPG" style="--r:1.499"><img src="../assets/gallery/previews/IMG_2902.JPG" width="1000" height="667" alt="Открытие и первая панель, фото 42" loading="lazy" decoding="async"></a>
+<a href="../assets/gallery/previews/IMG_2904.JPG" style="--r:1.499"><img src="../assets/gallery/previews/IMG_2904.JPG" width="1000" height="667" alt="Открытие и первая панель, фото 43" loading="lazy" decoding="async"></a>
+<a href="../assets/gallery/previews/IMG_2905.JPG" style="--r:1.499"><img src="../assets/gallery/previews/IMG_2905.JPG" width="1000" height="667" alt="Открытие и первая панель, фото 44" loading="lazy" decoding="async"></a>
+<a href="../assets/gallery/previews/IMG_2906.JPG" style="--r:1.351"><img src="../assets/gallery/previews/IMG_2906.JPG" width="1000" height="740" alt="Открытие и первая панель, фото 45" loading="lazy" decoding="async"></a>
+<a href="../assets/gallery/previews/IMG_2908.JPG" style="--r:0.667"><img src="../assets/gallery/previews/IMG_2908.JPG" width="667" height="1000" alt="Открытие и первая панель, фото 46" loading="lazy" decoding="async"></a>
+<a href="../assets/gallery/previews/IMG_2911.JPG" style="--r:1.499"><img src="../assets/gallery/previews/IMG_2911.JPG" width="1000" height="667" alt="Открытие и первая панель, фото 47" loading="lazy" decoding="async"></a>
+<a href="../assets/gallery/previews/IMG_2916.JPG" style="--r:1.499"><img src="../assets/gallery/previews/IMG_2916.JPG" width="1000" height="667" alt="Открытие и первая панель, фото 48" loading="lazy" decoding="async"></a>
+<a href="../assets/gallery/previews/IMG_2918.JPG" style="--r:1.076"><img src="../assets/gallery/previews/IMG_2918.JPG" width="1000" height="929" alt="Открытие и первая панель, фото 49" loading="lazy" decoding="async"></a>
+<a href="../assets/gallery/previews/IMG_2919.JPG" style="--r:1.499"><img src="../assets/gallery/previews/IMG_2919.JPG" width="1000" height="667" alt="Открытие и первая панель, фото 50" loading="lazy" decoding="async"></a>
+<a href="../assets/gallery/previews/IMG_2920.JPG" style="--r:1.499"><img src="../assets/gallery/previews/IMG_2920.JPG" width="1000" height="667" alt="Открытие и первая панель, фото 51" loading="lazy" decoding="async"></a>
+<a href="../assets/gallery/previews/IMG_2923.JPG" style="--r:1.499"><img src="../assets/gallery/previews/IMG_2923.JPG" width="1000" height="667" alt="Открытие и первая панель, фото 52" loading="lazy" decoding="async"></a>
+<a href="../assets/gallery/previews/IMG_2926.JPG" style="--r:1.499"><img src="../assets/gallery/previews/IMG_2926.JPG" width="1000" height="667" alt="Открытие и первая панель, фото 53" loading="lazy" decoding="async"></a>
+<a href="../assets/gallery/previews/IMG_2928.JPG" style="--r:1.499"><img src="../assets/gallery/previews/IMG_2928.JPG" width="1000" height="667" alt="Открытие и первая панель, фото 54" loading="lazy" decoding="async"></a>
+<a href="../assets/gallery/previews/IMG_2929.JPG" style="--r:1.499"><img src="../assets/gallery/previews/IMG_2929.JPG" width="1000" height="667" alt="Открытие и первая панель, фото 55" loading="lazy" decoding="async"></a>
+<a href="../assets/gallery/previews/IMG_2930.JPG" style="--r:1.499"><img src="../assets/gallery/previews/IMG_2930.JPG" width="1000" height="667" alt="Открытие и первая панель, фото 56" loading="lazy" decoding="async"></a>
+<a href="../assets/gallery/previews/IMG_2933.JPG" style="--r:1.499"><img src="../assets/gallery/previews/IMG_2933.JPG" width="1000" height="667" alt="Открытие и первая панель, фото 57" loading="lazy" decoding="async"></a>
+<a href="../assets/gallery/previews/IMG_2934.JPG" style="--r:1.416"><img src="../assets/gallery/previews/IMG_2934.JPG" width="1000" height="706" alt="Открытие и первая панель, фото 58" loading="lazy" decoding="async"></a>
+<a href="../assets/gallery/previews/IMG_2941.JPG" style="--r:1.499"><img src="../assets/gallery/previews/IMG_2941.JPG" width="1000" height="667" alt="Открытие и первая панель, фото 59" loading="lazy" decoding="async"></a>
+<a href="../assets/gallery/previews/IMG_2942.JPG" style="--r:1.499"><img src="../assets/gallery/previews/IMG_2942.JPG" width="1000" height="667" alt="Открытие и первая панель, фото 60" loading="lazy" decoding="async"></a>
+<a href="../assets/gallery/previews/IMG_2944.JPG" style="--r:1.439"><img src="../assets/gallery/previews/IMG_2944.JPG" width="1000" height="695" alt="Открытие и первая панель, фото 61" loading="lazy" decoding="async"></a>
+<a href="../assets/gallery/previews/IMG_2951.JPG" style="--r:0.667"><img src="../assets/gallery/previews/IMG_2951.JPG" width="667" height="1000" alt="Открытие и первая панель, фото 62" loading="lazy" decoding="async"></a>
+<a href="../assets/gallery/previews/IMG_2952.JPG" style="--r:0.667"><img src="../assets/gallery/previews/IMG_2952.JPG" width="667" height="1000" alt="Открытие и первая панель, фото 63" loading="lazy" decoding="async"></a>
+<a href="../assets/gallery/previews/IMG_2955.JPG" style="--r:0.667"><img src="../assets/gallery/previews/IMG_2955.JPG" width="667" height="1000" alt="Открытие и первая панель, фото 64" loading="lazy" decoding="async"></a>
+<a href="../assets/gallery/previews/IMG_2958.JPG" style="--r:0.601"><img src="../assets/gallery/previews/IMG_2958.JPG" width="601" height="1000" alt="Открытие и первая панель, фото 65" loading="lazy" decoding="async"></a>
+<a href="../assets/gallery/previews/IMG_2959.JPG" style="--r:0.667"><img src="../assets/gallery/previews/IMG_2959.JPG" width="667" height="1000" alt="Открытие и первая панель, фото 66" loading="lazy" decoding="async"></a>
+<a href="../assets/gallery/previews/IMG_2961.JPG" style="--r:0.534"><img src="../assets/gallery/previews/IMG_2961.JPG" width="534" height="1000" alt="Открытие и первая панель, фото 67" loading="lazy" decoding="async"></a>
+<a href="../assets/gallery/previews/IMG_2962.JPG" style="--r:0.936"><img src="../assets/gallery/previews/IMG_2962.JPG" width="936" height="1000" alt="Открытие и первая панель, фото 68" loading="lazy" decoding="async"></a>
+<a href="../assets/gallery/previews/IMG_2963.JPG" style="--r:0.667"><img src="../assets/gallery/previews/IMG_2963.JPG" width="667" height="1000" alt="Открытие и первая панель, фото 69" loading="lazy" decoding="async"></a>
+<a href="../assets/gallery/previews/IMG_2965.JPG" style="--r:0.667"><img src="../assets/gallery/previews/IMG_2965.JPG" width="667" height="1000" alt="Открытие и первая панель, фото 70" loading="lazy" decoding="async"></a>
+<a href="../assets/gallery/previews/IMG_2966.JPG" style="--r:0.632"><img src="../assets/gallery/previews/IMG_2966.JPG" width="632" height="1000" alt="Открытие и первая панель, фото 71" loading="lazy" decoding="async"></a>
+<a href="../assets/gallery/previews/IMG_2967.JPG" style="--r:0.639"><img src="../assets/gallery/previews/IMG_2967.JPG" width="639" height="1000" alt="Открытие и первая панель, фото 72" loading="lazy" decoding="async"></a>
+<a href="../assets/gallery/previews/IMG_2968.JPG" style="--r:1.499"><img src="../assets/gallery/previews/IMG_2968.JPG" width="1000" height="667" alt="Открытие и первая панель, фото 73" loading="lazy" decoding="async"></a>
+<a href="../assets/gallery/previews/IMG_2969.JPG" style="--r:1.499"><img src="../assets/gallery/previews/IMG_2969.JPG" width="1000" height="667" alt="Открытие и первая панель, фото 74" loading="lazy" decoding="async"></a>
+<a href="../assets/gallery/previews/IMG_2970.JPG" style="--r:0.667"><img src="../assets/gallery/previews/IMG_2970.JPG" width="667" height="1000" alt="Открытие и первая панель, фото 75" loading="lazy" decoding="async"></a>
+<a href="../assets/gallery/previews/IMG_2972.JPG" style="--r:0.667"><img src="../assets/gallery/previews/IMG_2972.JPG" width="667" height="1000" alt="Открытие и первая панель, фото 76" loading="lazy" decoding="async"></a>
+<a href="../assets/gallery/previews/IMG_2977.JPG" style="--r:1.499"><img src="../assets/gallery/previews/IMG_2977.JPG" width="1000" height="667" alt="Открытие и первая панель, фото 77" loading="lazy" decoding="async"></a>
+<a href="../assets/gallery/previews/IMG_2982.JPG" style="--r:1.499"><img src="../assets/gallery/previews/IMG_2982.JPG" width="1000" height="667" alt="Открытие и первая панель, фото 78" loading="lazy" decoding="async"></a>
+<a href="../assets/gallery/previews/IMG_2986.JPG" style="--r:0.667"><img src="../assets/gallery/previews/IMG_2986.JPG" width="667" height="1000" alt="Открытие и первая панель, фото 79" loading="lazy" decoding="async"></a>
+<a href="../assets/gallery/previews/IMG_2989.JPG" style="--r:1.376"><img src="../assets/gallery/previews/IMG_2989.JPG" width="1000" height="727" alt="Открытие и первая панель, фото 80" loading="lazy" decoding="async"></a>
+<a href="../assets/gallery/previews/IMG_2991.JPG" style="--r:1.499"><img src="../assets/gallery/previews/IMG_2991.JPG" width="1000" height="667" alt="Открытие и первая панель, фото 81" loading="lazy" decoding="async"></a>
+<a href="../assets/gallery/previews/IMG_2992.JPG" style="--r:0.667"><img src="../assets/gallery/previews/IMG_2992.JPG" width="667" height="1000" alt="Открытие и первая панель, фото 82" loading="lazy" decoding="async"></a>
+<a href="../assets/gallery/previews/IMG_2993.JPG" style="--r:1.499"><img src="../assets/gallery/previews/IMG_2993.JPG" width="1000" height="667" alt="Открытие и первая панель, фото 83" loading="lazy" decoding="async"></a>
+<a href="../assets/gallery/previews/IMG_2995.JPG" style="--r:1.499"><img src="../assets/gallery/previews/IMG_2995.JPG" width="1000" height="667" alt="Открытие и первая панель, фото 84" loading="lazy" decoding="async"></a>
+<a href="../assets/gallery/previews/IMG_2997.JPG" style="--r:1.499"><img src="../assets/gallery/previews/IMG_2997.JPG" width="1000" height="667" alt="Открытие и первая панель, фото 85" loading="lazy" decoding="async"></a>
+<a href="../assets/gallery/previews/IMG_2998.JPG" style="--r:1.499"><img src="../assets/gallery/previews/IMG_2998.JPG" width="1000" height="667" alt="Открытие и первая панель, фото 86" loading="lazy" decoding="async"></a>
+<a href="../assets/gallery/previews/IMG_3000.JPG" style="--r:1.724"><img src="../assets/gallery/previews/IMG_3000.JPG" width="1000" height="580" alt="Открытие и первая панель, фото 87" loading="lazy" decoding="async"></a>
+<a href="../assets/gallery/previews/IMG_3002.JPG" style="--r:1.499"><img src="../assets/gallery/previews/IMG_3002.JPG" width="1000" height="667" alt="Открытие и первая панель, фото 88" loading="lazy" decoding="async"></a>
+<a href="../assets/gallery/previews/IMG_3007.JPG" style="--r:1.499"><img src="../assets/gallery/previews/IMG_3007.JPG" width="1000" height="667" alt="Открытие и первая панель, фото 89" loading="lazy" decoding="async"></a>
+<a href="../assets/gallery/previews/IMG_3010.JPG" style="--r:1.499"><img src="../assets/gallery/previews/IMG_3010.JPG" width="1000" height="667" alt="Открытие и первая панель, фото 90" loading="lazy" decoding="async"></a>
+<a href="../assets/gallery/previews/IMG_3012.JPG" style="--r:1.499"><img src="../assets/gallery/previews/IMG_3012.JPG" width="1000" height="667" alt="Открытие и первая панель, фото 91" loading="lazy" decoding="async"></a>
+<a href="../assets/gallery/previews/IMG_3014.JPG" style="--r:1.499"><img src="../assets/gallery/previews/IMG_3014.JPG" width="1000" height="667" alt="Открытие и первая панель, фото 92" loading="lazy" decoding="async"></a>
+<a href="../assets/gallery/previews/IMG_3015.JPG" style="--r:1.499"><img src="../assets/gallery/previews/IMG_3015.JPG" width="1000" height="667" alt="Открытие и первая панель, фото 93" loading="lazy" decoding="async"></a>
+<a href="../assets/gallery/previews/IMG_3016.JPG" style="--r:1.499"><img src="../assets/gallery/previews/IMG_3016.JPG" width="1000" height="667" alt="Открытие и первая панель, фото 94" loading="lazy" decoding="async"></a>
+<a href="../assets/gallery/previews/IMG_3018.JPG" style="--r:1.499"><img src="../assets/gallery/previews/IMG_3018.JPG" width="1000" height="667" alt="Открытие и первая панель, фото 95" loading="lazy" decoding="async"></a>
+<a href="../assets/gallery/previews/IMG_3019.JPG" style="--r:1.499"><img src="../assets/gallery/previews/IMG_3019.JPG" width="1000" height="667" alt="Открытие и первая панель, фото 96" loading="lazy" decoding="async"></a>
+<a href="../assets/gallery/previews/IMG_3020.JPG" style="--r:1.499"><img src="../assets/gallery/previews/IMG_3020.JPG" width="1000" height="667" alt="Открытие и первая панель, фото 97" loading="lazy" decoding="async"></a>
+<a href="../assets/gallery/previews/IMG_3022.JPG" style="--r:1.499"><img src="../assets/gallery/previews/IMG_3022.JPG" width="1000" height="667" alt="Открытие и первая панель, фото 98" loading="lazy" decoding="async"></a>
+<a href="../assets/gallery/previews/IMG_3024.JPG" style="--r:1.499"><img src="../assets/gallery/previews/IMG_3024.JPG" width="1000" height="667" alt="Открытие и первая панель, фото 99" loading="lazy" decoding="async"></a>
+<a href="../assets/gallery/previews/IMG_6599.JPG.jpeg" style="--r:0.667"><img src="../assets/gallery/previews/IMG_6599.JPG.jpeg" width="667" height="1000" alt="Открытие и первая панель, фото 100" loading="lazy" decoding="async"></a>
+<a href="../assets/gallery/previews/IMG_6600.JPG.jpeg" style="--r:1.499"><img src="../assets/gallery/previews/IMG_6600.JPG.jpeg" width="1000" height="667" alt="Открытие и первая панель, фото 101" loading="lazy" decoding="async"></a>
+<a href="../assets/gallery/previews/IMG_7499.JPG.jpeg" style="--r:1.499"><img src="../assets/gallery/previews/IMG_7499.JPG.jpeg" width="1000" height="667" alt="Открытие и первая панель, фото 102" loading="lazy" decoding="async"></a>
+<a href="../assets/gallery/previews/IMG_7500.JPG.jpeg" style="--r:1.499"><img src="../assets/gallery/previews/IMG_7500.JPG.jpeg" width="1000" height="667" alt="Открытие и первая панель, фото 103" loading="lazy" decoding="async"></a>
+<a href="../assets/gallery/previews/Joo-Yup%20Lee.jpeg" style="--r:1.499"><img src="../assets/gallery/previews/Joo-Yup%20Lee.jpeg" width="1000" height="667" alt="Открытие и первая панель, фото 104" loading="lazy" decoding="async"></a>
+<a href="../assets/gallery/previews/WhatsApp%20Image%202026-10-31%20at%2008.51.38.jpeg" style="--r:1.499"><img src="../assets/gallery/previews/WhatsApp%20Image%202026-10-31%20at%2008.51.38.jpeg" width="1000" height="667" alt="Открытие и первая панель, фото 105" loading="lazy" decoding="async"></a>
+<a href="../assets/gallery/previews/WhatsApp%20Image%202026-10-31%20at%2013.16.46%20%281%29.jpeg" style="--r:2.066"><img src="../assets/gallery/previews/WhatsApp%20Image%202026-10-31%20at%2013.16.46%20%281%29.jpeg" width="1000" height="484" alt="Открытие и первая панель, фото 106" loading="lazy" decoding="async"></a>
+<a href="../assets/gallery/previews/WhatsApp%20Image%202026-10-31%20at%2014.32.55.jpeg" style="--r:1.499"><img src="../assets/gallery/previews/WhatsApp%20Image%202026-10-31%20at%2014.32.55.jpeg" width="1000" height="667" alt="Открытие и первая панель, фото 107" loading="lazy" decoding="async"></a>
+<a href="../assets/gallery/previews/%D0%A2%D0%B8%D0%BC%D1%83%D1%80%20%D0%91%D1%83%D0%BB%D0%B4%D1%8B%D0%B1%D0%B0%D0%B5%D0%B2.jpeg" style="--r:1.499"><img src="../assets/gallery/previews/%D0%A2%D0%B8%D0%BC%D1%83%D1%80%20%D0%91%D1%83%D0%BB%D0%B4%D1%8B%D0%B1%D0%B0%D0%B5%D0%B2.jpeg" width="1000" height="667" alt="Открытие и первая панель, фото 108" loading="lazy" decoding="async"></a>
+        </div>
+      </section>
+      <section aria-labelledby="s1">
+        <p class="kicker" data-t="d1">30 октября</p>
+        <h2 id="s1"><span data-t="s1">Презентация книги и панельные сессии</span> <small>154</small></h2>
+        <div class="grid">
+<a href="../assets/gallery/previews/IMG_3026.JPG" style="--r:1.499"><img src="../assets/gallery/previews/IMG_3026.JPG" width="1000" height="667" alt="Презентация книги и панельные сессии, фото 1" loading="lazy" decoding="async"></a>
+<a href="../assets/gallery/previews/IMG_3028.JPG" style="--r:0.667"><img src="../assets/gallery/previews/IMG_3028.JPG" width="667" height="1000" alt="Презентация книги и панельные сессии, фото 2" loading="lazy" decoding="async"></a>
+<a href="../assets/gallery/previews/IMG_3030.JPG" style="--r:1.499"><img src="../assets/gallery/previews/IMG_3030.JPG" width="1000" height="667" alt="Презентация книги и панельные сессии, фото 3" loading="lazy" decoding="async"></a>
+<a href="../assets/gallery/previews/IMG_3031.JPG" style="--r:1.499"><img src="../assets/gallery/previews/IMG_3031.JPG" width="1000" height="667" alt="Презентация книги и панельные сессии, фото 4" loading="lazy" decoding="async"></a>
+<a href="../assets/gallery/previews/IMG_3033.JPG" style="--r:1.499"><img src="../assets/gallery/previews/IMG_3033.JPG" width="1000" height="667" alt="Презентация книги и панельные сессии, фото 5" loading="lazy" decoding="async"></a>
+<a href="../assets/gallery/previews/IMG_3034.JPG" style="--r:1.499"><img src="../assets/gallery/previews/IMG_3034.JPG" width="1000" height="667" alt="Презентация книги и панельные сессии, фото 6" loading="lazy" decoding="async"></a>
+<a href="../assets/gallery/previews/IMG_3035.JPG" style="--r:1.499"><img src="../assets/gallery/previews/IMG_3035.JPG" width="1000" height="667" alt="Презентация книги и панельные сессии, фото 7" loading="lazy" decoding="async"></a>
+<a href="../assets/gallery/previews/IMG_3036.JPG" style="--r:1.499"><img src="../assets/gallery/previews/IMG_3036.JPG" width="1000" height="667" alt="Презентация книги и панельные сессии, фото 8" loading="lazy" decoding="async"></a>
+<a href="../assets/gallery/previews/IMG_3039.JPG" style="--r:1.499"><img src="../assets/gallery/previews/IMG_3039.JPG" width="1000" height="667" alt="Презентация книги и панельные сессии, фото 9" loading="lazy" decoding="async"></a>
+<a href="../assets/gallery/previews/IMG_3042.JPG" style="--r:1.499"><img src="../assets/gallery/previews/IMG_3042.JPG" width="1000" height="667" alt="Презентация книги и панельные сессии, фото 10" loading="lazy" decoding="async"></a>
+<a href="../assets/gallery/previews/IMG_3044.JPG" style="--r:1.499"><img src="../assets/gallery/previews/IMG_3044.JPG" width="1000" height="667" alt="Презентация книги и панельные сессии, фото 11" loading="lazy" decoding="async"></a>
+<a href="../assets/gallery/previews/IMG_3045.JPG" style="--r:1.499"><img src="../assets/gallery/previews/IMG_3045.JPG" width="1000" height="667" alt="Презентация книги и панельные сессии, фото 12" loading="lazy" decoding="async"></a>
+<a href="../assets/gallery/previews/IMG_3052.JPG" style="--r:1.499"><img src="../assets/gallery/previews/IMG_3052.JPG" width="1000" height="667" alt="Презентация книги и панельные сессии, фото 13" loading="lazy" decoding="async"></a>
+<a href="../assets/gallery/previews/IMG_3055.JPG" style="--r:1.499"><img src="../assets/gallery/previews/IMG_3055.JPG" width="1000" height="667" alt="Презентация книги и панельные сессии, фото 14" loading="lazy" decoding="async"></a>
+<a href="../assets/gallery/previews/IMG_3057.JPG" style="--r:1.499"><img src="../assets/gallery/previews/IMG_3057.JPG" width="1000" height="667" alt="Презентация книги и панельные сессии, фото 15" loading="lazy" decoding="async"></a>
+<a href="../assets/gallery/previews/IMG_3058.JPG" style="--r:1.499"><img src="../assets/gallery/previews/IMG_3058.JPG" width="1000" height="667" alt="Презентация книги и панельные сессии, фото 16" loading="lazy" decoding="async"></a>
+<a href="../assets/gallery/previews/IMG_3059.JPG" style="--r:1.499"><img src="../assets/gallery/previews/IMG_3059.JPG" width="1000" height="667" alt="Презентация книги и панельные сессии, фото 17" loading="lazy" decoding="async"></a>
+<a href="../assets/gallery/previews/IMG_3060.JPG" style="--r:1.499"><img src="../assets/gallery/previews/IMG_3060.JPG" width="1000" height="667" alt="Презентация книги и панельные сессии, фото 18" loading="lazy" decoding="async"></a>
+<a href="../assets/gallery/previews/IMG_3069.JPG" style="--r:1.499"><img src="../assets/gallery/previews/IMG_3069.JPG" width="1000" height="667" alt="Презентация книги и панельные сессии, фото 19" loading="lazy" decoding="async"></a>
+<a href="../assets/gallery/previews/IMG_3070.JPG" style="--r:1.499"><img src="../assets/gallery/previews/IMG_3070.JPG" width="1000" height="667" alt="Презентация книги и панельные сессии, фото 20" loading="lazy" decoding="async"></a>
+<a href="../assets/gallery/previews/IMG_3074.JPG" style="--r:1.499"><img src="../assets/gallery/previews/IMG_3074.JPG" width="1000" height="667" alt="Презентация книги и панельные сессии, фото 21" loading="lazy" decoding="async"></a>
+<a href="../assets/gallery/previews/IMG_3077.JPG" style="--r:1.499"><img src="../assets/gallery/previews/IMG_3077.JPG" width="1000" height="667" alt="Презентация книги и панельные сессии, фото 22" loading="lazy" decoding="async"></a>
+<a href="../assets/gallery/previews/IMG_3078.JPG" style="--r:1.499"><img src="../assets/gallery/previews/IMG_3078.JPG" width="1000" height="667" alt="Презентация книги и панельные сессии, фото 23" loading="lazy" decoding="async"></a>
+<a href="../assets/gallery/previews/IMG_3079.JPG" style="--r:1.499"><img src="../assets/gallery/previews/IMG_3079.JPG" width="1000" height="667" alt="Презентация книги и панельные сессии, фото 24" loading="lazy" decoding="async"></a>
+<a href="../assets/gallery/previews/IMG_3080.JPG" style="--r:1.499"><img src="../assets/gallery/previews/IMG_3080.JPG" width="1000" height="667" alt="Презентация книги и панельные сессии, фото 25" loading="lazy" decoding="async"></a>
+<a href="../assets/gallery/previews/IMG_3082.JPG" style="--r:0.667"><img src="../assets/gallery/previews/IMG_3082.JPG" width="667" height="1000" alt="Презентация книги и панельные сессии, фото 26" loading="lazy" decoding="async"></a>
+<a href="../assets/gallery/previews/IMG_3083.JPG" style="--r:1.499"><img src="../assets/gallery/previews/IMG_3083.JPG" width="1000" height="667" alt="Презентация книги и панельные сессии, фото 27" loading="lazy" decoding="async"></a>
+<a href="../assets/gallery/previews/IMG_3085.JPG" style="--r:1.499"><img src="../assets/gallery/previews/IMG_3085.JPG" width="1000" height="667" alt="Презентация книги и панельные сессии, фото 28" loading="lazy" decoding="async"></a>
+<a href="../assets/gallery/previews/IMG_3087.JPG" style="--r:1.499"><img src="../assets/gallery/previews/IMG_3087.JPG" width="1000" height="667" alt="Презентация книги и панельные сессии, фото 29" loading="lazy" decoding="async"></a>
+<a href="../assets/gallery/previews/IMG_3090.JPG" style="--r:1.499"><img src="../assets/gallery/previews/IMG_3090.JPG" width="1000" height="667" alt="Презентация книги и панельные сессии, фото 30" loading="lazy" decoding="async"></a>
+<a href="../assets/gallery/previews/IMG_3091.JPG" style="--r:1.499"><img src="../assets/gallery/previews/IMG_3091.JPG" width="1000" height="667" alt="Презентация книги и панельные сессии, фото 31" loading="lazy" decoding="async"></a>
+<a href="../assets/gallery/previews/IMG_3092.JPG" style="--r:1.499"><img src="../assets/gallery/previews/IMG_3092.JPG" width="1000" height="667" alt="Презентация книги и панельные сессии, фото 32" loading="lazy" decoding="async"></a>
+<a href="../assets/gallery/previews/IMG_3093.JPG" style="--r:1.499"><img src="../assets/gallery/previews/IMG_3093.JPG" width="1000" height="667" alt="Презентация книги и панельные сессии, фото 33" loading="lazy" decoding="async"></a>
+<a href="../assets/gallery/previews/IMG_3101.JPG" style="--r:1.499"><img src="../assets/gallery/previews/IMG_3101.JPG" width="1000" height="667" alt="Презентация книги и панельные сессии, фото 34" loading="lazy" decoding="async"></a>
+<a href="../assets/gallery/previews/IMG_3102.JPG" style="--r:1.499"><img src="../assets/gallery/previews/IMG_3102.JPG" width="1000" height="667" alt="Презентация книги и панельные сессии, фото 35" loading="lazy" decoding="async"></a>
+<a href="../assets/gallery/previews/IMG_3103.JPG" style="--r:1.499"><img src="../assets/gallery/previews/IMG_3103.JPG" width="1000" height="667" alt="Презентация книги и панельные сессии, фото 36" loading="lazy" decoding="async"></a>
+<a href="../assets/gallery/previews/IMG_3104.JPG" style="--r:1.499"><img src="../assets/gallery/previews/IMG_3104.JPG" width="1000" height="667" alt="Презентация книги и панельные сессии, фото 37" loading="lazy" decoding="async"></a>
+<a href="../assets/gallery/previews/IMG_3105.JPG" style="--r:1.499"><img src="../assets/gallery/previews/IMG_3105.JPG" width="1000" height="667" alt="Презентация книги и панельные сессии, фото 38" loading="lazy" decoding="async"></a>
+<a href="../assets/gallery/previews/IMG_3107.JPG" style="--r:1.499"><img src="../assets/gallery/previews/IMG_3107.JPG" width="1000" height="667" alt="Презентация книги и панельные сессии, фото 39" loading="lazy" decoding="async"></a>
+<a href="../assets/gallery/previews/IMG_3108.JPG" style="--r:1.499"><img src="../assets/gallery/previews/IMG_3108.JPG" width="1000" height="667" alt="Презентация книги и панельные сессии, фото 40" loading="lazy" decoding="async"></a>
+<a href="../assets/gallery/previews/IMG_3111.JPG" style="--r:1.499"><img src="../assets/gallery/previews/IMG_3111.JPG" width="1000" height="667" alt="Презентация книги и панельные сессии, фото 41" loading="lazy" decoding="async"></a>
+<a href="../assets/gallery/previews/IMG_3114.JPG" style="--r:1.499"><img src="../assets/gallery/previews/IMG_3114.JPG" width="1000" height="667" alt="Презентация книги и панельные сессии, фото 42" loading="lazy" decoding="async"></a>
+<a href="../assets/gallery/previews/IMG_3117.JPG" style="--r:1.499"><img src="../assets/gallery/previews/IMG_3117.JPG" width="1000" height="667" alt="Презентация книги и панельные сессии, фото 43" loading="lazy" decoding="async"></a>
+<a href="../assets/gallery/previews/IMG_3120.JPG" style="--r:1.404"><img src="../assets/gallery/previews/IMG_3120.JPG" width="1000" height="712" alt="Презентация книги и панельные сессии, фото 44" loading="lazy" decoding="async"></a>
+<a href="../assets/gallery/previews/IMG_3121.JPG" style="--r:0.667"><img src="../assets/gallery/previews/IMG_3121.JPG" width="667" height="1000" alt="Презентация книги и панельные сессии, фото 45" loading="lazy" decoding="async"></a>
+<a href="../assets/gallery/previews/IMG_3126.JPG" style="--r:1.499"><img src="../assets/gallery/previews/IMG_3126.JPG" width="1000" height="667" alt="Презентация книги и панельные сессии, фото 46" loading="lazy" decoding="async"></a>
+<a href="../assets/gallery/previews/IMG_3127.JPG" style="--r:1.499"><img src="../assets/gallery/previews/IMG_3127.JPG" width="1000" height="667" alt="Презентация книги и панельные сессии, фото 47" loading="lazy" decoding="async"></a>
+<a href="../assets/gallery/previews/IMG_3128.JPG" style="--r:1.499"><img src="../assets/gallery/previews/IMG_3128.JPG" width="1000" height="667" alt="Презентация книги и панельные сессии, фото 48" loading="lazy" decoding="async"></a>
+<a href="../assets/gallery/previews/IMG_3135.JPG" style="--r:1.499"><img src="../assets/gallery/previews/IMG_3135.JPG" width="1000" height="667" alt="Презентация книги и панельные сессии, фото 49" loading="lazy" decoding="async"></a>
+<a href="../assets/gallery/previews/IMG_3139.JPG" style="--r:0.667"><img src="../assets/gallery/previews/IMG_3139.JPG" width="667" height="1000" alt="Презентация книги и панельные сессии, фото 50" loading="lazy" decoding="async"></a>
+<a href="../assets/gallery/previews/IMG_3140.JPG" style="--r:0.667"><img src="../assets/gallery/previews/IMG_3140.JPG" width="667" height="1000" alt="Презентация книги и панельные сессии, фото 51" loading="lazy" decoding="async"></a>
+<a href="../assets/gallery/previews/IMG_3146.JPG" style="--r:1.499"><img src="../assets/gallery/previews/IMG_3146.JPG" width="1000" height="667" alt="Презентация книги и панельные сессии, фото 52" loading="lazy" decoding="async"></a>
+<a href="../assets/gallery/previews/IMG_3148.JPG" style="--r:1.499"><img src="../assets/gallery/previews/IMG_3148.JPG" width="1000" height="667" alt="Презентация книги и панельные сессии, фото 53" loading="lazy" decoding="async"></a>
+<a href="../assets/gallery/previews/IMG_3151.JPG" style="--r:1.499"><img src="../assets/gallery/previews/IMG_3151.JPG" width="1000" height="667" alt="Презентация книги и панельные сессии, фото 54" loading="lazy" decoding="async"></a>
+<a href="../assets/gallery/previews/IMG_3152.JPG" style="--r:1.499"><img src="../assets/gallery/previews/IMG_3152.JPG" width="1000" height="667" alt="Презентация книги и панельные сессии, фото 55" loading="lazy" decoding="async"></a>
+<a href="../assets/gallery/previews/IMG_3156.JPG" style="--r:1.499"><img src="../assets/gallery/previews/IMG_3156.JPG" width="1000" height="667" alt="Презентация книги и панельные сессии, фото 56" loading="lazy" decoding="async"></a>
+<a href="../assets/gallery/previews/IMG_3159.JPG" style="--r:1.499"><img src="../assets/gallery/previews/IMG_3159.JPG" width="1000" height="667" alt="Презентация книги и панельные сессии, фото 57" loading="lazy" decoding="async"></a>
+<a href="../assets/gallery/previews/IMG_3162.JPG" style="--r:1.499"><img src="../assets/gallery/previews/IMG_3162.JPG" width="1000" height="667" alt="Презентация книги и панельные сессии, фото 58" loading="lazy" decoding="async"></a>
+<a href="../assets/gallery/previews/IMG_3166.JPG" style="--r:1.425"><img src="../assets/gallery/previews/IMG_3166.JPG" width="1000" height="702" alt="Презентация книги и панельные сессии, фото 59" loading="lazy" decoding="async"></a>
+<a href="../assets/gallery/previews/IMG_3167.JPG" style="--r:1.499"><img src="../assets/gallery/previews/IMG_3167.JPG" width="1000" height="667" alt="Презентация книги и панельные сессии, фото 60" loading="lazy" decoding="async"></a>
+<a href="../assets/gallery/previews/IMG_3168.JPG" style="--r:1.499"><img src="../assets/gallery/previews/IMG_3168.JPG" width="1000" height="667" alt="Презентация книги и панельные сессии, фото 61" loading="lazy" decoding="async"></a>
+<a href="../assets/gallery/previews/IMG_3169.JPG" style="--r:1.499"><img src="../assets/gallery/previews/IMG_3169.JPG" width="1000" height="667" alt="Презентация книги и панельные сессии, фото 62" loading="lazy" decoding="async"></a>
+<a href="../assets/gallery/previews/IMG_3170.JPG" style="--r:1.499"><img src="../assets/gallery/previews/IMG_3170.JPG" width="1000" height="667" alt="Презентация книги и панельные сессии, фото 63" loading="lazy" decoding="async"></a>
+<a href="../assets/gallery/previews/IMG_3172.JPG" style="--r:1.499"><img src="../assets/gallery/previews/IMG_3172.JPG" width="1000" height="667" alt="Презентация книги и панельные сессии, фото 64" loading="lazy" decoding="async"></a>
+<a href="../assets/gallery/previews/IMG_3175.JPG" style="--r:1.499"><img src="../assets/gallery/previews/IMG_3175.JPG" width="1000" height="667" alt="Презентация книги и панельные сессии, фото 65" loading="lazy" decoding="async"></a>
+<a href="../assets/gallery/previews/IMG_3177.JPG" style="--r:1.499"><img src="../assets/gallery/previews/IMG_3177.JPG" width="1000" height="667" alt="Презентация книги и панельные сессии, фото 66" loading="lazy" decoding="async"></a>
+<a href="../assets/gallery/previews/IMG_3178.JPG" style="--r:1.499"><img src="../assets/gallery/previews/IMG_3178.JPG" width="1000" height="667" alt="Презентация книги и панельные сессии, фото 67" loading="lazy" decoding="async"></a>
+<a href="../assets/gallery/previews/IMG_3181.JPG" style="--r:0.667"><img src="../assets/gallery/previews/IMG_3181.JPG" width="667" height="1000" alt="Презентация книги и панельные сессии, фото 68" loading="lazy" decoding="async"></a>
+<a href="../assets/gallery/previews/IMG_3182.JPG" style="--r:0.667"><img src="../assets/gallery/previews/IMG_3182.JPG" width="667" height="1000" alt="Презентация книги и панельные сессии, фото 69" loading="lazy" decoding="async"></a>
+<a href="../assets/gallery/previews/IMG_3185.JPG" style="--r:0.667"><img src="../assets/gallery/previews/IMG_3185.JPG" width="667" height="1000" alt="Презентация книги и панельные сессии, фото 70" loading="lazy" decoding="async"></a>
+<a href="../assets/gallery/previews/IMG_3186.JPG" style="--r:0.667"><img src="../assets/gallery/previews/IMG_3186.JPG" width="667" height="1000" alt="Презентация книги и панельные сессии, фото 71" loading="lazy" decoding="async"></a>
+<a href="../assets/gallery/previews/IMG_3187.JPG" style="--r:0.667"><img src="../assets/gallery/previews/IMG_3187.JPG" width="667" height="1000" alt="Презентация книги и панельные сессии, фото 72" loading="lazy" decoding="async"></a>
+<a href="../assets/gallery/previews/IMG_3189.JPG" style="--r:0.667"><img src="../assets/gallery/previews/IMG_3189.JPG" width="667" height="1000" alt="Презентация книги и панельные сессии, фото 73" loading="lazy" decoding="async"></a>
+<a href="../assets/gallery/previews/IMG_3191.JPG" style="--r:0.667"><img src="../assets/gallery/previews/IMG_3191.JPG" width="667" height="1000" alt="Презентация книги и панельные сессии, фото 74" loading="lazy" decoding="async"></a>
+<a href="../assets/gallery/previews/IMG_3192.JPG" style="--r:0.667"><img src="../assets/gallery/previews/IMG_3192.JPG" width="667" height="1000" alt="Презентация книги и панельные сессии, фото 75" loading="lazy" decoding="async"></a>
+<a href="../assets/gallery/previews/IMG_3193.JPG" style="--r:1.499"><img src="../assets/gallery/previews/IMG_3193.JPG" width="1000" height="667" alt="Презентация книги и панельные сессии, фото 76" loading="lazy" decoding="async"></a>
+<a href="../assets/gallery/previews/IMG_3194.JPG" style="--r:1.499"><img src="../assets/gallery/previews/IMG_3194.JPG" width="1000" height="667" alt="Презентация книги и панельные сессии, фото 77" loading="lazy" decoding="async"></a>
+<a href="../assets/gallery/previews/IMG_3196.JPG" style="--r:1.499"><img src="../assets/gallery/previews/IMG_3196.JPG" width="1000" height="667" alt="Презентация книги и панельные сессии, фото 78" loading="lazy" decoding="async"></a>
+<a href="../assets/gallery/previews/IMG_3199.JPG" style="--r:1.499"><img src="../assets/gallery/previews/IMG_3199.JPG" width="1000" height="667" alt="Презентация книги и панельные сессии, фото 79" loading="lazy" decoding="async"></a>
+<a href="../assets/gallery/previews/IMG_3207.JPG" style="--r:0.667"><img src="../assets/gallery/previews/IMG_3207.JPG" width="667" height="1000" alt="Презентация книги и панельные сессии, фото 80" loading="lazy" decoding="async"></a>
+<a href="../assets/gallery/previews/IMG_3210.JPG" style="--r:1.499"><img src="../assets/gallery/previews/IMG_3210.JPG" width="1000" height="667" alt="Презентация книги и панельные сессии, фото 81" loading="lazy" decoding="async"></a>
+<a href="../assets/gallery/previews/IMG_3211.JPG" style="--r:1.499"><img src="../assets/gallery/previews/IMG_3211.JPG" width="1000" height="667" alt="Презентация книги и панельные сессии, фото 82" loading="lazy" decoding="async"></a>
+<a href="../assets/gallery/previews/IMG_3217.JPG" style="--r:0.667"><img src="../assets/gallery/previews/IMG_3217.JPG" width="667" height="1000" alt="Презентация книги и панельные сессии, фото 83" loading="lazy" decoding="async"></a>
+<a href="../assets/gallery/previews/IMG_3218.JPG" style="--r:1.499"><img src="../assets/gallery/previews/IMG_3218.JPG" width="1000" height="667" alt="Презентация книги и панельные сессии, фото 84" loading="lazy" decoding="async"></a>
+<a href="../assets/gallery/previews/IMG_3219.JPG" style="--r:1.499"><img src="../assets/gallery/previews/IMG_3219.JPG" width="1000" height="667" alt="Презентация книги и панельные сессии, фото 85" loading="lazy" decoding="async"></a>
+<a href="../assets/gallery/previews/IMG_3220.JPG" style="--r:1.499"><img src="../assets/gallery/previews/IMG_3220.JPG" width="1000" height="667" alt="Презентация книги и панельные сессии, фото 86" loading="lazy" decoding="async"></a>
+<a href="../assets/gallery/previews/IMG_3221.JPG" style="--r:0.667"><img src="../assets/gallery/previews/IMG_3221.JPG" width="667" height="1000" alt="Презентация книги и панельные сессии, фото 87" loading="lazy" decoding="async"></a>
+<a href="../assets/gallery/previews/IMG_3225.JPG" style="--r:0.667"><img src="../assets/gallery/previews/IMG_3225.JPG" width="667" height="1000" alt="Презентация книги и панельные сессии, фото 88" loading="lazy" decoding="async"></a>
+<a href="../assets/gallery/previews/IMG_3226.JPG" style="--r:0.667"><img src="../assets/gallery/previews/IMG_3226.JPG" width="667" height="1000" alt="Презентация книги и панельные сессии, фото 89" loading="lazy" decoding="async"></a>
+<a href="../assets/gallery/previews/IMG_3227.JPG" style="--r:1.499"><img src="../assets/gallery/previews/IMG_3227.JPG" width="1000" height="667" alt="Презентация книги и панельные сессии, фото 90" loading="lazy" decoding="async"></a>
+<a href="../assets/gallery/previews/IMG_3231.JPG" style="--r:1.499"><img src="../assets/gallery/previews/IMG_3231.JPG" width="1000" height="667" alt="Презентация книги и панельные сессии, фото 91" loading="lazy" decoding="async"></a>
+<a href="../assets/gallery/previews/IMG_3232.JPG" style="--r:1.499"><img src="../assets/gallery/previews/IMG_3232.JPG" width="1000" height="667" alt="Презентация книги и панельные сессии, фото 92" loading="lazy" decoding="async"></a>
+<a href="../assets/gallery/previews/IMG_3233.JPG" style="--r:1.499"><img src="../assets/gallery/previews/IMG_3233.JPG" width="1000" height="667" alt="Презентация книги и панельные сессии, фото 93" loading="lazy" decoding="async"></a>
+<a href="../assets/gallery/previews/IMG_3235.JPG" style="--r:1.499"><img src="../assets/gallery/previews/IMG_3235.JPG" width="1000" height="667" alt="Презентация книги и панельные сессии, фото 94" loading="lazy" decoding="async"></a>
+<a href="../assets/gallery/previews/IMG_3240.JPG" style="--r:0.667"><img src="../assets/gallery/previews/IMG_3240.JPG" width="667" height="1000" alt="Презентация книги и панельные сессии, фото 95" loading="lazy" decoding="async"></a>
+<a href="../assets/gallery/previews/IMG_3241.JPG" style="--r:1.499"><img src="../assets/gallery/previews/IMG_3241.JPG" width="1000" height="667" alt="Презентация книги и панельные сессии, фото 96" loading="lazy" decoding="async"></a>
+<a href="../assets/gallery/previews/IMG_3242.JPG" style="--r:1.499"><img src="../assets/gallery/previews/IMG_3242.JPG" width="1000" height="667" alt="Презентация книги и панельные сессии, фото 97" loading="lazy" decoding="async"></a>
+<a href="../assets/gallery/previews/IMG_3244.JPG" style="--r:0.632"><img src="../assets/gallery/previews/IMG_3244.JPG" width="632" height="1000" alt="Презентация книги и панельные сессии, фото 98" loading="lazy" decoding="async"></a>
+<a href="../assets/gallery/previews/IMG_3247.JPG" style="--r:1.499"><img src="../assets/gallery/previews/IMG_3247.JPG" width="1000" height="667" alt="Презентация книги и панельные сессии, фото 99" loading="lazy" decoding="async"></a>
+<a href="../assets/gallery/previews/IMG_3249.JPG" style="--r:1.499"><img src="../assets/gallery/previews/IMG_3249.JPG" width="1000" height="667" alt="Презентация книги и панельные сессии, фото 100" loading="lazy" decoding="async"></a>
+<a href="../assets/gallery/previews/IMG_3251.JPG" style="--r:1.499"><img src="../assets/gallery/previews/IMG_3251.JPG" width="1000" height="667" alt="Презентация книги и панельные сессии, фото 101" loading="lazy" decoding="async"></a>
+<a href="../assets/gallery/previews/IMG_3253.JPG" style="--r:1.499"><img src="../assets/gallery/previews/IMG_3253.JPG" width="1000" height="667" alt="Презентация книги и панельные сессии, фото 102" loading="lazy" decoding="async"></a>
+<a href="../assets/gallery/previews/IMG_3254.JPG" style="--r:0.667"><img src="../assets/gallery/previews/IMG_3254.JPG" width="667" height="1000" alt="Презентация книги и панельные сессии, фото 103" loading="lazy" decoding="async"></a>
+<a href="../assets/gallery/previews/IMG_3255.JPG" style="--r:0.667"><img src="../assets/gallery/previews/IMG_3255.JPG" width="667" height="1000" alt="Презентация книги и панельные сессии, фото 104" loading="lazy" decoding="async"></a>
+<a href="../assets/gallery/previews/IMG_3256.JPG" style="--r:1.499"><img src="../assets/gallery/previews/IMG_3256.JPG" width="1000" height="667" alt="Презентация книги и панельные сессии, фото 105" loading="lazy" decoding="async"></a>
+<a href="../assets/gallery/previews/IMG_3258.JPG" style="--r:1.499"><img src="../assets/gallery/previews/IMG_3258.JPG" width="1000" height="667" alt="Презентация книги и панельные сессии, фото 106" loading="lazy" decoding="async"></a>
+<a href="../assets/gallery/previews/IMG_3261.JPG" style="--r:0.667"><img src="../assets/gallery/previews/IMG_3261.JPG" width="667" height="1000" alt="Презентация книги и панельные сессии, фото 107" loading="lazy" decoding="async"></a>
+<a href="../assets/gallery/previews/IMG_3262.JPG" style="--r:1.499"><img src="../assets/gallery/previews/IMG_3262.JPG" width="1000" height="667" alt="Презентация книги и панельные сессии, фото 108" loading="lazy" decoding="async"></a>
+<a href="../assets/gallery/previews/IMG_3263.JPG" style="--r:1.499"><img src="../assets/gallery/previews/IMG_3263.JPG" width="1000" height="667" alt="Презентация книги и панельные сессии, фото 109" loading="lazy" decoding="async"></a>
+<a href="../assets/gallery/previews/IMG_3264.JPG" style="--r:1.499"><img src="../assets/gallery/previews/IMG_3264.JPG" width="1000" height="667" alt="Презентация книги и панельные сессии, фото 110" loading="lazy" decoding="async"></a>
+<a href="../assets/gallery/previews/IMG_3268.JPG" style="--r:0.667"><img src="../assets/gallery/previews/IMG_3268.JPG" width="667" height="1000" alt="Презентация книги и панельные сессии, фото 111" loading="lazy" decoding="async"></a>
+<a href="../assets/gallery/previews/IMG_3269.JPG" style="--r:1.499"><img src="../assets/gallery/previews/IMG_3269.JPG" width="1000" height="667" alt="Презентация книги и панельные сессии, фото 112" loading="lazy" decoding="async"></a>
+<a href="../assets/gallery/previews/IMG_3271.JPG" style="--r:1.499"><img src="../assets/gallery/previews/IMG_3271.JPG" width="1000" height="667" alt="Презентация книги и панельные сессии, фото 113" loading="lazy" decoding="async"></a>
+<a href="../assets/gallery/previews/IMG_3272.JPG" style="--r:1.499"><img src="../assets/gallery/previews/IMG_3272.JPG" width="1000" height="667" alt="Презентация книги и панельные сессии, фото 114" loading="lazy" decoding="async"></a>
+<a href="../assets/gallery/previews/IMG_3274.JPG" style="--r:1.431"><img src="../assets/gallery/previews/IMG_3274.JPG" width="1000" height="699" alt="Презентация книги и панельные сессии, фото 115" loading="lazy" decoding="async"></a>
+<a href="../assets/gallery/previews/IMG_3276.JPG" style="--r:1.499"><img src="../assets/gallery/previews/IMG_3276.JPG" width="1000" height="667" alt="Презентация книги и панельные сессии, фото 116" loading="lazy" decoding="async"></a>
+<a href="../assets/gallery/previews/IMG_3277.JPG" style="--r:1.499"><img src="../assets/gallery/previews/IMG_3277.JPG" width="1000" height="667" alt="Презентация книги и панельные сессии, фото 117" loading="lazy" decoding="async"></a>
+<a href="../assets/gallery/previews/IMG_3278.JPG" style="--r:0.667"><img src="../assets/gallery/previews/IMG_3278.JPG" width="667" height="1000" alt="Презентация книги и панельные сессии, фото 118" loading="lazy" decoding="async"></a>
+<a href="../assets/gallery/previews/IMG_3279.JPG" style="--r:1.499"><img src="../assets/gallery/previews/IMG_3279.JPG" width="1000" height="667" alt="Презентация книги и панельные сессии, фото 119" loading="lazy" decoding="async"></a>
+<a href="../assets/gallery/previews/IMG_3281.JPG" style="--r:1.499"><img src="../assets/gallery/previews/IMG_3281.JPG" width="1000" height="667" alt="Презентация книги и панельные сессии, фото 120" loading="lazy" decoding="async"></a>
+<a href="../assets/gallery/previews/IMG_3283.JPG" style="--r:0.667"><img src="../assets/gallery/previews/IMG_3283.JPG" width="667" height="1000" alt="Презентация книги и панельные сессии, фото 121" loading="lazy" decoding="async"></a>
+<a href="../assets/gallery/previews/IMG_3284.JPG" style="--r:1.499"><img src="../assets/gallery/previews/IMG_3284.JPG" width="1000" height="667" alt="Презентация книги и панельные сессии, фото 122" loading="lazy" decoding="async"></a>
+<a href="../assets/gallery/previews/IMG_3286.JPG" style="--r:1.499"><img src="../assets/gallery/previews/IMG_3286.JPG" width="1000" height="667" alt="Презентация книги и панельные сессии, фото 123" loading="lazy" decoding="async"></a>
+<a href="../assets/gallery/previews/IMG_3288.JPG" style="--r:0.667"><img src="../assets/gallery/previews/IMG_3288.JPG" width="667" height="1000" alt="Презентация книги и панельные сессии, фото 124" loading="lazy" decoding="async"></a>
+<a href="../assets/gallery/previews/IMG_3292.JPG" style="--r:1.499"><img src="../assets/gallery/previews/IMG_3292.JPG" width="1000" height="667" alt="Презентация книги и панельные сессии, фото 125" loading="lazy" decoding="async"></a>
+<a href="../assets/gallery/previews/IMG_3295.JPG" style="--r:0.667"><img src="../assets/gallery/previews/IMG_3295.JPG" width="667" height="1000" alt="Презентация книги и панельные сессии, фото 126" loading="lazy" decoding="async"></a>
+<a href="../assets/gallery/previews/IMG_3296.JPG" style="--r:1.499"><img src="../assets/gallery/previews/IMG_3296.JPG" width="1000" height="667" alt="Презентация книги и панельные сессии, фото 127" loading="lazy" decoding="async"></a>
+<a href="../assets/gallery/previews/IMG_3297.JPG" style="--r:1.499"><img src="../assets/gallery/previews/IMG_3297.JPG" width="1000" height="667" alt="Презентация книги и панельные сессии, фото 128" loading="lazy" decoding="async"></a>
+<a href="../assets/gallery/previews/IMG_3298.JPG" style="--r:1.499"><img src="../assets/gallery/previews/IMG_3298.JPG" width="1000" height="667" alt="Презентация книги и панельные сессии, фото 129" loading="lazy" decoding="async"></a>
+<a href="../assets/gallery/previews/IMG_3300.JPG" style="--r:1.499"><img src="../assets/gallery/previews/IMG_3300.JPG" width="1000" height="667" alt="Презентация книги и панельные сессии, фото 130" loading="lazy" decoding="async"></a>
+<a href="../assets/gallery/previews/IMG_3301.JPG" style="--r:1.499"><img src="../assets/gallery/previews/IMG_3301.JPG" width="1000" height="667" alt="Презентация книги и панельные сессии, фото 131" loading="lazy" decoding="async"></a>
+<a href="../assets/gallery/previews/IMG_3302.JPG" style="--r:1.499"><img src="../assets/gallery/previews/IMG_3302.JPG" width="1000" height="667" alt="Презентация книги и панельные сессии, фото 132" loading="lazy" decoding="async"></a>
+<a href="../assets/gallery/previews/IMG_3306.JPG" style="--r:1.499"><img src="../assets/gallery/previews/IMG_3306.JPG" width="1000" height="667" alt="Презентация книги и панельные сессии, фото 133" loading="lazy" decoding="async"></a>
+<a href="../assets/gallery/previews/IMG_3310.JPG" style="--r:1.499"><img src="../assets/gallery/previews/IMG_3310.JPG" width="1000" height="667" alt="Презентация книги и панельные сессии, фото 134" loading="lazy" decoding="async"></a>
+<a href="../assets/gallery/previews/IMG_3312.JPG" style="--r:1.499"><img src="../assets/gallery/previews/IMG_3312.JPG" width="1000" height="667" alt="Презентация книги и панельные сессии, фото 135" loading="lazy" decoding="async"></a>
+<a href="../assets/gallery/previews/IMG_3314.JPG" style="--r:1.499"><img src="../assets/gallery/previews/IMG_3314.JPG" width="1000" height="667" alt="Презентация книги и панельные сессии, фото 136" loading="lazy" decoding="async"></a>
+<a href="../assets/gallery/previews/IMG_3320.JPG" style="--r:1.499"><img src="../assets/gallery/previews/IMG_3320.JPG" width="1000" height="667" alt="Презентация книги и панельные сессии, фото 137" loading="lazy" decoding="async"></a>
+<a href="../assets/gallery/previews/IMG_3322.JPG" style="--r:1.499"><img src="../assets/gallery/previews/IMG_3322.JPG" width="1000" height="667" alt="Презентация книги и панельные сессии, фото 138" loading="lazy" decoding="async"></a>
+<a href="../assets/gallery/previews/IMG_3323.JPG" style="--r:1.499"><img src="../assets/gallery/previews/IMG_3323.JPG" width="1000" height="667" alt="Презентация книги и панельные сессии, фото 139" loading="lazy" decoding="async"></a>
+<a href="../assets/gallery/previews/IMG_3326.JPG" style="--r:1.499"><img src="../assets/gallery/previews/IMG_3326.JPG" width="1000" height="667" alt="Презентация книги и панельные сессии, фото 140" loading="lazy" decoding="async"></a>
+<a href="../assets/gallery/previews/IMG_3328.JPG" style="--r:1.499"><img src="../assets/gallery/previews/IMG_3328.JPG" width="1000" height="667" alt="Презентация книги и панельные сессии, фото 141" loading="lazy" decoding="async"></a>
+<a href="../assets/gallery/previews/IMG_3332.JPG" style="--r:0.667"><img src="../assets/gallery/previews/IMG_3332.JPG" width="667" height="1000" alt="Презентация книги и панельные сессии, фото 142" loading="lazy" decoding="async"></a>
+<a href="../assets/gallery/previews/IMG_3334.JPG" style="--r:1.499"><img src="../assets/gallery/previews/IMG_3334.JPG" width="1000" height="667" alt="Презентация книги и панельные сессии, фото 143" loading="lazy" decoding="async"></a>
+<a href="../assets/gallery/previews/IMG_3335.JPG" style="--r:1.499"><img src="../assets/gallery/previews/IMG_3335.JPG" width="1000" height="667" alt="Презентация книги и панельные сессии, фото 144" loading="lazy" decoding="async"></a>
+<a href="../assets/gallery/previews/IMG_3336.JPG" style="--r:1.499"><img src="../assets/gallery/previews/IMG_3336.JPG" width="1000" height="667" alt="Презентация книги и панельные сессии, фото 145" loading="lazy" decoding="async"></a>
+<a href="../assets/gallery/previews/IMG_3338.JPG" style="--r:1.499"><img src="../assets/gallery/previews/IMG_3338.JPG" width="1000" height="667" alt="Презентация книги и панельные сессии, фото 146" loading="lazy" decoding="async"></a>
+<a href="../assets/gallery/previews/IMG_3340.JPG" style="--r:1.499"><img src="../assets/gallery/previews/IMG_3340.JPG" width="1000" height="667" alt="Презентация книги и панельные сессии, фото 147" loading="lazy" decoding="async"></a>
+<a href="../assets/gallery/previews/IMG_3341.JPG" style="--r:1.499"><img src="../assets/gallery/previews/IMG_3341.JPG" width="1000" height="667" alt="Презентация книги и панельные сессии, фото 148" loading="lazy" decoding="async"></a>
+<a href="../assets/gallery/previews/IMG_3346.JPG" style="--r:0.667"><img src="../assets/gallery/previews/IMG_3346.JPG" width="667" height="1000" alt="Презентация книги и панельные сессии, фото 149" loading="lazy" decoding="async"></a>
+<a href="../assets/gallery/previews/IMG_3349.JPG" style="--r:1.499"><img src="../assets/gallery/previews/IMG_3349.JPG" width="1000" height="667" alt="Презентация книги и панельные сессии, фото 150" loading="lazy" decoding="async"></a>
+<a href="../assets/gallery/previews/IMG_3352.JPG" style="--r:1.499"><img src="../assets/gallery/previews/IMG_3352.JPG" width="1000" height="667" alt="Презентация книги и панельные сессии, фото 151" loading="lazy" decoding="async"></a>
+<a href="../assets/gallery/previews/IMG_3358.JPG" style="--r:1.499"><img src="../assets/gallery/previews/IMG_3358.JPG" width="1000" height="667" alt="Презентация книги и панельные сессии, фото 152" loading="lazy" decoding="async"></a>
+<a href="../assets/gallery/previews/IMG_3359.JPG" style="--r:1.499"><img src="../assets/gallery/previews/IMG_3359.JPG" width="1000" height="667" alt="Презентация книги и панельные сессии, фото 153" loading="lazy" decoding="async"></a>
+<a href="../assets/gallery/previews/IMG_3361.JPG" style="--r:1.499"><img src="../assets/gallery/previews/IMG_3361.JPG" width="1000" height="667" alt="Презентация книги и панельные сессии, фото 154" loading="lazy" decoding="async"></a>
+        </div>
+      </section>
+      <section aria-labelledby="s2">
+        <p class="kicker" data-t="d2">30 октября</p>
+        <h2 id="s2"><span data-t="s2">Гала-ужин</span> <small>61</small></h2>
+        <div class="grid">
+<a href="../assets/gallery/previews/IMG_3362.JPG" style="--r:1.499"><img src="../assets/gallery/previews/IMG_3362.JPG" width="1000" height="667" alt="Гала-ужин, фото 1" loading="lazy" decoding="async"></a>
+<a href="../assets/gallery/previews/IMG_3363.JPG" style="--r:1.499"><img src="../assets/gallery/previews/IMG_3363.JPG" width="1000" height="667" alt="Гала-ужин, фото 2" loading="lazy" decoding="async"></a>
+<a href="../assets/gallery/previews/IMG_3364.JPG" style="--r:1.499"><img src="../assets/gallery/previews/IMG_3364.JPG" width="1000" height="667" alt="Гала-ужин, фото 3" loading="lazy" decoding="async"></a>
+<a href="../assets/gallery/previews/IMG_3367.JPG" style="--r:1.499"><img src="../assets/gallery/previews/IMG_3367.JPG" width="1000" height="667" alt="Гала-ужин, фото 4" loading="lazy" decoding="async"></a>
+<a href="../assets/gallery/previews/IMG_3368.JPG" style="--r:1.499"><img src="../assets/gallery/previews/IMG_3368.JPG" width="1000" height="667" alt="Гала-ужин, фото 5" loading="lazy" decoding="async"></a>
+<a href="../assets/gallery/previews/IMG_3371.JPG" style="--r:1.499"><img src="../assets/gallery/previews/IMG_3371.JPG" width="1000" height="667" alt="Гала-ужин, фото 6" loading="lazy" decoding="async"></a>
+<a href="../assets/gallery/previews/IMG_3373.JPG" style="--r:1.499"><img src="../assets/gallery/previews/IMG_3373.JPG" width="1000" height="667" alt="Гала-ужин, фото 7" loading="lazy" decoding="async"></a>
+<a href="../assets/gallery/previews/IMG_3375.JPG" style="--r:1.499"><img src="../assets/gallery/previews/IMG_3375.JPG" width="1000" height="667" alt="Гала-ужин, фото 8" loading="lazy" decoding="async"></a>
+<a href="../assets/gallery/previews/IMG_3379.JPG" style="--r:1.499"><img src="../assets/gallery/previews/IMG_3379.JPG" width="1000" height="667" alt="Гала-ужин, фото 9" loading="lazy" decoding="async"></a>
+<a href="../assets/gallery/previews/IMG_3380.JPG" style="--r:0.667"><img src="../assets/gallery/previews/IMG_3380.JPG" width="667" height="1000" alt="Гала-ужин, фото 10" loading="lazy" decoding="async"></a>
+<a href="../assets/gallery/previews/IMG_3381.JPG" style="--r:1.499"><img src="../assets/gallery/previews/IMG_3381.JPG" width="1000" height="667" alt="Гала-ужин, фото 11" loading="lazy" decoding="async"></a>
+<a href="../assets/gallery/previews/IMG_3383.JPG" style="--r:1.499"><img src="../assets/gallery/previews/IMG_3383.JPG" width="1000" height="667" alt="Гала-ужин, фото 12" loading="lazy" decoding="async"></a>
+<a href="../assets/gallery/previews/IMG_3385.JPG" style="--r:1.499"><img src="../assets/gallery/previews/IMG_3385.JPG" width="1000" height="667" alt="Гала-ужин, фото 13" loading="lazy" decoding="async"></a>
+<a href="../assets/gallery/previews/IMG_3389.JPG" style="--r:1.499"><img src="../assets/gallery/previews/IMG_3389.JPG" width="1000" height="667" alt="Гала-ужин, фото 14" loading="lazy" decoding="async"></a>
+<a href="../assets/gallery/previews/IMG_3390.JPG" style="--r:1.499"><img src="../assets/gallery/previews/IMG_3390.JPG" width="1000" height="667" alt="Гала-ужин, фото 15" loading="lazy" decoding="async"></a>
+<a href="../assets/gallery/previews/IMG_3391.JPG" style="--r:1.499"><img src="../assets/gallery/previews/IMG_3391.JPG" width="1000" height="667" alt="Гала-ужин, фото 16" loading="lazy" decoding="async"></a>
+<a href="../assets/gallery/previews/IMG_3394.JPG" style="--r:1.499"><img src="../assets/gallery/previews/IMG_3394.JPG" width="1000" height="667" alt="Гала-ужин, фото 17" loading="lazy" decoding="async"></a>
+<a href="../assets/gallery/previews/IMG_3396.JPG" style="--r:1.499"><img src="../assets/gallery/previews/IMG_3396.JPG" width="1000" height="667" alt="Гала-ужин, фото 18" loading="lazy" decoding="async"></a>
+<a href="../assets/gallery/previews/IMG_3398.JPG" style="--r:1.499"><img src="../assets/gallery/previews/IMG_3398.JPG" width="1000" height="667" alt="Гала-ужин, фото 19" loading="lazy" decoding="async"></a>
+<a href="../assets/gallery/previews/IMG_3399.JPG" style="--r:0.667"><img src="../assets/gallery/previews/IMG_3399.JPG" width="667" height="1000" alt="Гала-ужин, фото 20" loading="lazy" decoding="async"></a>
+<a href="../assets/gallery/previews/IMG_3406.JPG" style="--r:1.499"><img src="../assets/gallery/previews/IMG_3406.JPG" width="1000" height="667" alt="Гала-ужин, фото 21" loading="lazy" decoding="async"></a>
+<a href="../assets/gallery/previews/IMG_3408.JPG" style="--r:1.499"><img src="../assets/gallery/previews/IMG_3408.JPG" width="1000" height="667" alt="Гала-ужин, фото 22" loading="lazy" decoding="async"></a>
+<a href="../assets/gallery/previews/IMG_3413.JPG" style="--r:1.499"><img src="../assets/gallery/previews/IMG_3413.JPG" width="1000" height="667" alt="Гала-ужин, фото 23" loading="lazy" decoding="async"></a>
+<a href="../assets/gallery/previews/IMG_3416.JPG" style="--r:1.499"><img src="../assets/gallery/previews/IMG_3416.JPG" width="1000" height="667" alt="Гала-ужин, фото 24" loading="lazy" decoding="async"></a>
+<a href="../assets/gallery/previews/IMG_3417.JPG" style="--r:1.499"><img src="../assets/gallery/previews/IMG_3417.JPG" width="1000" height="667" alt="Гала-ужин, фото 25" loading="lazy" decoding="async"></a>
+<a href="../assets/gallery/previews/IMG_3418.JPG" style="--r:1.499"><img src="../assets/gallery/previews/IMG_3418.JPG" width="1000" height="667" alt="Гала-ужин, фото 26" loading="lazy" decoding="async"></a>
+<a href="../assets/gallery/previews/IMG_3421.JPG" style="--r:1.499"><img src="../assets/gallery/previews/IMG_3421.JPG" width="1000" height="667" alt="Гала-ужин, фото 27" loading="lazy" decoding="async"></a>
+<a href="../assets/gallery/previews/IMG_3422.JPG" style="--r:1.499"><img src="../assets/gallery/previews/IMG_3422.JPG" width="1000" height="667" alt="Гала-ужин, фото 28" loading="lazy" decoding="async"></a>
+<a href="../assets/gallery/previews/IMG_3423.JPG" style="--r:1.499"><img src="../assets/gallery/previews/IMG_3423.JPG" width="1000" height="667" alt="Гала-ужин, фото 29" loading="lazy" decoding="async"></a>
+<a href="../assets/gallery/previews/IMG_3425.JPG" style="--r:0.667"><img src="../assets/gallery/previews/IMG_3425.JPG" width="667" height="1000" alt="Гала-ужин, фото 30" loading="lazy" decoding="async"></a>
+<a href="../assets/gallery/previews/IMG_3429.JPG" style="--r:1.499"><img src="../assets/gallery/previews/IMG_3429.JPG" width="1000" height="667" alt="Гала-ужин, фото 31" loading="lazy" decoding="async"></a>
+<a href="../assets/gallery/previews/IMG_3431.JPG" style="--r:0.667"><img src="../assets/gallery/previews/IMG_3431.JPG" width="667" height="1000" alt="Гала-ужин, фото 32" loading="lazy" decoding="async"></a>
+<a href="../assets/gallery/previews/IMG_3432.JPG" style="--r:1.499"><img src="../assets/gallery/previews/IMG_3432.JPG" width="1000" height="667" alt="Гала-ужин, фото 33" loading="lazy" decoding="async"></a>
+<a href="../assets/gallery/previews/IMG_3434.JPG" style="--r:1.499"><img src="../assets/gallery/previews/IMG_3434.JPG" width="1000" height="667" alt="Гала-ужин, фото 34" loading="lazy" decoding="async"></a>
+<a href="../assets/gallery/previews/IMG_3439.JPG" style="--r:1.499"><img src="../assets/gallery/previews/IMG_3439.JPG" width="1000" height="667" alt="Гала-ужин, фото 35" loading="lazy" decoding="async"></a>
+<a href="../assets/gallery/previews/IMG_3442.JPG" style="--r:1.401"><img src="../assets/gallery/previews/IMG_3442.JPG" width="1000" height="714" alt="Гала-ужин, фото 36" loading="lazy" decoding="async"></a>
+<a href="../assets/gallery/previews/IMG_3445.JPG" style="--r:1.499"><img src="../assets/gallery/previews/IMG_3445.JPG" width="1000" height="667" alt="Гала-ужин, фото 37" loading="lazy" decoding="async"></a>
+<a href="../assets/gallery/previews/IMG_3457.JPG" style="--r:1.499"><img src="../assets/gallery/previews/IMG_3457.JPG" width="1000" height="667" alt="Гала-ужин, фото 38" loading="lazy" decoding="async"></a>
+<a href="../assets/gallery/previews/IMG_3461.JPG" style="--r:0.569"><img src="../assets/gallery/previews/IMG_3461.JPG" width="569" height="1000" alt="Гала-ужин, фото 39" loading="lazy" decoding="async"></a>
+<a href="../assets/gallery/previews/IMG_3462.JPG" style="--r:1.418"><img src="../assets/gallery/previews/IMG_3462.JPG" width="1000" height="705" alt="Гала-ужин, фото 40" loading="lazy" decoding="async"></a>
+<a href="../assets/gallery/previews/IMG_3464.JPG" style="--r:0.667"><img src="../assets/gallery/previews/IMG_3464.JPG" width="667" height="1000" alt="Гала-ужин, фото 41" loading="lazy" decoding="async"></a>
+<a href="../assets/gallery/previews/IMG_3465.JPG" style="--r:0.667"><img src="../assets/gallery/previews/IMG_3465.JPG" width="667" height="1000" alt="Гала-ужин, фото 42" loading="lazy" decoding="async"></a>
+<a href="../assets/gallery/previews/IMG_3467.JPG" style="--r:0.728"><img src="../assets/gallery/previews/IMG_3467.JPG" width="728" height="1000" alt="Гала-ужин, фото 43" loading="lazy" decoding="async"></a>
+<a href="../assets/gallery/previews/IMG_3468.JPG" style="--r:0.667"><img src="../assets/gallery/previews/IMG_3468.JPG" width="667" height="1000" alt="Гала-ужин, фото 44" loading="lazy" decoding="async"></a>
+<a href="../assets/gallery/previews/IMG_3469.JPG" style="--r:1.499"><img src="../assets/gallery/previews/IMG_3469.JPG" width="1000" height="667" alt="Гала-ужин, фото 45" loading="lazy" decoding="async"></a>
+<a href="../assets/gallery/previews/IMG_3473.JPG" style="--r:1.499"><img src="../assets/gallery/previews/IMG_3473.JPG" width="1000" height="667" alt="Гала-ужин, фото 46" loading="lazy" decoding="async"></a>
+<a href="../assets/gallery/previews/IMG_3475.JPG" style="--r:1.499"><img src="../assets/gallery/previews/IMG_3475.JPG" width="1000" height="667" alt="Гала-ужин, фото 47" loading="lazy" decoding="async"></a>
+<a href="../assets/gallery/previews/IMG_3478.JPG" style="--r:1.499"><img src="../assets/gallery/previews/IMG_3478.JPG" width="1000" height="667" alt="Гала-ужин, фото 48" loading="lazy" decoding="async"></a>
+<a href="../assets/gallery/previews/IMG_3480.JPG" style="--r:0.667"><img src="../assets/gallery/previews/IMG_3480.JPG" width="667" height="1000" alt="Гала-ужин, фото 49" loading="lazy" decoding="async"></a>
+<a href="../assets/gallery/previews/IMG_3481.JPG" style="--r:1.499"><img src="../assets/gallery/previews/IMG_3481.JPG" width="1000" height="667" alt="Гала-ужин, фото 50" loading="lazy" decoding="async"></a>
+<a href="../assets/gallery/previews/IMG_3483.JPG" style="--r:0.667"><img src="../assets/gallery/previews/IMG_3483.JPG" width="667" height="1000" alt="Гала-ужин, фото 51" loading="lazy" decoding="async"></a>
+<a href="../assets/gallery/previews/IMG_3488.JPG" style="--r:1.499"><img src="../assets/gallery/previews/IMG_3488.JPG" width="1000" height="667" alt="Гала-ужин, фото 52" loading="lazy" decoding="async"></a>
+<a href="../assets/gallery/previews/IMG_3495.JPG" style="--r:1.499"><img src="../assets/gallery/previews/IMG_3495.JPG" width="1000" height="667" alt="Гала-ужин, фото 53" loading="lazy" decoding="async"></a>
+<a href="../assets/gallery/previews/IMG_3498.JPG" style="--r:0.667"><img src="../assets/gallery/previews/IMG_3498.JPG" width="667" height="1000" alt="Гала-ужин, фото 54" loading="lazy" decoding="async"></a>
+<a href="../assets/gallery/previews/IMG_3500.JPG" style="--r:1.499"><img src="../assets/gallery/previews/IMG_3500.JPG" width="1000" height="667" alt="Гала-ужин, фото 55" loading="lazy" decoding="async"></a>
+<a href="../assets/gallery/previews/IMG_3501.JPG" style="--r:0.667"><img src="../assets/gallery/previews/IMG_3501.JPG" width="667" height="1000" alt="Гала-ужин, фото 56" loading="lazy" decoding="async"></a>
+<a href="../assets/gallery/previews/IMG_3504.JPG" style="--r:1.499"><img src="../assets/gallery/previews/IMG_3504.JPG" width="1000" height="667" alt="Гала-ужин, фото 57" loading="lazy" decoding="async"></a>
+<a href="../assets/gallery/previews/IMG_3510.JPG" style="--r:0.667"><img src="../assets/gallery/previews/IMG_3510.JPG" width="667" height="1000" alt="Гала-ужин, фото 58" loading="lazy" decoding="async"></a>
+<a href="../assets/gallery/previews/IMG_3511.JPG" style="--r:1.499"><img src="../assets/gallery/previews/IMG_3511.JPG" width="1000" height="667" alt="Гала-ужин, фото 59" loading="lazy" decoding="async"></a>
+<a href="../assets/gallery/previews/IMG_3512.JPG" style="--r:1.499"><img src="../assets/gallery/previews/IMG_3512.JPG" width="1000" height="667" alt="Гала-ужин, фото 60" loading="lazy" decoding="async"></a>
+<a href="../assets/gallery/previews/IMG_3514.JPG" style="--r:0.667"><img src="../assets/gallery/previews/IMG_3514.JPG" width="667" height="1000" alt="Гала-ужин, фото 61" loading="lazy" decoding="async"></a>
+        </div>
+      </section>
+      <section aria-labelledby="s3">
+        <p class="kicker" data-t="d3">31 октября</p>
+        <h2 id="s3"><span data-t="s3">Лекции и дискуссии</span> <small>93</small></h2>
+        <div class="grid">
+<a href="../assets/gallery/previews/IMG_3520.JPG" style="--r:1.499"><img src="../assets/gallery/previews/IMG_3520.JPG" width="1000" height="667" alt="Лекции и дискуссии, фото 1" loading="lazy" decoding="async"></a>
+<a href="../assets/gallery/previews/IMG_3521.JPG" style="--r:1.499"><img src="../assets/gallery/previews/IMG_3521.JPG" width="1000" height="667" alt="Лекции и дискуссии, фото 2" loading="lazy" decoding="async"></a>
+<a href="../assets/gallery/previews/IMG_3526.JPG" style="--r:1.499"><img src="../assets/gallery/previews/IMG_3526.JPG" width="1000" height="667" alt="Лекции и дискуссии, фото 3" loading="lazy" decoding="async"></a>
+<a href="../assets/gallery/previews/IMG_3527.JPG" style="--r:1.499"><img src="../assets/gallery/previews/IMG_3527.JPG" width="1000" height="667" alt="Лекции и дискуссии, фото 4" loading="lazy" decoding="async"></a>
+<a href="../assets/gallery/previews/IMG_3528.JPG" style="--r:1.499"><img src="../assets/gallery/previews/IMG_3528.JPG" width="1000" height="667" alt="Лекции и дискуссии, фото 5" loading="lazy" decoding="async"></a>
+<a href="../assets/gallery/previews/IMG_3532.JPG" style="--r:1.499"><img src="../assets/gallery/previews/IMG_3532.JPG" width="1000" height="667" alt="Лекции и дискуссии, фото 6" loading="lazy" decoding="async"></a>
+<a href="../assets/gallery/previews/IMG_3537.JPG" style="--r:1.499"><img src="../assets/gallery/previews/IMG_3537.JPG" width="1000" height="667" alt="Лекции и дискуссии, фото 7" loading="lazy" decoding="async"></a>
+<a href="../assets/gallery/previews/IMG_3539.JPG" style="--r:1.499"><img src="../assets/gallery/previews/IMG_3539.JPG" width="1000" height="667" alt="Лекции и дискуссии, фото 8" loading="lazy" decoding="async"></a>
+<a href="../assets/gallery/previews/IMG_3542.JPG" style="--r:1.499"><img src="../assets/gallery/previews/IMG_3542.JPG" width="1000" height="667" alt="Лекции и дискуссии, фото 9" loading="lazy" decoding="async"></a>
+<a href="../assets/gallery/previews/IMG_3543.JPG" style="--r:1.499"><img src="../assets/gallery/previews/IMG_3543.JPG" width="1000" height="667" alt="Лекции и дискуссии, фото 10" loading="lazy" decoding="async"></a>
+<a href="../assets/gallery/previews/IMG_3544.JPG" style="--r:1.499"><img src="../assets/gallery/previews/IMG_3544.JPG" width="1000" height="667" alt="Лекции и дискуссии, фото 11" loading="lazy" decoding="async"></a>
+<a href="../assets/gallery/previews/IMG_3545.JPG" style="--r:1.499"><img src="../assets/gallery/previews/IMG_3545.JPG" width="1000" height="667" alt="Лекции и дискуссии, фото 12" loading="lazy" decoding="async"></a>
+<a href="../assets/gallery/previews/IMG_3546.JPG" style="--r:1.499"><img src="../assets/gallery/previews/IMG_3546.JPG" width="1000" height="667" alt="Лекции и дискуссии, фото 13" loading="lazy" decoding="async"></a>
+<a href="../assets/gallery/previews/IMG_3551.JPG" style="--r:1.499"><img src="../assets/gallery/previews/IMG_3551.JPG" width="1000" height="667" alt="Лекции и дискуссии, фото 14" loading="lazy" decoding="async"></a>
+<a href="../assets/gallery/previews/IMG_3555.JPG" style="--r:1.499"><img src="../assets/gallery/previews/IMG_3555.JPG" width="1000" height="667" alt="Лекции и дискуссии, фото 15" loading="lazy" decoding="async"></a>
+<a href="../assets/gallery/previews/IMG_3556.JPG" style="--r:1.499"><img src="../assets/gallery/previews/IMG_3556.JPG" width="1000" height="667" alt="Лекции и дискуссии, фото 16" loading="lazy" decoding="async"></a>
+<a href="../assets/gallery/previews/IMG_3558.JPG" style="--r:1.499"><img src="../assets/gallery/previews/IMG_3558.JPG" width="1000" height="667" alt="Лекции и дискуссии, фото 17" loading="lazy" decoding="async"></a>
+<a href="../assets/gallery/previews/IMG_3562.JPG" style="--r:1.499"><img src="../assets/gallery/previews/IMG_3562.JPG" width="1000" height="667" alt="Лекции и дискуссии, фото 18" loading="lazy" decoding="async"></a>
+<a href="../assets/gallery/previews/IMG_3563.JPG" style="--r:1.499"><img src="../assets/gallery/previews/IMG_3563.JPG" width="1000" height="667" alt="Лекции и дискуссии, фото 19" loading="lazy" decoding="async"></a>
+<a href="../assets/gallery/previews/IMG_3566.JPG" style="--r:1.499"><img src="../assets/gallery/previews/IMG_3566.JPG" width="1000" height="667" alt="Лекции и дискуссии, фото 20" loading="lazy" decoding="async"></a>
+<a href="../assets/gallery/previews/IMG_3570.JPG" style="--r:1.499"><img src="../assets/gallery/previews/IMG_3570.JPG" width="1000" height="667" alt="Лекции и дискуссии, фото 21" loading="lazy" decoding="async"></a>
+<a href="../assets/gallery/previews/IMG_3571.JPG" style="--r:1.499"><img src="../assets/gallery/previews/IMG_3571.JPG" width="1000" height="667" alt="Лекции и дискуссии, фото 22" loading="lazy" decoding="async"></a>
+<a href="../assets/gallery/previews/IMG_3572.JPG" style="--r:1.499"><img src="../assets/gallery/previews/IMG_3572.JPG" width="1000" height="667" alt="Лекции и дискуссии, фото 23" loading="lazy" decoding="async"></a>
+<a href="../assets/gallery/previews/IMG_3573.JPG" style="--r:1.499"><img src="../assets/gallery/previews/IMG_3573.JPG" width="1000" height="667" alt="Лекции и дискуссии, фото 24" loading="lazy" decoding="async"></a>
+<a href="../assets/gallery/previews/IMG_3576.JPG" style="--r:1.499"><img src="../assets/gallery/previews/IMG_3576.JPG" width="1000" height="667" alt="Лекции и дискуссии, фото 25" loading="lazy" decoding="async"></a>
+<a href="../assets/gallery/previews/IMG_3581.JPG" style="--r:1.499"><img src="../assets/gallery/previews/IMG_3581.JPG" width="1000" height="667" alt="Лекции и дискуссии, фото 26" loading="lazy" decoding="async"></a>
+<a href="../assets/gallery/previews/IMG_3583.JPG" style="--r:1.499"><img src="../assets/gallery/previews/IMG_3583.JPG" width="1000" height="667" alt="Лекции и дискуссии, фото 27" loading="lazy" decoding="async"></a>
+<a href="../assets/gallery/previews/IMG_3588.JPG" style="--r:1.499"><img src="../assets/gallery/previews/IMG_3588.JPG" width="1000" height="667" alt="Лекции и дискуссии, фото 28" loading="lazy" decoding="async"></a>
+<a href="../assets/gallery/previews/IMG_3590.JPG" style="--r:1.259"><img src="../assets/gallery/previews/IMG_3590.JPG" width="1000" height="794" alt="Лекции и дискуссии, фото 29" loading="lazy" decoding="async"></a>
+<a href="../assets/gallery/previews/IMG_3593.JPG" style="--r:1.499"><img src="../assets/gallery/previews/IMG_3593.JPG" width="1000" height="667" alt="Лекции и дискуссии, фото 30" loading="lazy" decoding="async"></a>
+<a href="../assets/gallery/previews/IMG_3595.JPG" style="--r:1.499"><img src="../assets/gallery/previews/IMG_3595.JPG" width="1000" height="667" alt="Лекции и дискуссии, фото 31" loading="lazy" decoding="async"></a>
+<a href="../assets/gallery/previews/IMG_3596.JPG" style="--r:1.499"><img src="../assets/gallery/previews/IMG_3596.JPG" width="1000" height="667" alt="Лекции и дискуссии, фото 32" loading="lazy" decoding="async"></a>
+<a href="../assets/gallery/previews/IMG_3599.JPG" style="--r:0.667"><img src="../assets/gallery/previews/IMG_3599.JPG" width="667" height="1000" alt="Лекции и дискуссии, фото 33" loading="lazy" decoding="async"></a>
+<a href="../assets/gallery/previews/IMG_3602.JPG" style="--r:1.499"><img src="../assets/gallery/previews/IMG_3602.JPG" width="1000" height="667" alt="Лекции и дискуссии, фото 34" loading="lazy" decoding="async"></a>
+<a href="../assets/gallery/previews/IMG_3603.JPG" style="--r:0.667"><img src="../assets/gallery/previews/IMG_3603.JPG" width="667" height="1000" alt="Лекции и дискуссии, фото 35" loading="lazy" decoding="async"></a>
+<a href="../assets/gallery/previews/IMG_3605.JPG" style="--r:1.499"><img src="../assets/gallery/previews/IMG_3605.JPG" width="1000" height="667" alt="Лекции и дискуссии, фото 36" loading="lazy" decoding="async"></a>
+<a href="../assets/gallery/previews/IMG_3606.JPG" style="--r:1.499"><img src="../assets/gallery/previews/IMG_3606.JPG" width="1000" height="667" alt="Лекции и дискуссии, фото 37" loading="lazy" decoding="async"></a>
+<a href="../assets/gallery/previews/IMG_3608.JPG" style="--r:1.499"><img src="../assets/gallery/previews/IMG_3608.JPG" width="1000" height="667" alt="Лекции и дискуссии, фото 38" loading="lazy" decoding="async"></a>
+<a href="../assets/gallery/previews/IMG_3610.JPG" style="--r:1.499"><img src="../assets/gallery/previews/IMG_3610.JPG" width="1000" height="667" alt="Лекции и дискуссии, фото 39" loading="lazy" decoding="async"></a>
+<a href="../assets/gallery/previews/IMG_3617.JPG" style="--r:0.667"><img src="../assets/gallery/previews/IMG_3617.JPG" width="667" height="1000" alt="Лекции и дискуссии, фото 40" loading="lazy" decoding="async"></a>
+<a href="../assets/gallery/previews/IMG_3618.JPG" style="--r:0.667"><img src="../assets/gallery/previews/IMG_3618.JPG" width="667" height="1000" alt="Лекции и дискуссии, фото 41" loading="lazy" decoding="async"></a>
+<a href="../assets/gallery/previews/IMG_3621.JPG" style="--r:1.499"><img src="../assets/gallery/previews/IMG_3621.JPG" width="1000" height="667" alt="Лекции и дискуссии, фото 42" loading="lazy" decoding="async"></a>
+<a href="../assets/gallery/previews/IMG_3626.JPG" style="--r:0.667"><img src="../assets/gallery/previews/IMG_3626.JPG" width="667" height="1000" alt="Лекции и дискуссии, фото 43" loading="lazy" decoding="async"></a>
+<a href="../assets/gallery/previews/IMG_3627.JPG" style="--r:1.499"><img src="../assets/gallery/previews/IMG_3627.JPG" width="1000" height="667" alt="Лекции и дискуссии, фото 44" loading="lazy" decoding="async"></a>
+<a href="../assets/gallery/previews/IMG_3628.JPG" style="--r:1.499"><img src="../assets/gallery/previews/IMG_3628.JPG" width="1000" height="667" alt="Лекции и дискуссии, фото 45" loading="lazy" decoding="async"></a>
+<a href="../assets/gallery/previews/IMG_3631.JPG" style="--r:1.499"><img src="../assets/gallery/previews/IMG_3631.JPG" width="1000" height="667" alt="Лекции и дискуссии, фото 46" loading="lazy" decoding="async"></a>
+<a href="../assets/gallery/previews/IMG_3632.JPG" style="--r:1.499"><img src="../assets/gallery/previews/IMG_3632.JPG" width="1000" height="667" alt="Лекции и дискуссии, фото 47" loading="lazy" decoding="async"></a>
+<a href="../assets/gallery/previews/IMG_3635.JPG" style="--r:1.499"><img src="../assets/gallery/previews/IMG_3635.JPG" width="1000" height="667" alt="Лекции и дискуссии, фото 48" loading="lazy" decoding="async"></a>
+<a href="../assets/gallery/previews/IMG_3636.JPG" style="--r:1.499"><img src="../assets/gallery/previews/IMG_3636.JPG" width="1000" height="667" alt="Лекции и дискуссии, фото 49" loading="lazy" decoding="async"></a>
+<a href="../assets/gallery/previews/IMG_3637.JPG" style="--r:1.499"><img src="../assets/gallery/previews/IMG_3637.JPG" width="1000" height="667" alt="Лекции и дискуссии, фото 50" loading="lazy" decoding="async"></a>
+<a href="../assets/gallery/previews/IMG_3638.JPG" style="--r:1.499"><img src="../assets/gallery/previews/IMG_3638.JPG" width="1000" height="667" alt="Лекции и дискуссии, фото 51" loading="lazy" decoding="async"></a>
+<a href="../assets/gallery/previews/IMG_3640.JPG" style="--r:0.667"><img src="../assets/gallery/previews/IMG_3640.JPG" width="667" height="1000" alt="Лекции и дискуссии, фото 52" loading="lazy" decoding="async"></a>
+<a href="../assets/gallery/previews/IMG_3641.JPG" style="--r:0.667"><img src="../assets/gallery/previews/IMG_3641.JPG" width="667" height="1000" alt="Лекции и дискуссии, фото 53" loading="lazy" decoding="async"></a>
+<a href="../assets/gallery/previews/IMG_3642.JPG" style="--r:1.499"><img src="../assets/gallery/previews/IMG_3642.JPG" width="1000" height="667" alt="Лекции и дискуссии, фото 54" loading="lazy" decoding="async"></a>
+<a href="../assets/gallery/previews/IMG_3643.JPG" style="--r:1.499"><img src="../assets/gallery/previews/IMG_3643.JPG" width="1000" height="667" alt="Лекции и дискуссии, фото 55" loading="lazy" decoding="async"></a>
+<a href="../assets/gallery/previews/IMG_3644.JPG" style="--r:1.499"><img src="../assets/gallery/previews/IMG_3644.JPG" width="1000" height="667" alt="Лекции и дискуссии, фото 56" loading="lazy" decoding="async"></a>
+<a href="../assets/gallery/previews/IMG_3646.JPG" style="--r:1.499"><img src="../assets/gallery/previews/IMG_3646.JPG" width="1000" height="667" alt="Лекции и дискуссии, фото 57" loading="lazy" decoding="async"></a>
+<a href="../assets/gallery/previews/IMG_3647.JPG" style="--r:1.499"><img src="../assets/gallery/previews/IMG_3647.JPG" width="1000" height="667" alt="Лекции и дискуссии, фото 58" loading="lazy" decoding="async"></a>
+<a href="../assets/gallery/previews/IMG_3648.JPG" style="--r:0.667"><img src="../assets/gallery/previews/IMG_3648.JPG" width="667" height="1000" alt="Лекции и дискуссии, фото 59" loading="lazy" decoding="async"></a>
+<a href="../assets/gallery/previews/IMG_3649.JPG" style="--r:1.499"><img src="../assets/gallery/previews/IMG_3649.JPG" width="1000" height="667" alt="Лекции и дискуссии, фото 60" loading="lazy" decoding="async"></a>
+<a href="../assets/gallery/previews/IMG_3650.JPG" style="--r:1.499"><img src="../assets/gallery/previews/IMG_3650.JPG" width="1000" height="667" alt="Лекции и дискуссии, фото 61" loading="lazy" decoding="async"></a>
+<a href="../assets/gallery/previews/IMG_3651.JPG" style="--r:1.499"><img src="../assets/gallery/previews/IMG_3651.JPG" width="1000" height="667" alt="Лекции и дискуссии, фото 62" loading="lazy" decoding="async"></a>
+<a href="../assets/gallery/previews/IMG_3653.JPG" style="--r:1.499"><img src="../assets/gallery/previews/IMG_3653.JPG" width="1000" height="667" alt="Лекции и дискуссии, фото 63" loading="lazy" decoding="async"></a>
+<a href="../assets/gallery/previews/IMG_3654.JPG" style="--r:1.499"><img src="../assets/gallery/previews/IMG_3654.JPG" width="1000" height="667" alt="Лекции и дискуссии, фото 64" loading="lazy" decoding="async"></a>
+<a href="../assets/gallery/previews/IMG_3655.JPG" style="--r:1.499"><img src="../assets/gallery/previews/IMG_3655.JPG" width="1000" height="667" alt="Лекции и дискуссии, фото 65" loading="lazy" decoding="async"></a>
+<a href="../assets/gallery/previews/IMG_3658.JPG" style="--r:1.499"><img src="../assets/gallery/previews/IMG_3658.JPG" width="1000" height="667" alt="Лекции и дискуссии, фото 66" loading="lazy" decoding="async"></a>
+<a href="../assets/gallery/previews/IMG_3661.JPG" style="--r:1.499"><img src="../assets/gallery/previews/IMG_3661.JPG" width="1000" height="667" alt="Лекции и дискуссии, фото 67" loading="lazy" decoding="async"></a>
+<a href="../assets/gallery/previews/IMG_3666.JPG" style="--r:1.499"><img src="../assets/gallery/previews/IMG_3666.JPG" width="1000" height="667" alt="Лекции и дискуссии, фото 68" loading="lazy" decoding="async"></a>
+<a href="../assets/gallery/previews/IMG_3669.JPG" style="--r:0.667"><img src="../assets/gallery/previews/IMG_3669.JPG" width="667" height="1000" alt="Лекции и дискуссии, фото 69" loading="lazy" decoding="async"></a>
+<a href="../assets/gallery/previews/IMG_3671.JPG" style="--r:0.667"><img src="../assets/gallery/previews/IMG_3671.JPG" width="667" height="1000" alt="Лекции и дискуссии, фото 70" loading="lazy" decoding="async"></a>
+<a href="../assets/gallery/previews/IMG_3674.JPG" style="--r:1.499"><img src="../assets/gallery/previews/IMG_3674.JPG" width="1000" height="667" alt="Лекции и дискуссии, фото 71" loading="lazy" decoding="async"></a>
+<a href="../assets/gallery/previews/IMG_3676.JPG" style="--r:1.499"><img src="../assets/gallery/previews/IMG_3676.JPG" width="1000" height="667" alt="Лекции и дискуссии, фото 72" loading="lazy" decoding="async"></a>
+<a href="../assets/gallery/previews/IMG_3677.JPG" style="--r:1.499"><img src="../assets/gallery/previews/IMG_3677.JPG" width="1000" height="667" alt="Лекции и дискуссии, фото 73" loading="lazy" decoding="async"></a>
+<a href="../assets/gallery/previews/IMG_3679.JPG" style="--r:1.499"><img src="../assets/gallery/previews/IMG_3679.JPG" width="1000" height="667" alt="Лекции и дискуссии, фото 74" loading="lazy" decoding="async"></a>
+<a href="../assets/gallery/previews/IMG_3682.JPG" style="--r:1.499"><img src="../assets/gallery/previews/IMG_3682.JPG" width="1000" height="667" alt="Лекции и дискуссии, фото 75" loading="lazy" decoding="async"></a>
+<a href="../assets/gallery/previews/IMG_3683.JPG" style="--r:1.499"><img src="../assets/gallery/previews/IMG_3683.JPG" width="1000" height="667" alt="Лекции и дискуссии, фото 76" loading="lazy" decoding="async"></a>
+<a href="../assets/gallery/previews/IMG_3691.JPG" style="--r:1.499"><img src="../assets/gallery/previews/IMG_3691.JPG" width="1000" height="667" alt="Лекции и дискуссии, фото 77" loading="lazy" decoding="async"></a>
+<a href="../assets/gallery/previews/IMG_3694.JPG" style="--r:1.499"><img src="../assets/gallery/previews/IMG_3694.JPG" width="1000" height="667" alt="Лекции и дискуссии, фото 78" loading="lazy" decoding="async"></a>
+<a href="../assets/gallery/previews/IMG_3698.JPG" style="--r:1.499"><img src="../assets/gallery/previews/IMG_3698.JPG" width="1000" height="667" alt="Лекции и дискуссии, фото 79" loading="lazy" decoding="async"></a>
+<a href="../assets/gallery/previews/IMG_3701.JPG" style="--r:1.499"><img src="../assets/gallery/previews/IMG_3701.JPG" width="1000" height="667" alt="Лекции и дискуссии, фото 80" loading="lazy" decoding="async"></a>
+<a href="../assets/gallery/previews/IMG_3705.JPG" style="--r:1.499"><img src="../assets/gallery/previews/IMG_3705.JPG" width="1000" height="667" alt="Лекции и дискуссии, фото 81" loading="lazy" decoding="async"></a>
+<a href="../assets/gallery/previews/IMG_3706.JPG" style="--r:1.499"><img src="../assets/gallery/previews/IMG_3706.JPG" width="1000" height="667" alt="Лекции и дискуссии, фото 82" loading="lazy" decoding="async"></a>
+<a href="../assets/gallery/previews/IMG_3708.JPG" style="--r:0.667"><img src="../assets/gallery/previews/IMG_3708.JPG" width="667" height="1000" alt="Лекции и дискуссии, фото 83" loading="lazy" decoding="async"></a>
+<a href="../assets/gallery/previews/IMG_3710.JPG" style="--r:1.321"><img src="../assets/gallery/previews/IMG_3710.JPG" width="1000" height="757" alt="Лекции и дискуссии, фото 84" loading="lazy" decoding="async"></a>
+<a href="../assets/gallery/previews/IMG_3712.JPG" style="--r:1.499"><img src="../assets/gallery/previews/IMG_3712.JPG" width="1000" height="667" alt="Лекции и дискуссии, фото 85" loading="lazy" decoding="async"></a>
+<a href="../assets/gallery/previews/IMG_3713.JPG" style="--r:1.499"><img src="../assets/gallery/previews/IMG_3713.JPG" width="1000" height="667" alt="Лекции и дискуссии, фото 86" loading="lazy" decoding="async"></a>
+<a href="../assets/gallery/previews/IMG_3714.JPG" style="--r:0.667"><img src="../assets/gallery/previews/IMG_3714.JPG" width="667" height="1000" alt="Лекции и дискуссии, фото 87" loading="lazy" decoding="async"></a>
+<a href="../assets/gallery/previews/IMG_3716.JPG" style="--r:0.667"><img src="../assets/gallery/previews/IMG_3716.JPG" width="667" height="1000" alt="Лекции и дискуссии, фото 88" loading="lazy" decoding="async"></a>
+<a href="../assets/gallery/previews/IMG_3719.JPG" style="--r:1.499"><img src="../assets/gallery/previews/IMG_3719.JPG" width="1000" height="667" alt="Лекции и дискуссии, фото 89" loading="lazy" decoding="async"></a>
+<a href="../assets/gallery/previews/IMG_3722.JPG" style="--r:1.499"><img src="../assets/gallery/previews/IMG_3722.JPG" width="1000" height="667" alt="Лекции и дискуссии, фото 90" loading="lazy" decoding="async"></a>
+<a href="../assets/gallery/previews/IMG_3724.JPG" style="--r:1.499"><img src="../assets/gallery/previews/IMG_3724.JPG" width="1000" height="667" alt="Лекции и дискуссии, фото 91" loading="lazy" decoding="async"></a>
+<a href="../assets/gallery/previews/IMG_3726.JPG" style="--r:1.499"><img src="../assets/gallery/previews/IMG_3726.JPG" width="1000" height="667" alt="Лекции и дискуссии, фото 92" loading="lazy" decoding="async"></a>
+<a href="../assets/gallery/previews/IMG_3728.JPG" style="--r:1.653"><img src="../assets/gallery/previews/IMG_3728.JPG" width="1000" height="605" alt="Лекции и дискуссии, фото 93" loading="lazy" decoding="async"></a>
+        </div>
+      </section>
+      <section aria-labelledby="s4">
+        <p class="kicker" data-t="d4">31 октября</p>
+        <h2 id="s4"><span data-t="s4">Воркшопы</span> <small>102</small></h2>
+        <div class="grid">
+<a href="../assets/gallery/previews/IMG_3730.JPG" style="--r:1.499"><img src="../assets/gallery/previews/IMG_3730.JPG" width="1000" height="667" alt="Воркшопы, фото 1" loading="lazy" decoding="async"></a>
+<a href="../assets/gallery/previews/IMG_3731.JPG" style="--r:1.499"><img src="../assets/gallery/previews/IMG_3731.JPG" width="1000" height="667" alt="Воркшопы, фото 2" loading="lazy" decoding="async"></a>
+<a href="../assets/gallery/previews/IMG_3733.JPG" style="--r:1.499"><img src="../assets/gallery/previews/IMG_3733.JPG" width="1000" height="667" alt="Воркшопы, фото 3" loading="lazy" decoding="async"></a>
+<a href="../assets/gallery/previews/IMG_3734.JPG" style="--r:1.499"><img src="../assets/gallery/previews/IMG_3734.JPG" width="1000" height="667" alt="Воркшопы, фото 4" loading="lazy" decoding="async"></a>
+<a href="../assets/gallery/previews/IMG_3735.JPG" style="--r:1.499"><img src="../assets/gallery/previews/IMG_3735.JPG" width="1000" height="667" alt="Воркшопы, фото 5" loading="lazy" decoding="async"></a>
+<a href="../assets/gallery/previews/IMG_3736.JPG" style="--r:1.499"><img src="../assets/gallery/previews/IMG_3736.JPG" width="1000" height="667" alt="Воркшопы, фото 6" loading="lazy" decoding="async"></a>
+<a href="../assets/gallery/previews/IMG_3739.JPG" style="--r:0.667"><img src="../assets/gallery/previews/IMG_3739.JPG" width="667" height="1000" alt="Воркшопы, фото 7" loading="lazy" decoding="async"></a>
+<a href="../assets/gallery/previews/IMG_3740.JPG" style="--r:0.667"><img src="../assets/gallery/previews/IMG_3740.JPG" width="667" height="1000" alt="Воркшопы, фото 8" loading="lazy" decoding="async"></a>
+<a href="../assets/gallery/previews/IMG_3746.JPG" style="--r:1.499"><img src="../assets/gallery/previews/IMG_3746.JPG" width="1000" height="667" alt="Воркшопы, фото 9" loading="lazy" decoding="async"></a>
+<a href="../assets/gallery/previews/IMG_3747.JPG" style="--r:1.499"><img src="../assets/gallery/previews/IMG_3747.JPG" width="1000" height="667" alt="Воркшопы, фото 10" loading="lazy" decoding="async"></a>
+<a href="../assets/gallery/previews/IMG_3748.JPG" style="--r:0.667"><img src="../assets/gallery/previews/IMG_3748.JPG" width="667" height="1000" alt="Воркшопы, фото 11" loading="lazy" decoding="async"></a>
+<a href="../assets/gallery/previews/IMG_3749.JPG" style="--r:1.499"><img src="../assets/gallery/previews/IMG_3749.JPG" width="1000" height="667" alt="Воркшопы, фото 12" loading="lazy" decoding="async"></a>
+<a href="../assets/gallery/previews/IMG_3750.JPG" style="--r:1.499"><img src="../assets/gallery/previews/IMG_3750.JPG" width="1000" height="667" alt="Воркшопы, фото 13" loading="lazy" decoding="async"></a>
+<a href="../assets/gallery/previews/IMG_3751.JPG" style="--r:1.499"><img src="../assets/gallery/previews/IMG_3751.JPG" width="1000" height="667" alt="Воркшопы, фото 14" loading="lazy" decoding="async"></a>
+<a href="../assets/gallery/previews/IMG_3752.JPG" style="--r:1.499"><img src="../assets/gallery/previews/IMG_3752.JPG" width="1000" height="667" alt="Воркшопы, фото 15" loading="lazy" decoding="async"></a>
+<a href="../assets/gallery/previews/IMG_3754.JPG" style="--r:1.499"><img src="../assets/gallery/previews/IMG_3754.JPG" width="1000" height="667" alt="Воркшопы, фото 16" loading="lazy" decoding="async"></a>
+<a href="../assets/gallery/previews/IMG_3755.JPG" style="--r:1.499"><img src="../assets/gallery/previews/IMG_3755.JPG" width="1000" height="667" alt="Воркшопы, фото 17" loading="lazy" decoding="async"></a>
+<a href="../assets/gallery/previews/IMG_3756.JPG" style="--r:1.499"><img src="../assets/gallery/previews/IMG_3756.JPG" width="1000" height="667" alt="Воркшопы, фото 18" loading="lazy" decoding="async"></a>
+<a href="../assets/gallery/previews/IMG_3757.JPG" style="--r:1.499"><img src="../assets/gallery/previews/IMG_3757.JPG" width="1000" height="667" alt="Воркшопы, фото 19" loading="lazy" decoding="async"></a>
+<a href="../assets/gallery/previews/IMG_3760.JPG" style="--r:1.499"><img src="../assets/gallery/previews/IMG_3760.JPG" width="1000" height="667" alt="Воркшопы, фото 20" loading="lazy" decoding="async"></a>
+<a href="../assets/gallery/previews/IMG_3761.JPG" style="--r:1.294"><img src="../assets/gallery/previews/IMG_3761.JPG" width="1000" height="773" alt="Воркшопы, фото 21" loading="lazy" decoding="async"></a>
+<a href="../assets/gallery/previews/IMG_3763.JPG" style="--r:0.667"><img src="../assets/gallery/previews/IMG_3763.JPG" width="667" height="1000" alt="Воркшопы, фото 22" loading="lazy" decoding="async"></a>
+<a href="../assets/gallery/previews/IMG_3765.JPG" style="--r:1.499"><img src="../assets/gallery/previews/IMG_3765.JPG" width="1000" height="667" alt="Воркшопы, фото 23" loading="lazy" decoding="async"></a>
+<a href="../assets/gallery/previews/IMG_3766.JPG" style="--r:1.499"><img src="../assets/gallery/previews/IMG_3766.JPG" width="1000" height="667" alt="Воркшопы, фото 24" loading="lazy" decoding="async"></a>
+<a href="../assets/gallery/previews/IMG_3768.JPG" style="--r:1.499"><img src="../assets/gallery/previews/IMG_3768.JPG" width="1000" height="667" alt="Воркшопы, фото 25" loading="lazy" decoding="async"></a>
+<a href="../assets/gallery/previews/IMG_3769.JPG" style="--r:1.499"><img src="../assets/gallery/previews/IMG_3769.JPG" width="1000" height="667" alt="Воркшопы, фото 26" loading="lazy" decoding="async"></a>
+<a href="../assets/gallery/previews/IMG_3770.JPG" style="--r:1.499"><img src="../assets/gallery/previews/IMG_3770.JPG" width="1000" height="667" alt="Воркшопы, фото 27" loading="lazy" decoding="async"></a>
+<a href="../assets/gallery/previews/IMG_3771.JPG" style="--r:1.499"><img src="../assets/gallery/previews/IMG_3771.JPG" width="1000" height="667" alt="Воркшопы, фото 28" loading="lazy" decoding="async"></a>
+<a href="../assets/gallery/previews/IMG_3772.JPG" style="--r:1.499"><img src="../assets/gallery/previews/IMG_3772.JPG" width="1000" height="667" alt="Воркшопы, фото 29" loading="lazy" decoding="async"></a>
+<a href="../assets/gallery/previews/IMG_3773.JPG" style="--r:1.499"><img src="../assets/gallery/previews/IMG_3773.JPG" width="1000" height="667" alt="Воркшопы, фото 30" loading="lazy" decoding="async"></a>
+<a href="../assets/gallery/previews/IMG_3775.JPG" style="--r:1.499"><img src="../assets/gallery/previews/IMG_3775.JPG" width="1000" height="667" alt="Воркшопы, фото 31" loading="lazy" decoding="async"></a>
+<a href="../assets/gallery/previews/IMG_3778.JPG" style="--r:1.499"><img src="../assets/gallery/previews/IMG_3778.JPG" width="1000" height="667" alt="Воркшопы, фото 32" loading="lazy" decoding="async"></a>
+<a href="../assets/gallery/previews/IMG_3781.JPG" style="--r:1.499"><img src="../assets/gallery/previews/IMG_3781.JPG" width="1000" height="667" alt="Воркшопы, фото 33" loading="lazy" decoding="async"></a>
+<a href="../assets/gallery/previews/IMG_3786.JPG" style="--r:0.667"><img src="../assets/gallery/previews/IMG_3786.JPG" width="667" height="1000" alt="Воркшопы, фото 34" loading="lazy" decoding="async"></a>
+<a href="../assets/gallery/previews/IMG_3787.JPG" style="--r:1.499"><img src="../assets/gallery/previews/IMG_3787.JPG" width="1000" height="667" alt="Воркшопы, фото 35" loading="lazy" decoding="async"></a>
+<a href="../assets/gallery/previews/IMG_3792.JPG" style="--r:0.667"><img src="../assets/gallery/previews/IMG_3792.JPG" width="667" height="1000" alt="Воркшопы, фото 36" loading="lazy" decoding="async"></a>
+<a href="../assets/gallery/previews/IMG_3793.JPG" style="--r:1.499"><img src="../assets/gallery/previews/IMG_3793.JPG" width="1000" height="667" alt="Воркшопы, фото 37" loading="lazy" decoding="async"></a>
+<a href="../assets/gallery/previews/IMG_3794.JPG" style="--r:1.499"><img src="../assets/gallery/previews/IMG_3794.JPG" width="1000" height="667" alt="Воркшопы, фото 38" loading="lazy" decoding="async"></a>
+<a href="../assets/gallery/previews/IMG_3795.JPG" style="--r:1.499"><img src="../assets/gallery/previews/IMG_3795.JPG" width="1000" height="667" alt="Воркшопы, фото 39" loading="lazy" decoding="async"></a>
+<a href="../assets/gallery/previews/IMG_3796.JPG" style="--r:1.499"><img src="../assets/gallery/previews/IMG_3796.JPG" width="1000" height="667" alt="Воркшопы, фото 40" loading="lazy" decoding="async"></a>
+<a href="../assets/gallery/previews/IMG_3797.JPG" style="--r:1.499"><img src="../assets/gallery/previews/IMG_3797.JPG" width="1000" height="667" alt="Воркшопы, фото 41" loading="lazy" decoding="async"></a>
+<a href="../assets/gallery/previews/IMG_3798.JPG" style="--r:1.499"><img src="../assets/gallery/previews/IMG_3798.JPG" width="1000" height="667" alt="Воркшопы, фото 42" loading="lazy" decoding="async"></a>
+<a href="../assets/gallery/previews/IMG_3801.JPG" style="--r:1.499"><img src="../assets/gallery/previews/IMG_3801.JPG" width="1000" height="667" alt="Воркшопы, фото 43" loading="lazy" decoding="async"></a>
+<a href="../assets/gallery/previews/IMG_3802.JPG" style="--r:1.499"><img src="../assets/gallery/previews/IMG_3802.JPG" width="1000" height="667" alt="Воркшопы, фото 44" loading="lazy" decoding="async"></a>
+<a href="../assets/gallery/previews/IMG_3803.JPG" style="--r:1.499"><img src="../assets/gallery/previews/IMG_3803.JPG" width="1000" height="667" alt="Воркшопы, фото 45" loading="lazy" decoding="async"></a>
+<a href="../assets/gallery/previews/IMG_3804.JPG" style="--r:1.499"><img src="../assets/gallery/previews/IMG_3804.JPG" width="1000" height="667" alt="Воркшопы, фото 46" loading="lazy" decoding="async"></a>
+<a href="../assets/gallery/previews/IMG_3807.JPG" style="--r:0.667"><img src="../assets/gallery/previews/IMG_3807.JPG" width="667" height="1000" alt="Воркшопы, фото 47" loading="lazy" decoding="async"></a>
+<a href="../assets/gallery/previews/IMG_3811.JPG" style="--r:1.499"><img src="../assets/gallery/previews/IMG_3811.JPG" width="1000" height="667" alt="Воркшопы, фото 48" loading="lazy" decoding="async"></a>
+<a href="../assets/gallery/previews/IMG_3812.JPG" style="--r:1.499"><img src="../assets/gallery/previews/IMG_3812.JPG" width="1000" height="667" alt="Воркшопы, фото 49" loading="lazy" decoding="async"></a>
+<a href="../assets/gallery/previews/IMG_3813.JPG" style="--r:1.499"><img src="../assets/gallery/previews/IMG_3813.JPG" width="1000" height="667" alt="Воркшопы, фото 50" loading="lazy" decoding="async"></a>
+<a href="../assets/gallery/previews/IMG_3814.JPG" style="--r:1.499"><img src="../assets/gallery/previews/IMG_3814.JPG" width="1000" height="667" alt="Воркшопы, фото 51" loading="lazy" decoding="async"></a>
+<a href="../assets/gallery/previews/IMG_3815.JPG" style="--r:1.499"><img src="../assets/gallery/previews/IMG_3815.JPG" width="1000" height="667" alt="Воркшопы, фото 52" loading="lazy" decoding="async"></a>
+<a href="../assets/gallery/previews/IMG_3816.JPG" style="--r:1.499"><img src="../assets/gallery/previews/IMG_3816.JPG" width="1000" height="667" alt="Воркшопы, фото 53" loading="lazy" decoding="async"></a>
+<a href="../assets/gallery/previews/IMG_3818.JPG" style="--r:1.499"><img src="../assets/gallery/previews/IMG_3818.JPG" width="1000" height="667" alt="Воркшопы, фото 54" loading="lazy" decoding="async"></a>
+<a href="../assets/gallery/previews/IMG_3820.JPG" style="--r:1.499"><img src="../assets/gallery/previews/IMG_3820.JPG" width="1000" height="667" alt="Воркшопы, фото 55" loading="lazy" decoding="async"></a>
+<a href="../assets/gallery/previews/IMG_3827.JPG" style="--r:1.499"><img src="../assets/gallery/previews/IMG_3827.JPG" width="1000" height="667" alt="Воркшопы, фото 56" loading="lazy" decoding="async"></a>
+<a href="../assets/gallery/previews/IMG_3828.JPG" style="--r:1.499"><img src="../assets/gallery/previews/IMG_3828.JPG" width="1000" height="667" alt="Воркшопы, фото 57" loading="lazy" decoding="async"></a>
+<a href="../assets/gallery/previews/IMG_3831.JPG" style="--r:1.499"><img src="../assets/gallery/previews/IMG_3831.JPG" width="1000" height="667" alt="Воркшопы, фото 58" loading="lazy" decoding="async"></a>
+<a href="../assets/gallery/previews/IMG_3832.JPG" style="--r:1.499"><img src="../assets/gallery/previews/IMG_3832.JPG" width="1000" height="667" alt="Воркшопы, фото 59" loading="lazy" decoding="async"></a>
+<a href="../assets/gallery/previews/IMG_3833.JPG" style="--r:1.499"><img src="../assets/gallery/previews/IMG_3833.JPG" width="1000" height="667" alt="Воркшопы, фото 60" loading="lazy" decoding="async"></a>
+<a href="../assets/gallery/previews/IMG_3836.JPG" style="--r:1.499"><img src="../assets/gallery/previews/IMG_3836.JPG" width="1000" height="667" alt="Воркшопы, фото 61" loading="lazy" decoding="async"></a>
+<a href="../assets/gallery/previews/IMG_3840.JPG" style="--r:1.499"><img src="../assets/gallery/previews/IMG_3840.JPG" width="1000" height="667" alt="Воркшопы, фото 62" loading="lazy" decoding="async"></a>
+<a href="../assets/gallery/previews/IMG_3841.JPG" style="--r:0.667"><img src="../assets/gallery/previews/IMG_3841.JPG" width="667" height="1000" alt="Воркшопы, фото 63" loading="lazy" decoding="async"></a>
+<a href="../assets/gallery/previews/IMG_3842.JPG" style="--r:1.499"><img src="../assets/gallery/previews/IMG_3842.JPG" width="1000" height="667" alt="Воркшопы, фото 64" loading="lazy" decoding="async"></a>
+<a href="../assets/gallery/previews/IMG_3843.JPG" style="--r:1.499"><img src="../assets/gallery/previews/IMG_3843.JPG" width="1000" height="667" alt="Воркшопы, фото 65" loading="lazy" decoding="async"></a>
+<a href="../assets/gallery/previews/IMG_3847.JPG" style="--r:0.667"><img src="../assets/gallery/previews/IMG_3847.JPG" width="667" height="1000" alt="Воркшопы, фото 66" loading="lazy" decoding="async"></a>
+<a href="../assets/gallery/previews/IMG_3848.JPG" style="--r:1.499"><img src="../assets/gallery/previews/IMG_3848.JPG" width="1000" height="667" alt="Воркшопы, фото 67" loading="lazy" decoding="async"></a>
+<a href="../assets/gallery/previews/IMG_3849.JPG" style="--r:1.499"><img src="../assets/gallery/previews/IMG_3849.JPG" width="1000" height="667" alt="Воркшопы, фото 68" loading="lazy" decoding="async"></a>
+<a href="../assets/gallery/previews/IMG_3851.JPG" style="--r:0.667"><img src="../assets/gallery/previews/IMG_3851.JPG" width="667" height="1000" alt="Воркшопы, фото 69" loading="lazy" decoding="async"></a>
+<a href="../assets/gallery/previews/IMG_3852.JPG" style="--r:0.667"><img src="../assets/gallery/previews/IMG_3852.JPG" width="667" height="1000" alt="Воркшопы, фото 70" loading="lazy" decoding="async"></a>
+<a href="../assets/gallery/previews/IMG_3853.JPG" style="--r:1.499"><img src="../assets/gallery/previews/IMG_3853.JPG" width="1000" height="667" alt="Воркшопы, фото 71" loading="lazy" decoding="async"></a>
+<a href="../assets/gallery/previews/IMG_3854.JPG" style="--r:1.499"><img src="../assets/gallery/previews/IMG_3854.JPG" width="1000" height="667" alt="Воркшопы, фото 72" loading="lazy" decoding="async"></a>
+<a href="../assets/gallery/previews/IMG_3855.JPG" style="--r:1.499"><img src="../assets/gallery/previews/IMG_3855.JPG" width="1000" height="667" alt="Воркшопы, фото 73" loading="lazy" decoding="async"></a>
+<a href="../assets/gallery/previews/IMG_3858.JPG" style="--r:1.499"><img src="../assets/gallery/previews/IMG_3858.JPG" width="1000" height="667" alt="Воркшопы, фото 74" loading="lazy" decoding="async"></a>
+<a href="../assets/gallery/previews/IMG_3859.JPG" style="--r:1.499"><img src="../assets/gallery/previews/IMG_3859.JPG" width="1000" height="667" alt="Воркшопы, фото 75" loading="lazy" decoding="async"></a>
+<a href="../assets/gallery/previews/IMG_3861.JPG" style="--r:0.667"><img src="../assets/gallery/previews/IMG_3861.JPG" width="667" height="1000" alt="Воркшопы, фото 76" loading="lazy" decoding="async"></a>
+<a href="../assets/gallery/previews/IMG_3862.JPG" style="--r:1.499"><img src="../assets/gallery/previews/IMG_3862.JPG" width="1000" height="667" alt="Воркшопы, фото 77" loading="lazy" decoding="async"></a>
+<a href="../assets/gallery/previews/IMG_3863.JPG" style="--r:1.499"><img src="../assets/gallery/previews/IMG_3863.JPG" width="1000" height="667" alt="Воркшопы, фото 78" loading="lazy" decoding="async"></a>
+<a href="../assets/gallery/previews/IMG_3865.JPG" style="--r:1.499"><img src="../assets/gallery/previews/IMG_3865.JPG" width="1000" height="667" alt="Воркшопы, фото 79" loading="lazy" decoding="async"></a>
+<a href="../assets/gallery/previews/IMG_3866.JPG" style="--r:1.499"><img src="../assets/gallery/previews/IMG_3866.JPG" width="1000" height="667" alt="Воркшопы, фото 80" loading="lazy" decoding="async"></a>
+<a href="../assets/gallery/previews/IMG_3867.JPG" style="--r:1.499"><img src="../assets/gallery/previews/IMG_3867.JPG" width="1000" height="667" alt="Воркшопы, фото 81" loading="lazy" decoding="async"></a>
+<a href="../assets/gallery/previews/IMG_3868.JPG" style="--r:1.499"><img src="../assets/gallery/previews/IMG_3868.JPG" width="1000" height="667" alt="Воркшопы, фото 82" loading="lazy" decoding="async"></a>
+<a href="../assets/gallery/previews/IMG_3869.JPG" style="--r:0.667"><img src="../assets/gallery/previews/IMG_3869.JPG" width="667" height="1000" alt="Воркшопы, фото 83" loading="lazy" decoding="async"></a>
+<a href="../assets/gallery/previews/IMG_3870.JPG" style="--r:1.499"><img src="../assets/gallery/previews/IMG_3870.JPG" width="1000" height="667" alt="Воркшопы, фото 84" loading="lazy" decoding="async"></a>
+<a href="../assets/gallery/previews/IMG_3871.JPG" style="--r:1.499"><img src="../assets/gallery/previews/IMG_3871.JPG" width="1000" height="667" alt="Воркшопы, фото 85" loading="lazy" decoding="async"></a>
+<a href="../assets/gallery/previews/IMG_3874.JPG" style="--r:1.499"><img src="../assets/gallery/previews/IMG_3874.JPG" width="1000" height="667" alt="Воркшопы, фото 86" loading="lazy" decoding="async"></a>
+<a href="../assets/gallery/previews/IMG_3876.JPG" style="--r:1.499"><img src="../assets/gallery/previews/IMG_3876.JPG" width="1000" height="667" alt="Воркшопы, фото 87" loading="lazy" decoding="async"></a>
+<a href="../assets/gallery/previews/IMG_3877.JPG" style="--r:1.499"><img src="../assets/gallery/previews/IMG_3877.JPG" width="1000" height="667" alt="Воркшопы, фото 88" loading="lazy" decoding="async"></a>
+<a href="../assets/gallery/previews/IMG_3878.JPG" style="--r:1.499"><img src="../assets/gallery/previews/IMG_3878.JPG" width="1000" height="667" alt="Воркшопы, фото 89" loading="lazy" decoding="async"></a>
+<a href="../assets/gallery/previews/IMG_3879.JPG" style="--r:0.667"><img src="../assets/gallery/previews/IMG_3879.JPG" width="667" height="1000" alt="Воркшопы, фото 90" loading="lazy" decoding="async"></a>
+<a href="../assets/gallery/previews/IMG_3880.JPG" style="--r:1.499"><img src="../assets/gallery/previews/IMG_3880.JPG" width="1000" height="667" alt="Воркшопы, фото 91" loading="lazy" decoding="async"></a>
+<a href="../assets/gallery/previews/IMG_3881.JPG" style="--r:1.499"><img src="../assets/gallery/previews/IMG_3881.JPG" width="1000" height="667" alt="Воркшопы, фото 92" loading="lazy" decoding="async"></a>
+<a href="../assets/gallery/previews/IMG_3883.JPG" style="--r:1.499"><img src="../assets/gallery/previews/IMG_3883.JPG" width="1000" height="667" alt="Воркшопы, фото 93" loading="lazy" decoding="async"></a>
+<a href="../assets/gallery/previews/IMG_3884.JPG" style="--r:0.667"><img src="../assets/gallery/previews/IMG_3884.JPG" width="667" height="1000" alt="Воркшопы, фото 94" loading="lazy" decoding="async"></a>
+<a href="../assets/gallery/previews/IMG_3885.JPG" style="--r:1.499"><img src="../assets/gallery/previews/IMG_3885.JPG" width="1000" height="667" alt="Воркшопы, фото 95" loading="lazy" decoding="async"></a>
+<a href="../assets/gallery/previews/IMG_3886.JPG" style="--r:0.667"><img src="../assets/gallery/previews/IMG_3886.JPG" width="667" height="1000" alt="Воркшопы, фото 96" loading="lazy" decoding="async"></a>
+<a href="../assets/gallery/previews/IMG_3887.JPG" style="--r:0.667"><img src="../assets/gallery/previews/IMG_3887.JPG" width="667" height="1000" alt="Воркшопы, фото 97" loading="lazy" decoding="async"></a>
+<a href="../assets/gallery/previews/IMG_3888.JPG" style="--r:1.499"><img src="../assets/gallery/previews/IMG_3888.JPG" width="1000" height="667" alt="Воркшопы, фото 98" loading="lazy" decoding="async"></a>
+<a href="../assets/gallery/previews/IMG_3889.JPG" style="--r:1.770"><img src="../assets/gallery/previews/IMG_3889.JPG" width="1000" height="565" alt="Воркшопы, фото 99" loading="lazy" decoding="async"></a>
+<a href="../assets/gallery/previews/IMG_3891.JPG" style="--r:1.499"><img src="../assets/gallery/previews/IMG_3891.JPG" width="1000" height="667" alt="Воркшопы, фото 100" loading="lazy" decoding="async"></a>
+<a href="../assets/gallery/previews/IMG_3893.JPG" style="--r:1.499"><img src="../assets/gallery/previews/IMG_3893.JPG" width="1000" height="667" alt="Воркшопы, фото 101" loading="lazy" decoding="async"></a>
+<a href="../assets/gallery/previews/IMG_3894.JPG" style="--r:1.475"><img src="../assets/gallery/previews/IMG_3894.JPG" width="1000" height="678" alt="Воркшопы, фото 102" loading="lazy" decoding="async"></a>
+        </div>
+      </section>
+    </div>
+    <div class="viewer" role="dialog" aria-modal="true" hidden>
+      <output></output>
+      <img alt="" />
+      <button type="button" class="close">×</button>
+      <button type="button" class="prev">‹</button>
+      <button type="button" class="next">›</button>
+    </div>
+    <script>
+      const T = {
+        title: { ru: "Фотогалерея", kz: "Фотогалерея", en: "Photo gallery" },
+        dates: { ru: "30–31 октября 2026, Алматы", kz: "30–31 қазан 2026, Алматы", en: "30–31 October 2026, Almaty" },
+        photo: { ru: "фото", kz: "фото", en: "photo" },
+        close: { ru: "Закрыть", kz: "Жабу", en: "Close" },
+        prev: { ru: "Предыдущее фото", kz: "Алдыңғы фото", en: "Previous photo" },
+        next: { ru: "Следующее фото", kz: "Келесі фото", en: "Next photo" },
+        d0: { ru: "30 октября", kz: "30 қазан", en: "30 October" },
+        d1: { ru: "30 октября", kz: "30 қазан", en: "30 October" },
+        d2: { ru: "30 октября", kz: "30 қазан", en: "30 October" },
+        d3: { ru: "31 октября", kz: "31 қазан", en: "31 October" },
+        d4: { ru: "31 октября", kz: "31 қазан", en: "31 October" },
+        s0: { ru: "Открытие и первая панель", kz: "Ресми ашылу және I панель", en: "Official opening and Panel I" },
+        s1: { ru: "Презентация книги и панельные сессии", kz: "Кітап тұсаукесері және панельдік сессиялар", en: "Book launch and panel sessions" },
+        s2: { ru: "Гала-ужин", kz: "Гала-кешкі ас", en: "Gala dinner" },
+        s3: { ru: "Лекции и дискуссии", kz: "Дәрістер мен пікірталастар", en: "Lectures and discussions" },
+        s4: { ru: "Воркшопы", kz: "Воркшоптар", en: "Workshops" },
+      };
+      const viewer = document.querySelector(".viewer");
+      const big = viewer.querySelector("img");
+      const counter = viewer.querySelector("output");
+      const links = [...document.querySelectorAll(".grid a")];
+      const closeButton = viewer.querySelector(".close");
+      const prevButton = viewer.querySelector(".prev");
+      const nextButton = viewer.querySelector(".next");
+
+      function setLanguage(lang, updateURL = true) {
+        if (!["ru", "kz", "en"].includes(lang)) lang = "ru";
+        document.documentElement.lang = lang === "kz" ? "kk" : lang;
+        document.title = `${T.title[lang]} – ALMAU – TOLYQ ADAM 2026`;
+        document.querySelectorAll("[data-t]").forEach((el) => { el.textContent = T[el.dataset.t][lang]; });
+        document.querySelectorAll("[data-lang]").forEach((b) => b.setAttribute("aria-pressed", String(b.dataset.lang === lang)));
+        document.querySelectorAll("section").forEach((section) => {
+          const name = T[section.getAttribute("aria-labelledby")][lang];
+          section.querySelectorAll(".grid img").forEach((img, i) => { img.alt = `${name}, ${T.photo[lang]} ${i + 1}`; });
+        });
+        closeButton.setAttribute("aria-label", T.close[lang]);
+        prevButton.setAttribute("aria-label", T.prev[lang]);
+        nextButton.setAttribute("aria-label", T.next[lang]);
+        if (updateURL) {
+          const u = new URL(location.href);
+          u.searchParams.set("lang", lang);
+          try { history.replaceState(history.state, "", u); } catch {}
+        }
+      }
+      document.querySelectorAll("[data-lang]").forEach((b) => b.addEventListener("click", () => setLanguage(b.dataset.lang)));
+      setLanguage(new URL(location.href).searchParams.get("lang") || "ru", false);
+
+      let current = -1;
+      function show(index) {
+        current = (index + links.length) % links.length;
+        const thumb = links[current].querySelector("img");
+        big.src = links[current].href;
+        big.alt = thumb.alt;
+        counter.textContent = `${current + 1} / ${links.length}`;
+        // Fetch the neighbours ahead of time so flipping through feels instant.
+        [current - 1, current + 1].forEach((i) => { new Image().src = links[(i + links.length) % links.length].href; });
+      }
+      links.forEach((link, i) => link.addEventListener("click", (event) => {
+        if (event.metaKey || event.ctrlKey || event.shiftKey) return;
+        event.preventDefault();
+        show(i);
+        viewer.hidden = false;
+        document.documentElement.classList.add("viewer-open");
+        // A history entry lets the Android back gesture close the viewer instead of leaving the page.
+        history.pushState({ viewer: true }, "");
+        closeButton.focus();
+      }));
+      function hideViewer() {
+        if (viewer.hidden) return;
+        viewer.hidden = true;
+        big.removeAttribute("src");
+        document.documentElement.classList.remove("viewer-open");
+        links[current].focus({ preventScroll: true });
+        links[current].scrollIntoView({ block: "nearest" });
+      }
+      window.addEventListener("popstate", hideViewer);
+      closeButton.addEventListener("click", () => history.back());
+      prevButton.addEventListener("click", () => show(current - 1));
+      nextButton.addEventListener("click", () => show(current + 1));
+      viewer.addEventListener("click", (event) => { if (event.target === viewer) history.back(); });
+      document.addEventListener("keydown", (event) => {
+        if (viewer.hidden) return;
+        if (event.key === "Escape") history.back();
+        else if (event.key === "ArrowLeft") show(current - 1);
+        else if (event.key === "ArrowRight") show(current + 1);
+        else if (event.key === "Tab") {
+          // Keep keyboard focus inside the open dialog.
+          const items = [closeButton, prevButton, nextButton];
+          const at = items.indexOf(document.activeElement);
+          event.preventDefault();
+          items[(at + (event.shiftKey ? -1 : 1) + items.length) % items.length].focus();
+        }
+      });
+      let touchX = null;
+      viewer.addEventListener("touchstart", (event) => { touchX = event.touches.length === 1 ? event.touches[0].clientX : null; }, { passive: true });
+      viewer.addEventListener("touchend", (event) => {
+        if (touchX === null) return;
+        const dx = event.changedTouches[0].clientX - touchX;
+        touchX = null;
+        if (Math.abs(dx) > 50) show(current + (dx < 0 ? 1 : -1));
+      }, { passive: true });
+    </script>
+  </body>
+</html>
