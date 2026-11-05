@@ -36,9 +36,10 @@
       .grid a { display: block; flex: calc(var(--r) * 100) 1 calc(var(--r) * var(--row)); aspect-ratio: var(--r); overflow: hidden; border-radius: 4px; background: rgba(251,250,247,.07); cursor: zoom-in; }
       .grid img { display: block; width: 100%; height: 100%; object-fit: cover; transition: transform .35s ease, filter .35s ease; }
       .grid a:hover img { transform: scale(1.025); filter: brightness(1.06); }
-      .viewer { position: fixed; inset: 0; z-index: 100; display: flex; align-items: center; justify-content: center; padding: 16px; background: #080e12; touch-action: pinch-zoom; }
+      .viewer { --pad: 16px; position: fixed; inset: 0; z-index: 100; display: flex; align-items: center; justify-content: center; padding: var(--pad); background: #080e12; touch-action: pinch-zoom; }
       .viewer[hidden] { display: none; }
-      .viewer img { max-width: 100%; max-height: 100%; object-fit: contain; border-radius: 4px; user-select: none; }
+      /* Sized from the aspect ratio, not the file, so swapping preview for original doesn't resize it. */
+      .viewer img { width: min(100vw - 2 * var(--pad), (100dvh - 2 * var(--pad)) * var(--r, 1.5)); aspect-ratio: var(--r, 1.5); border-radius: 4px; user-select: none; }
       .viewer button { position: absolute; width: 48px; height: 48px; padding: 0; border: 0; border-radius: 50%; background: rgba(251,250,247,.16); color: var(--cream); font-size: 28px; line-height: 48px; cursor: pointer; }
       .viewer button:hover { background: rgba(251,250,247,.3); }
       .viewer .close { top: 12px; right: 12px; }
@@ -48,7 +49,7 @@
       @media (max-width: 700px) {
         :root { --row: 110px; }
         .grid { gap: 4px; }
-        .viewer { padding: 0; }
+        .viewer { --pad: 0px; }
         .viewer .prev, .viewer .next { top: auto; bottom: 16px; }
         .viewer .prev { left: calc(50% - 60px); }
         .viewer .next { right: calc(50% - 60px); }
@@ -676,14 +677,37 @@
       document.querySelectorAll("[data-lang]").forEach((b) => b.addEventListener("click", () => setLanguage(b.dataset.lang)));
       setLanguage(new URL(location.href).searchParams.get("lang") || "ru", false);
 
+      // Originals live in object storage under the same file names as the previews.
+      const FULL_BASE = "https://mu-sagitta.object.pscloud.io/tolyq/";
+      let pendingFull = null;
+      function cancelFull() {
+        if (pendingFull) pendingFull.src = "";
+        pendingFull = null;
+      }
+      // The preview shows at once; the original replaces it only after it has fully
+      // loaded. If it is missing or fails, the preview simply stays on screen.
+      function loadFull(link) {
+        cancelFull();
+        const full = new Image();
+        pendingFull = full;
+        full.src = FULL_BASE + link.pathname.split("/").pop();
+        full.decode().then(() => {
+          if (pendingFull !== full) return;
+          pendingFull = null;
+          big.src = full.src;
+        }).catch(() => {});
+      }
+
       let current = -1;
       function show(index) {
         current = (index + links.length) % links.length;
         const thumb = links[current].querySelector("img");
+        big.style.setProperty("--r", links[current].style.getPropertyValue("--r"));
         big.src = links[current].href;
         big.alt = thumb.alt;
         counter.textContent = `${current + 1} / ${links.length}`;
-        // Fetch the neighbours ahead of time so flipping through feels instant.
+        loadFull(links[current]);
+        // Fetch the neighbours' previews ahead of time so flipping through feels instant.
         [current - 1, current + 1].forEach((i) => { new Image().src = links[(i + links.length) % links.length].href; });
       }
       links.forEach((link, i) => link.addEventListener("click", (event) => {
@@ -699,6 +723,7 @@
       function hideViewer() {
         if (viewer.hidden) return;
         viewer.hidden = true;
+        cancelFull();
         big.removeAttribute("src");
         document.documentElement.classList.remove("viewer-open");
         links[current].focus({ preventScroll: true });
