@@ -1332,7 +1332,7 @@
       rel="stylesheet"
       href="https://fonts.googleapis.com/css2?family=Arimo:wght@400;700&display=swap"
     />
-    <link rel="stylesheet" href="redesign.css?v=21" />
+    <link rel="stylesheet" href="redesign.css?v=22" />
     <style>
       #speakers .speaker { cursor: pointer; }
       #speakers .speaker:focus-visible { outline: 2px solid var(--accent); outline-offset: 6px; border-radius: 30px; }
@@ -1427,11 +1427,7 @@
           </div>
           <div class="header-controls">
             <nav id="site-nav" aria-label="Навигация">
-              <a href="#certificate" data-cert
-                ><span data-i18n="navCertificate">Сертификат</span></a
-              ><a href="#about"><span data-i18n="t0">О нас</span></a
-              ><a href="#infoletter"
-                ><span data-i18n="navInfoLetter">Инфописьмо</span></a
+              <a href="#about"><span data-i18n="t0">О нас</span></a
               ><a href="#speakers"><span data-i18n="t1">Спикеры</span></a
               ><a href="gallery/" data-gallery
                 ><span data-i18n="navPhotos">Фото</span></a
@@ -2262,11 +2258,6 @@
           en: "30–31 October 2026",
         },
         t46: { ru: "Открыть карту ↗", kz: "Картаны ашу ↗", en: "Open map ↗" },
-        navCertificate: {
-          ru: "Сертификат",
-          kz: "Сертификат",
-          en: "Certificate",
-        },
         certButton: {
           ru: "Получить сертификат",
           kz: "Сертификат алу",
@@ -2473,11 +2464,6 @@
           ru: "Информационное письмо (PDF)",
           kz: "Ақпараттық хат (PDF)",
           en: "Information letter (PDF)",
-        },
-        navInfoLetter: {
-          ru: "Инфописьмо",
-          kz: "Ақпараттық хат",
-          en: "Info letter",
         },
         navPhotos: { ru: "Фото", kz: "Фото", en: "Photos" },
         programmeLetter: {
@@ -3165,7 +3151,7 @@
           certModal.querySelector("a.cta").focus({ preventScroll: true });
         }),
       );
-      // Arriving from another page (the gallery menu) with #certificate opens the form.
+      // A link to the page with #certificate opens the form.
       if (location.hash === "#certificate")
         document.querySelector("[data-cert]").click();
       certModal.addEventListener("click", (event) => {
