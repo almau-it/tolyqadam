@@ -1332,7 +1332,7 @@
       rel="stylesheet"
       href="https://fonts.googleapis.com/css2?family=Arimo:wght@400;700&display=swap"
     />
-    <link rel="stylesheet" href="redesign.css?v=20" />
+    <link rel="stylesheet" href="redesign.css?v=21" />
     <style>
       #speakers .speaker { cursor: pointer; }
       #speakers .speaker:focus-visible { outline: 2px solid var(--accent); outline-offset: 6px; border-radius: 30px; }
@@ -1433,6 +1433,8 @@
               ><a href="#infoletter"
                 ><span data-i18n="navInfoLetter">Инфописьмо</span></a
               ><a href="#speakers"><span data-i18n="t1">Спикеры</span></a
+              ><a href="gallery/" data-gallery
+                ><span data-i18n="navPhotos">Фото</span></a
               ><a href="#contacts"><span data-i18n="t3">Контакты</span></a>
             </nav>
             <div class="languages" role="group" aria-label="Language">
@@ -2477,6 +2479,7 @@
           kz: "Ақпараттық хат",
           en: "Info letter",
         },
+        navPhotos: { ru: "Фото", kz: "Фото", en: "Photos" },
         programmeLetter: {
           ru: "Программа конференции (PDF)",
           kz: "Конференция бағдарламасы (PDF)",
@@ -2489,6 +2492,9 @@
         document.querySelectorAll("a[data-programme]").forEach((a) => {
           a.href = `assets/infoletters/tolyq-adam-2026-programme-${lang}.pdf?v=10`;
           a.hreflang = lang === "kz" ? "kk" : lang;
+        });
+        document.querySelectorAll("a[data-gallery]").forEach((a) => {
+          a.href = `gallery/?lang=${lang}`;
         });
         document.querySelectorAll("a[data-cert-form]").forEach((a) => {
           a.href = `https://docs.google.com/forms/d/e/1FAIpQLSdKatzc5UJlcvlmrGexa9XPzO9cGAREZ1kxeww9DPsFmvd8eA/viewform?hl=${lang === "kz" ? "kk" : lang}`;
